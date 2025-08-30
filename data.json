@@ -1,0 +1,311 @@
+{
+  "hero": {
+    "name": "Mahmoud Ebeid",
+    "title": "Full-Stack JavaScript Developer | React, Next.js, Node.js, React Native",
+    "avatar": "https://avatars.githubusercontent.com/u/9919?v=4",
+    "cta": [
+      { "label": "Download CV", "href": "#", "variant": "secondary", "external": false }
+    ],
+    "social": [
+      { "label": "LinkedIn", "href": "https://www.linkedin.com/in/mahmoud-ebead", "external": true },
+      { "label": "GitHub", "href": "https://github.com/mahmoudEbeid2", "external": true }
+    ]
+  },
+  "about": {
+    "summary": "Full-Stack JavaScript Developer with hands-on experience in building scalable and responsive web and mobile applications. Proficient in React.js, Next.js, Node.js, and React Native, with strong expertise in backend systems using Express.js, MongoDB, PostgreSQL, and Firebase. Skilled in developing SaaS platforms, RESTful APIs, and cross-platform mobile applications. Adept at Agile methodologies, clean code practices, and solving complex technical challenges. Passionate about delivering high-quality software solutions and continuously learning modern technologies.",
+    "highlights": [
+      "Location: Cairo, Egypt",
+      "Full-stack across React, Next.js, Node.js, React Native",
+      "Backends: Express.js, MongoDB, PostgreSQL, Firebase",
+      "SaaS, REST APIs, cross‑platform apps"
+    ]
+  },
+  "skills": [
+    { "category": "Front-End", "note": "Responsive, accessible UI", "items": ["HTML5", "CSS3", "Sass", "Bootstrap", "React.js", "Next.js", "Responsive Web Design"] },
+    { "category": "Programming Languages", "note": "Polyglot foundations", "items": ["JavaScript (ES6+)", "TypeScript", "Python", "Java", "C#", "C++"] },
+    { "category": "Mobile Development", "note": "Cross-platform apps", "items": ["React Native", "Flutter"] },
+    { "category": "Back-End", "note": "APIs and data layers", "items": ["Node.js", "Express.js", "MongoDB", "Firebase", "MySQL", "PostgreSQL", "MS SQL"] },
+    { "category": "ORMs & Tools", "note": "Data modeling & auth", "items": ["Prisma", "Mongoose", "Firebase Auth", "REST APIs"] },
+    { "category": "AI & ML", "note": "ML workflow in Python", "items": ["Machine Learning", "Data Preprocessing", "Model Training using Python"] },
+    { "category": "Tools & Platforms", "note": "Delivery & quality", "items": ["Git", "GitHub", "Agile/Scrum", "Clean Code", "MVC Pattern", "Jest", "Postman"] }
+  ],
+  "projects": [
+    {
+      "name": "Dokany SaaS E-commerce Platform",
+      "description": "Multi-tenant SaaS e-commerce platform enabling small business owners to create independent online stores with unique domains and dedicated management dashboards.",
+      "longDescription": "Developed a comprehensive SaaS multi-tenant e-commerce platform that allows small business owners to create independent online stores with unique links and dedicated management dashboards. Each seller has a separate storefront and control panel while the system operates on a shared scalable backend. The platform includes a React Native mobile app for store creation in under 5 minutes. Configured a custom mail server (Namecheap) to handle transactional and marketing emails with dedicated addresses for different purposes.",
+      "features": [
+        "Multi-Tenant Architecture: Each seller gets unique subdomain (e.g., mystore.dokaney.store)",
+        "Backend: Robust Node.js + PostgreSQL with secure authentication/authorization",
+        "Order Management & Commission Tracking System",
+        "Stripe Payment Gateway Integration for secure online transactions",
+                 "Custom Mail Server (Namecheap) with dedicated email addresses: support@dokaney.store, seller-support@dokaney.store, admin@dokaney.store, marketing@dokaney.store",
+        "Dynamic Storefront System: Separate themes and data for each seller",
+        "Admin Dashboard: Manage sellers, admins, themes, withdrawals, and email campaigns",
+        "React Native Mobile App: Create store in <5 minutes with full management capabilities",
+                 "Email Marketing: Targeted campaigns by theme, city, or country",
+         "Transactional Emails: Order confirmations, shipping updates, and customer notifications",
+         "Marketing Automation: Automated email sequences for customer engagement and retention"
+      ],
+      "tech": ["Node.js", "PostgreSQL", "React.js", "TailwindCSS", "Bootstrap", "React Native", "Stripe", "Multi-Tenant SaaS", "Express.js", "Custom Mail Server"],
+      "image": "imge/dc.jpg",
+      "permalink": "dokany-saas-ecommerce",
+      "linkGroups": [
+        {
+          "title": "Platform & Admin",
+          "items": [
+            { "label": "Landing Page", "href": "https://dokaney.store/" },
+            { "label": "Admin Dashboard", "href": "https://admin.dokaney.store/" }
+          ]
+        },
+        {
+          "title": "Sample Merchant Stores",
+          "items": [
+            { "label": "Kemait Store", "href": "https://kemait.dokaney.store/", "variant": "secondary" },
+            { "label": "Nuvia Store", "href": "https://nuvia.dokaney.store/", "variant": "secondary" },
+            { "label": "Labaseny Store", "href": "https://labaseny.dokaney.store/", "variant": "secondary" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AI-Powered Crop Yield Prediction with Interactive Dashboard | Flask, ML, Firebase",
+      "description": "AI-driven crop yield prediction with a responsive dashboard, built with Flask and Firebase.",
+      "longDescription": "A professional project aimed at predicting agricultural crop yields using Artificial Intelligence with a fully interactive user interface. The system combines machine learning with a responsive dashboard to provide accurate predictions and a smooth user experience.",
+      "features": [
+        "Decision Tree model estimates crop yield from environmental data",
+        "Front-end built with HTML, CSS, and JavaScript in two days",
+        "Firebase integration for storage, authentication, and authorization",
+        "Interactive dashboard for results visualization",
+        "Planned: plant disease detection and weather-based recommendations"
+      ],
+      "tech": ["Python", "Flask", "Machine Learning (Decision Tree)", "HTML", "CSS", "JavaScript", "Firebase"],
+      "image": "imge/ai.jpg",
+      "permalink": "ai-crop-yield-prediction",
+      "demo": "https://sweet-ganache-4826c0.netlify.app/"
+    },
+    {
+      "name": "Movie App | React Native, Flutter, AsyncStorage, External Movie API",
+      "description": "Cross-platform mobile movie application with favorites, search, and detailed movie information.",
+      "longDescription": "Developed a comprehensive mobile movie application using React Native and Flutter that displays movies from an external API. Users can browse movies, view detailed information, add favorites to AsyncStorage, and search through the movie catalog. The app provides a smooth user experience with native performance and offline favorites storage.",
+      "features": [
+        "Cross-platform mobile app (React Native & Flutter)",
+        "Movie browsing with external API integration",
+        "Detailed movie information display",
+        "Favorites system with AsyncStorage persistence",
+        "Advanced search and filtering capabilities",
+        "Responsive and intuitive mobile UI",
+        "Offline favorites access",
+        "Smooth navigation between screens"
+      ],
+      "tech": ["React Native", "Flutter", "AsyncStorage", "External Movie API", "Cross-platform Development", "Mobile UI/UX"],
+      "image": "imge/move.jpg",
+      "permalink": "movie-app-react-native-flutter",
+      "github": "https://github.com/Mostafa219/React-Native-Project"
+    },
+    {
+      "name": "Movie App | Next.js, MongoDB, Bootstrap, TheMovieDB API",
+      "description": "Next.js movie app with TMDB search, favorites (MongoDB), and responsive UI.",
+      "longDescription": "I built a Movie Application using Next.js with dynamic movie search, favorites management, and fully responsive UI. It integrates TheMovieDB API for real-time data and uses MongoDB to persist user favorites. Leveraging dynamic routing and server-side rendering, the app is optimized and scalable.",
+      "features": [
+        "Favorites API with CRUD (add, delete, get, check)",
+        "MongoDB integration for persistent favorites",
+        "Context API for global state",
+        "Responsive UI with Bootstrap",
+        "Scoped styling with CSS Modules",
+        "Reusable components",
+        "Dynamic routing with Next.js",
+        "Movie search via TheMovieDB API",
+        "Custom 404 and Loading pages",
+        "SEO-friendly MetaData"
+      ],
+      "tech": ["Next.js", "MongoDB", "Context API", "Bootstrap", "CSS Modules", "TheMovieDB API"],
+      "image": "imge/filme.jpg",
+      "permalink": "movie-app-nextjs-mongodb",
+      "demo": "https://movie-app-peach-psi.vercel.app/"
+    },
+    {
+      "name": "Interactive Family Tree Application | React, Bootstrap, SVG",
+      "description": "Interactive family tree with zoom, profiles, password access, and iOS Safari SVG fix.",
+      "longDescription": "I developed an interactive Family Tree web application with advanced visualization features and secure access. It supports multiple viewing modes, zoom, and detailed individual profiles. I also implemented a custom fallback to resolve an SVG rendering issue on iOS Safari, ensuring full cross‑browser compatibility.",
+      "features": [
+        "Interactive family tree visualization with multiple viewing modes",
+        "Zoom in/out functionality for easier navigation",
+        "Detailed profile view for each person",
+        "Password-protected access for data security",
+        "Fixed critical iOS Safari SVG rendering issue with a custom fallback",
+        "Achieved full cross-browser compatibility"
+      ],
+      "tech": ["React.js", "Bootstrap", "SVG"],
+      "image": "imge/tree.jpg",
+      "permalink": "interactive-family-tree-react",
+      "demo": "https://family-tree-azure-seven.vercel.app/"
+    },
+    {
+      "name": "Full E-Commerce Web Application | React, Redux Toolkit, Axios",
+      "description": "Modern React e-commerce with Redux Toolkit, Axios API integration, and responsive UI.",
+      "longDescription": "I developed a modern E‑Commerce web application using React on the front-end and Redux Toolkit for scalable state management. The app integrates with an external API via Axios to fetch and display products dynamically, while maintaining a clean, responsive UI across devices.",
+      "features": [
+        "Authentication: Login and Sign Up",
+        "Product listing with modern UI",
+        "Product details page",
+        "Favorites system",
+        "Fully responsive design",
+        "Clean, maintainable codebase",
+        "(Planned) Shopping cart functionality"
+      ],
+      "tech": ["React.js", "Redux Toolkit", "Axios", "HTML", "CSS", "JavaScript (ES6+)"],
+      "image": "imge/ecom.png",
+      "permalink": "ecommerce-react-redux-axios",
+      "demo": "https://next-project-2izb.vercel.app/"
+    },
+    {
+      "name": "Modern E-Commerce Website for Electronics",
+      "description": "A modern electronics store with dark/light mode, dynamic products, and responsive UI.",
+      "longDescription": "I developed a modern e-commerce platform specialized in selling electronics, featuring a professional design and smooth user experience. The website integrates dynamic features that simulate real online stores, such as dark/light mode switch, dynamic product display via external API, fully responsive design, real-time product search, advanced shopping cart (add/remove/update with totals), user authentication with validation, and a clean, scalable codebase.",
+      "features": [
+        "Dark/Light mode switch",
+        "Dynamic product display via external API",
+        "Fully responsive design across all devices",
+        "Real-time product search system",
+        "Advanced shopping cart (add/remove/update quantities with total calculation)",
+        "User authentication (login & signup) with input validation",
+        "Clean, scalable, and maintainable codebase"
+      ],
+      "tech": ["HTML", "CSS", "JavaScript", "Bootstrap", "External API"],
+      "image": "imge/electric.png",
+      "permalink": "electronics-ecommerce-website",
+      "demo": "https://sage-gecko-c231ca.netlify.app/"
+    },
+    {
+      "name": "Ice Cream Website – 27 Fully Coded Landing Pages | HTML, CSS, JavaScript",
+      "description": "27+ pages for an ice cream brand: responsive, clean, and built with pure HTML/CSS/JS.",
+      "longDescription": "I developed a complete front-end project for an Ice Cream brand website, consisting of over 27 manually coded pages built with pure HTML, CSS, and JavaScript. The project emphasizes responsive design, clean and reusable code, and modern UIs tailored for an e-commerce experience.",
+      "features": [
+        "3 unique Home Page designs",
+        "3 variations of Products Page",
+        "Product Details Page with Add-to-Cart functionality",
+        "Shopping Cart & Checkout pages",
+        "Professional About Us and Contact Us pages",
+        "Multiple Blog Pages",
+        "Dedicated Offers & Discounts page",
+        "Sections for CTA, Newsletter, and Service Features",
+        "Fully responsive and reusable codebase",
+        "Built without external libraries (Pure HTML/CSS/JS)"
+      ],
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "image": "imge/ice.jpg",
+      "permalink": "ice-cream-website-27-pages",
+      "demo": "https://radiant-clafoutis-202b18.netlify.app/"
+    },
+    {
+      "name": "To-Do List App | Built with TypeScript",
+      "description": "Fully dynamic tasks manager: add/edit/delete, search, and LocalStorage persistence.",
+      "longDescription": "A fully dynamic web application for managing daily tasks, developed entirely with TypeScript without using any static HTML. All interface elements are generated via DOM manipulation, providing a great opportunity to practice clean coding and robust data handling.",
+      "features": [
+        "Add, edit, and delete tasks",
+        "Search functionality within tasks",
+        "Data persistence using LocalStorage",
+        "Fully dynamic interface powered by JavaScript & TypeScript"
+      ],
+      "tech": ["TypeScript", "JavaScript", "DOM Manipulation", "LocalStorage"],
+      "image": "imge/todo.png",
+      "permalink": "todo-list-typescript",
+      "demo": "https://jolly-florentine-2a5b7b.netlify.app/"
+    },
+    {
+      "name": "Figma to Landing Page Conversion | HTML, CSS, Bootstrap",
+      "description": "Pixel-perfect conversion from Figma to a responsive landing page using Bootstrap.",
+      "longDescription": "I converted a complete Figma design into a fully functional, interactive, and professional landing page using HTML, CSS, and Bootstrap. Focused on pixel-perfect accuracy, responsiveness, clean structure, and consistency with the original design. Added smooth animations, clear hierarchy, and simple JS interactivity with basic SEO best practices.",
+      "features": [
+        "Precise Figma-to-code conversion without losing design details",
+        "Fully responsive across mobile, tablet, and desktop",
+        "Bootstrap-based layout with customized colors and styling",
+        "Clean, maintainable, and scalable codebase",
+        "Enhanced UX with animations and intuitive navigation",
+        "JavaScript interactivity (smooth scrolling, section navigation, messages)",
+        "Basic SEO (semantic HTML, headings, meta)"
+      ],
+      "tech": ["HTML", "CSS", "Bootstrap", "JavaScript", "Figma"],
+      "image": "imge/fig.jpg",
+      "permalink": "figma-landing-page-conversion",
+      "demo": "https://endearing-zabaione-d52c9d.netlify.app/"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Front-End & Cross-Platform Developer Intern",
+      "company": "ITI, Damanhour",
+      "location": "Damanhour, Egypt",
+      "start": "Mar 2025",
+      "end": "Aug 2025",
+      "achievements": [
+        "Completed intensive training in React, React Native, Node.js, MongoDB, Firebase, and Flutter.",
+        "Built and deployed full-stack projects in agile teams.",
+        "Gained hands-on experience with responsive design, mobile app development, and cloud integration."
+      ]
+    },
+    {
+      "role": "Competitive Programming Intern",
+      "company": "Coach Academy",
+      "location": "Remote",
+      "start": "Jul 2022",
+      "end": "Jan 2023",
+      "achievements": [
+        "Practiced advanced algorithms and data structures using C++.",
+        "Improved problem-solving and coding speed under time constraints.",
+        "Prepared for regional and international programming contests."
+      ]
+    },
+    {
+      "role": "Freelance SEO & Content Specialist",
+      "company": "Self-employed",
+      "location": "Remote",
+      "start": "2016",
+      "end": "Present",
+      "achievements": [
+        "Optimized blogs and websites using SEO tools (Google Analytics, Ahrefs).",
+        "Improved search rankings and increased traffic through keyword research.",
+        "Created and published tech-focused content."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Computer Science",
+      "school": "Faculty of Computers and Information Thebes Higher Institute for Computer & Administrative Sciences (Maadi)",
+      "start": "2020",
+      "end": "2024"
+    }
+  ],
+  "courses": [
+    {
+      "name": "Master Modern React with Next.js",
+      "instructor": "Jonas Schmedtmann",
+      "platform": "Udemy",
+      "year": "2025",
+      "status": "In Progress"
+    },
+    {
+      "name": "Modern JavaScript Course",
+      "instructor": "Jonas Schmedtmann",
+      "platform": "Udemy",
+      "year": "2025",
+      "status": "In Progress"
+    },
+    {
+      "name": "Advanced CSS: Flexbox, Grid, Responsive Design",
+      "instructor": "Jonas Schmedtmann",
+      "platform": "Udemy",
+      "year": "2025",
+      "status": "In Progress"
+    }
+  ],
+  "contact": [
+    { "label": "Email: mahmoud.ebeid2002@gmail.com", "href": "mailto:mahmoud.ebeid2002@gmail.com", "external": false },
+    { "label": "Phone: +201033599984", "href": "tel:+201033599984", "external": false }
+  ],
+  "footer": "© 2025 Mahmoud Ebeid. All rights reserved."
+}
+
+

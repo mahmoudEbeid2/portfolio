@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mahmoud – Software Engineer Portfolio</title>
+    <meta name="description" content="A premium portfolio showcasing experience, projects, and skills. All content is loaded dynamically from a JSON file." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <noscript>This site requires JavaScript to render content.</noscript>
+
+    <header class="site-header container">
+      <div class="brand">
+        <a href="#" id="site-logo" aria-label="Go to top">Mahmoud</a>
+      </div>
+      <nav class="site-nav" aria-label="Primary navigation">
+        
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <label class="theme-switch" aria-label="Toggle theme">
+          <span class="icon-sun" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.8 1.8-1.8zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm7.07 2.05l1.79-1.8-1.79-1.79-1.8 1.79 1.8 1.8zM17 13h3v-2h-3v2zM12 6a6 6 0 100 12 6 6 0 000-12zm0 10a4 4 0 110-8 4 4 0 010 8zm-1 7h2v-3h-2v3zM4.22 18.36l1.8-1.8-1.8-1.79-1.79 1.79 1.79 1.8zm14.57 0l1.79-1.8-1.79-1.79-1.8 1.79 1.8 1.8z"/></svg>
+          </span>
+          <input type="checkbox" id="themeToggle" />
+          <span class="slider"></span>
+          <span class="icon-moon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12.74 2a9 9 0 108.52 12.22A8 8 0 0112.74 2z"/></svg>
+          </span>
+        </label>
+      </nav>
+      <button id="mobileMenuToggle" class="menu-toggle" aria-label="Open/close menu">☰</button>
+    </header>
+
+    <main>
+      <section id="hero" class="hero container" aria-label="Hero">
+        <div class="hero-content">
+          <h1 id="hero-name" class="fade-in"></h1>
+          <p id="hero-title" class="muted"></p>
+          <div id="hero-cta" class="actions"></div>
+          <div id="social-links" class="social"></div>
+        </div>
+        <div class="hero-media">
+          <img id="hero-avatar" src="" alt="Profile photo" loading="lazy" />
+        </div>
+      </section>
+
+      <section id="about" class="section container" aria-label="About">
+        <h2 class="section-title">About</h2>
+        <p id="about-text"></p>
+        <ul id="highlights" class="highlights"></ul>
+      </section>
+
+      <section id="skills" class="section container" aria-label="Skills">
+        <h2 class="section-title">Skills</h2>
+        <div id="skills-grid" class="grid"></div>
+      </section>
+
+      <section id="projects" class="section container" aria-label="Projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div id="projects-grid" class="grid cards"></div>
+      </section>
+
+      <div id="project-modal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <button class="modal-close" aria-label="Close">×</button>
+          <img id="modal-image" src="" alt="Project image" />
+          <h3 id="modal-title"></h3>
+          <div id="modal-tech" class="modal-tags"></div>
+          <p id="modal-desc"></p>
+          <ul id="modal-features" class="modal-features"></ul>
+          <div id="modal-links" class="actions"></div>
+        </div>
+      </div>
+
+      <section id="experience" class="section container" aria-label="Experience">
+        <h2 class="section-title">Experience</h2>
+        <ol id="experience-timeline" class="timeline"></ol>
+      </section>
+
+      <section id="education" class="section container" aria-label="Education">
+        <h2 class="section-title">Education</h2>
+        <ul id="education-list" class="cards"></ul>
+      </section>
+
+      <section id="contact" class="section container" aria-label="Contact">
+        <h2 class="section-title">Get in touch</h2>
+        <div id="contact-block" class="contact"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p id="footer-text" class="muted"></p>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+  </html>
+
+
