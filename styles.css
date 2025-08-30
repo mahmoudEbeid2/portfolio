@@ -190,7 +190,7 @@ body {
   .timeline .meta { grid-column: 1 / -1; text-align: start; }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 790px) {
   .grid, .cards { grid-template-columns: 1fr; }
   .highlights { grid-template-columns: 1fr; }
   .contact { grid-template-columns: 1fr; }
