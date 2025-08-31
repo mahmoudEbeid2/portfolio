@@ -42,15 +42,57 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
-  position: sticky;
+  padding: 14px ;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  background: color-mix(in oklab, var(--bg) 95%, transparent);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
   z-index: 50;
 }
 .brand a { text-decoration: none; color: var(--text); font-weight: 800; font-size: 1.25rem; }
 .site-nav { display: flex; gap: 16px; align-items: center; padding-inline-end: 10px; }
-.site-nav a { color: var(--text); text-decoration: none; opacity: .85; padding: 6px 8px; border-radius: 8px; }
-.site-nav a:hover { opacity: 1; text-decoration: underline; text-decoration-color: var(--brand); }
+.site-nav a { 
+  color: var(--text); 
+  text-decoration: none; 
+  opacity: .85; 
+  padding: 8px 16px; 
+  border-radius: 12px; 
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand) 20%, transparent), transparent);
+  transition: left 0.5s ease;
+}
+
+.site-nav a:hover {
+  opacity: 1;
+  background: color-mix(in oklab, var(--brand) 10%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(107, 208, 255, 0.3);
+}
+
+.site-nav a:hover::before {
+  left: 100%;
+}
+
+.site-nav a.active {
+  background: color-mix(in oklab, var(--brand) 15%, transparent);
+  color: var(--brand);
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(107, 208, 255, 0.4);
+}
 .menu-toggle { display: none; }
 
 .ghost { background: transparent; border: 1px solid color-mix(in oklab, var(--text) 25%, transparent); color: var(--text); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
@@ -67,7 +109,7 @@ body {
 .theme-switch input:checked ~ .icon-sun { opacity: .6; }
 .theme-switch input:not(:checked) ~ .icon-moon { opacity: .6; }
 
-.hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; padding: 110px 0 36px; align-items: center; }
+.hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; padding: 140px 0 36px; align-items: center; }
 .hero h1 { font-size: clamp(1.8rem, 3.6vw, 3rem); margin: 0 0 6px; }
 .hero .muted { margin: 0 0 14px; color: var(--muted); font-weight: 600; }
 .hero .actions { display: flex; gap: 14px; flex-wrap: nowrap; align-items: center; }
@@ -190,7 +232,7 @@ body {
   .timeline .meta { grid-column: 1 / -1; text-align: start; }
 }
 
-@media (max-width: 790px) {
+@media (max-width: 890px) {
   .grid, .cards { grid-template-columns: 1fr; }
   .highlights { grid-template-columns: 1fr; }
   .contact { grid-template-columns: 1fr; }

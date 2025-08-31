@@ -98,7 +98,7 @@
         "Offline favorites access",
         "Smooth navigation between screens"
       ],
-      "tech": ["React Native", "Flutter", "AsyncStorage", "External Movie API", "Cross-platform Development", "Mobile UI/UX"],
+      "tech": ["React Native", "AsyncStorage", "External Movie API", "Cross-platform Development", "Mobile UI/UX"],
       "image": "imge/move.jpg",
       "permalink": "movie-app-react-native-flutter",
       "github": "https://github.com/Mostafa219/React-Native-Project"
