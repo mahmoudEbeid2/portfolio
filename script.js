@@ -451,7 +451,56 @@
     });
   }
 
-  function renderFooter(text) {
+  function createSocialIcon(platform) {
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("width", "20");
+    svg.setAttribute("height", "20");
+    svg.setAttribute("fill", "currentColor");
+    svg.setAttribute("aria-hidden", "true");
+    
+    const path = document.createElementNS(ns, "path");
+    
+    if (platform.includes("github")) {
+      path.setAttribute("d", "M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.85 9.71.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.13-1.52-1.13-1.52-.93-.66.07-.65.07-.65 1.03.07 1.57 1.08 1.57 1.08.92 1.61 2.41 1.14 3 .87.09-.69.36-1.14.65-1.4-2.22-.26-4.55-1.14-4.55-5.08 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05A9.26 9.26 0 0 1 12 7.1c.85 0 1.71.12 2.51.36 1.9-1.32 2.74-1.05 2.74-1.05.56 1.42.21 2.47.11 2.73.64.72 1.02 1.64 1.02 2.76 0 3.95-2.34 4.81-4.57 5.07.37.33.7.98.7 1.98 0 1.43-.01 2.58-.01 2.93 0 .26.18.57.69.48A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2z");
+    } else if (platform.includes("linkedin")) {
+      path.setAttribute("d", "M19 3A2.94 2.94 0 0 1 22 6v12a2.94 2.94 0 0 1-3 3H6a2.94 2.94 0 0 1-3-3V6a2.94 2.94 0 0 1 3-3h13zM8.34 18.34V10.5H6v7.84h2.34zM7.17 9.27a1.36 1.36 0 1 0 0-2.72 1.36 1.36 0 0 0 0 2.72zM18.34 18.34V14c0-2.31-1.23-3.38-2.88-3.38a2.49 2.49 0 0 0-2.24 1.23h-.03V10.5H10.9c.03.7 0 7.84 0 7.84h2.29v-4.38c0-.23.02-.45.09-.62.2-.45.66-.92 1.43-.92 1.01 0 1.41.7 1.41 1.73v4.19h2.22z");
+    } else {
+      // Default external link icon
+      path.setAttribute("d", "M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5V3H3v7h2V5z");
+    }
+    
+    svg.appendChild(path);
+    return svg;
+  }
+
+  function renderFooter(text, socialLinks) {
+    const footerSocial = qs("#footer-social");
+    footerSocial.innerHTML = "";
+    
+    if (socialLinks && socialLinks.length > 0) {
+      const socialContainer = document.createElement("div");
+      socialContainer.className = "footer-social-links";
+      
+      socialLinks.forEach(social => {
+        const a = document.createElement("a");
+        a.href = social.href;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.className = "footer-social-link";
+        a.setAttribute("aria-label", social.label);
+        
+        // Create SVG icon based on the social platform
+        const icon = createSocialIcon(social.label.toLowerCase());
+        a.appendChild(icon);
+        
+        socialContainer.appendChild(a);
+      });
+      
+      footerSocial.appendChild(socialContainer);
+    }
+    
     qs("#footer-text").textContent = text;
   }
 
@@ -469,7 +518,7 @@
     renderExperience(data.experience);
     renderEducation(data.education);
     renderContact(data.contact);
-    renderFooter(data.footer);
+    renderFooter(data.footer, data.hero.social);
   }
 
   function initEvents() {

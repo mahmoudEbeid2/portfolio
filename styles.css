@@ -217,7 +217,75 @@ body {
 .actions .btn { background: linear-gradient(135deg, var(--brand), var(--brand-strong)); color: white; border: 0; padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
 .actions .btn.secondary { background: color-mix(in oklab, var(--panel) 88%, transparent); color: var(--text); border: 1px solid color-mix(in oklab, var(--text) 10%, transparent); }
 
-.site-footer { padding: 30px 0; border-top: 1px solid color-mix(in oklab, var(--text) 8%, transparent); color: var(--muted); font-size: .95rem; }
+.site-footer { 
+  padding: 40px 0; 
+  border-top: 1px solid color-mix(in oklab, var(--text) 8%, transparent); 
+  color: var(--muted); 
+  font-size: .95rem; 
+  text-align: center; 
+  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--panel) 30%, transparent));
+}
+
+/* Footer social links styling */
+.footer-social {
+  margin-bottom: 24px;
+}
+
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  text-decoration: none;
+  padding: 14px;
+  border: 1px solid color-mix(in oklab, var(--text) 20%, transparent);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: color-mix(in oklab, var(--panel) 85%, transparent);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-social-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand) 15%, transparent), transparent);
+  transition: left 0.6s ease;
+}
+
+.footer-social-link:hover {
+  color: var(--brand);
+  border-color: var(--brand);
+  background: color-mix(in oklab, var(--brand) 8%, transparent);
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 8px 25px rgba(107, 208, 255, 0.25), 0 0 0 1px rgba(107, 208, 255, 0.1);
+}
+
+.footer-social-link:hover::before {
+  left: 100%;
+}
+
+.footer-social-link:focus {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+/* Social icons are now handled by JavaScript SVG */
+
 .muted { color: var(--muted); }
 
 .fade-in { animation: fadeIn .7s ease both; }
@@ -241,6 +309,8 @@ body {
   .site-header.open .site-nav { display: flex; position: absolute; inset-inline: 4%; top: 56px; background: var(--panel); border: 1px solid color-mix(in oklab, var(--text) 8%, transparent); border-radius: 12px; padding: 10px; flex-direction: column; }
   #education-list .edu-card { grid-template-columns: 6px 28px 1fr; }
   #education-list .edu-card .edu-meta { grid-column: 3; margin-top: 6px; }
+  .footer-social-links { flex-direction: row; justify-content: center; gap: 20px; }
+  .footer-social-link { width: 52px; height: 52px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
