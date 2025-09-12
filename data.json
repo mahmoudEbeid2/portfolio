@@ -196,11 +196,11 @@
       "github": "https://github.com/mahmoudEbeid2/crop-yield-prediction"
     },
     {
-      "name": "Movie App | React Native, Flutter, AsyncStorage, External Movie API",
+      "name": "Movie App | React Native, AsyncStorage, External Movie API",
       "description": "Cross-platform mobile movie application with favorites, search, and detailed movie information.",
       "longDescription": "Developed a comprehensive mobile movie application using React Native and Flutter that displays movies from an external API. Users can browse movies, view detailed information, add favorites to AsyncStorage, and search through the movie catalog. The app provides a smooth user experience with native performance and offline favorites storage.",
       "features": [
-        "Cross-platform mobile app (React Native & Flutter)",
+        "Cross-platform mobile app (React Native )",
         "Movie browsing with external API integration",
         "Detailed movie information display",
         "Favorites system with AsyncStorage persistence",
@@ -221,7 +221,7 @@
       "github": "https://github.com/Mostafa219/React-Native-Project"
     },
     {
-      "name": "Movie App | Next.js, MongoDB, Bootstrap, TheMovieDB API",
+      "name": "Movie Site | Next.js, MongoDB, Bootstrap, TheMovieDB API",
       "description": "Next.js movie app with TMDB search, favorites (MongoDB), and responsive UI.",
       "longDescription": "I built a Movie Application using Next.js with dynamic movie search, favorites management, and fully responsive UI. It integrates TheMovieDB API for real-time data and uses MongoDB to persist user favorites. Leveraging dynamic routing and server-side rendering, the app is optimized and scalable.",
       "features": [
