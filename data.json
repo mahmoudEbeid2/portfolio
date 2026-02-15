@@ -195,6 +195,119 @@
       "demo": "https://crop-yield-prediction-zeta.vercel.app",
       "github": "https://github.com/mahmoudEbeid2/crop-yield-prediction"
     },
+
+    {
+      "name": "Natours E-Commerce Backend API",
+      "description": "Full-featured E-Commerce backend API with Node.js, Express, MongoDB, Stripe, Multer, Cloudinary, and Nodemailer.",
+      "longDescription": "Developed a robust backend API for an E-Commerce platform including user authentication, product management, orders, payments, and email notifications. Implemented file upload with Multer, cloud image storage with Cloudinary, Stripe payments with dedicated endpoints and webhooks, nested routes for reviews, and secure email handling with Nodemailer. The API is production-ready and fully documented with a Postman collection for testing.",
+      "features": [
+        "User Authentication & Role-Based Authorization (Admin/User)",
+        "Product CRUD operations with image upload (Multer) and Cloudinary integration",
+        "Order creation and management",
+        "Stripe Checkout integration with dedicated Payment Endpoint",
+        "Secure Stripe Webhook to confirm successful payments",
+        "Nested Routes for product reviews",
+        "Transactional emails with Nodemailer (welcome, password reset, payment confirmation)",
+        "Global Error Handling & Async Middleware",
+        "MVC architecture with reusable factory controllers"
+      ],
+      "tech": [
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Mongoose",
+        "JWT Authentication",
+        "Stripe",
+        "Multer",
+        "Cloudinary",
+        "Nodemailer",
+        "JavaScript",
+        "REST API"
+      ],
+      "image": "imge/natours.png",
+      "permalink": "natours-backend-api",
+      "linkGroups": [
+        {
+          "title": "Project Links",
+          "items": [
+            {
+              "label": "GitHub Repository",
+              "href": "https://github.com/mahmoudEbeid2/natours"
+            },
+            {
+              "label": "Postman Collection / Demo",
+              "href": "https://www.postman.com/mahmoudrabea-875153/natours/collection/46704507-95b7d535-0c13-4d5f-82d7-6661929a448b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GeoTrack Real-Time Location Tracking",
+      "description": "Real-time location tracking project with backend API, mobile app, and interactive dashboard using Google Maps.",
+      "longDescription": "GeoTrack is a full-stack real-time geolocation project. Users can submit their GPS locations through the React Native mobile app, which updates all connected clients instantly via Socket.IO. The dashboard visualizes all locations on Google Maps with live updates, filtering, and interactive markers.",
+      "features": [
+        "Backend API: Submit new locations with latitude and longitude",
+        "View all collected locations",
+        "Real-time updates via Socket.IO",
+        "RESTful API endpoints with validation and error handling",
+        "Mobile App: Capture GPS location and send to backend (React Native, Expo)",
+        "Disable send button while fetching/sending location",
+        "Dashboard: Live map display of all locations on Google Maps",
+        "Filter locations by date",
+        "Polyline connection between multiple locations",
+        "Custom markers and labels",
+        "Responsive and interactive dashboard"
+      ],
+      "tech": [
+        "Node.js",
+        "Express.js",
+        "TypeScript",
+        "MongoDB & Mongoose",
+        "Socket.IO",
+        "React Native",
+        "Expo",
+        "Google Maps JavaScript API",
+        "React + TypeScript",
+        "TailwindCSS",
+        "Fetch / Axios"
+      ],
+      "image": "imge/geo.jpg",
+      "permalink": "geotrack-real-time-tracking",
+      "linkGroups": [
+        {
+          "title": "Backend API",
+          "items": [
+            {
+              "label": "GitHub Repository",
+              "href": "https://github.com/mahmoudEbeid2/GeoTrack-API"
+            },
+            {
+              "label": "Postman Workspace / Demo",
+              "href": "https://www.postman.com/mahmoudrabea-875153/workspace/geo-track"
+            }
+          ]
+        },
+        {
+          "title": "Mobile App",
+          "items": [
+            {
+              "label": "GitHub Repository",
+              "href": "https://github.com/mahmoudEbeid2/Geo-Track-App"
+            }
+          ]
+        },
+        {
+          "title": "Dashboard",
+          "items": [
+            {
+              "label": "GitHub Repository",
+              "href": "https://github.com/mahmoudEbeid2/geo-track-dashboard"
+            }
+          ]
+        }
+      ]
+    },
     {
       "name": "Movie App | React Native, AsyncStorage, External Movie API",
       "description": "Cross-platform mobile movie application with favorites, search, and detailed movie information.",
