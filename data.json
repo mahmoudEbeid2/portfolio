@@ -70,6 +70,7 @@
       "items": [
         "Node.js",
         "Express.js",
+        "NestJS",
         "MongoDB",
         "Firebase",
         "MySQL",
@@ -80,7 +81,7 @@
     {
       "category": "ORMs & Tools",
       "note": "Data modeling & auth",
-      "items": ["Prisma", "Mongoose", "Firebase Auth", "REST APIs"]
+      "items": ["Prisma", "Mongoose", "Firebase Auth", "REST APIs", "Redis", "BullMQ"]
     },
     {
       "category": "AI & ML",
@@ -101,7 +102,9 @@
         "Clean Code",
         "MVC Pattern",
         "Jest",
-        "Postman"
+        "Postman",
+        "NPM Publishing",
+        "Library Development"
       ]
     }
   ],
@@ -171,6 +174,36 @@
       ]
     },
     {
+      "name": "PayNest - Advanced Financial Ledger & E-Wallet Engine",
+      "description": "A secure, resilient financial backend implementing ACID transactions, AML/KYC fraud detection, and distributed locking.",
+      "longDescription": "PayNest is a robust financial engine built with NestJS and Prisma. It handles secure money movement between wallets using ACID-compliant database transactions. The system includes a sophisticated AML (Anti-Money Laundering) layer that flags high-value transfers for admin approval. It utilizes Redis for distributed locking to prevent race conditions and BullMQ for asynchronous background tasks like email receipt generation. Real-time notifications via Socket.io ensure users are instantly alerted of incoming payments.",
+      "features": [
+        "ACID-Compliant Wallet Transfers with Prisma Transactions",
+        "AML/KYC Fraud Detection: Automatic flagging of high-value transfers (>$10,000)",
+        "Admin Approval Workflow for pending-suspicious transactions",
+        "Distributed Locking via Redis to prevent double-spending in high-concurrency",
+        "Real-time Payment Notifications with Socket.io",
+        "Background Job Processing for Email Receipts with BullMQ",
+        "Dynamic PDF Transaction Statement Generation",
+        "Redis Caching for Wallet Balances with smart invalidation",
+        "Full JWT Authentication & Role-Based Access Control (RBAC)"
+      ],
+      "tech": [
+        "NestJS",
+        "Prisma",
+        "PostgreSQL",
+        "Redis",
+        "BullMQ",
+        "Socket.io",
+        "TypeScript",
+        "PDFKit",
+        "JWT Authentication"
+      ],
+      "image": "imge/paynest.jpg",
+      "permalink": "paynest-wallet-engine",
+      "github": "https://github.com/mahmoudEbeid2/paynest-api.git"
+    },
+    {
       "name": "AI-Powered Crop Yield Prediction with Interactive Dashboard | Flask, ML, Firebase",
       "description": "AI-driven crop yield prediction with a responsive dashboard, built with Flask and Firebase.",
       "longDescription": "A professional project aimed at predicting agricultural crop yields using Artificial Intelligence with a fully interactive user interface. The system combines machine learning with a responsive dashboard to provide accurate predictions and a smooth user experience.",
@@ -195,7 +228,6 @@
       "demo": "https://crop-yield-prediction-zeta.vercel.app",
       "github": "https://github.com/mahmoudEbeid2/crop-yield-prediction"
     },
-
     {
       "name": "Natours E-Commerce Backend API",
       "description": "Full-featured E-Commerce backend API with Node.js, Express, MongoDB, Stripe, Multer, Cloudinary, and Nodemailer.",
@@ -241,6 +273,35 @@
           ]
         }
       ]
+    },
+    {
+      "name": "egypt-natid - High-Performance Egyptian ID Validator & Parser",
+      "description": "A highly optimized, type-safe Node.js/TypeScript library for parsing, validating, generating, and analyzing Egyptian National IDs.",
+      "longDescription": "egypt-natid is a comprehensive data-processing framework built specifically for the Egyptian National ID. Far beyond simple regex, it implements deep mathematical validations, including the Modulo 11 Checksum Algorithm and date-of-birth existence verification. It is designed for high-performance fintech, e-commerce, and healthcare applications, capable of processing 100,000+ IDs in milliseconds. The library includes advanced recursive filtering, bulk statistical analysis, and a global CLI interface.",
+      "features": [
+        "Strict Structural Validation with Modulo 11 Checksum Algorithm",
+        "Deep Mathematical Verification: Prevents fake IDs and invalid birth dates",
+        "Advanced Demographic Extraction: Birth date, age, gender, and governorate",
+        "Recursive Filtering Engine: Sift through massive datasets by age, region, or gender",
+        "Bulk Statistical Analysis: Instant demographic reports from ID arrays",
+        "100% Type-Safe: Built with strict TypeScript for excellent Developer Experience (DX)",
+        "Test Utility: Programmatically generate mathematically valid dummy IDs",
+        "Global CLI: Validate and analyze IDs directly from the terminal",
+        "Framework Ready: Compatible with Zod, Yup, and React Hook Form schemas"
+      ],
+      "tech": [
+        "TypeScript",
+        "Node.js",
+        "Data Validation",
+        "NPM / Library",
+        "Jest",
+        "RegEx",
+        "CLI",
+        "Algorithms"
+      ],
+      "image": "imge/egypt-natid.jpg",
+      "permalink": "egypt-natid-library",
+      "github": "https://github.com/mahmoudEbeid2/egypt-natid"
     },
     {
       "name": "GeoTrack Real-Time Location Tracking",
