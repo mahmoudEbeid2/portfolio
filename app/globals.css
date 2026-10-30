@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  /* Accent color — change it here to re-theme the whole site. */
+  --primary: #c778dd;
+}
+
+@theme {
+  --color-*: initial;
+  --color-background: #282c33;
+  --color-gray: #abb2bf;
+  --color-white: #ffffff;
+  --color-primary: var(--primary);
+  --color-transparent: transparent;
+
+  --font-mono: var(--font-fira-code), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-mono);
+
+  --radius-*: initial;
+
+  --container-content: 1024px;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background font-mono text-base text-gray;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-white;
+    line-height: 1.3;
+  }
+
+  ::selection {
+    @apply bg-primary text-background;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
