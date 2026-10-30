@@ -11,7 +11,7 @@ import { Tag } from "@/components/ui/tag";
 // Temporary design-system preview; replaced by the real home page.
 export default function Home() {
   return (
-    <main className="flex-1 py-16">
+    <div className="py-16">
       <Container className="flex flex-col gap-12">
         <Logo />
         <h1 className="text-[32px] font-semibold">
@@ -41,6 +41,6 @@ export default function Home() {
           ))}
         </div>
       </Container>
-    </main>
+    </div>
   );
 }
