@@ -19,7 +19,15 @@ type FieldProps = {
   multiline?: boolean;
 };
 
-function Field({ name, label, error, defaultValue, type = "text", autoComplete, multiline }: FieldProps) {
+function Field({
+  name,
+  label,
+  error,
+  defaultValue,
+  type = "text",
+  autoComplete,
+  multiline,
+}: FieldProps) {
   const id = `contact-${name}`;
   const errorId = `${id}-error`;
   const shared = {
@@ -39,7 +47,12 @@ function Field({ name, label, error, defaultValue, type = "text", autoComplete, 
       {multiline ? (
         <textarea {...shared} rows={6} className={cn(inputClasses, "resize-y")} />
       ) : (
-        <input {...shared} type={type} autoComplete={autoComplete} className={cn(inputClasses, "min-h-11")} />
+        <input
+          {...shared}
+          type={type}
+          autoComplete={autoComplete}
+          className={cn(inputClasses, "min-h-11")}
+        />
       )}
       {error && (
         <p id={errorId} className="text-primary">
@@ -56,7 +69,13 @@ export function ContactForm() {
 
   return (
     <form action={formAction} noValidate className="grid gap-6 sm:grid-cols-2">
-      <Field name="name" label="Name" autoComplete="name" error={errors?.name} defaultValue={values?.name} />
+      <Field
+        name="name"
+        label="Name"
+        autoComplete="name"
+        error={errors?.name}
+        defaultValue={values?.name}
+      />
       <Field
         name="email"
         label="Email"
@@ -65,12 +84,24 @@ export function ContactForm() {
         error={errors?.email}
         defaultValue={values?.email}
       />
-      <Field name="message" label="Message" multiline error={errors?.message} defaultValue={values?.message} />
+      <Field
+        name="message"
+        label="Message"
+        multiline
+        error={errors?.message}
+        defaultValue={values?.message}
+      />
 
       {/* Honeypot: hidden from people and assistive tech, filled in by bots. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label htmlFor={`contact-${HONEYPOT_FIELD}`}>Company</label>
-        <input id={`contact-${HONEYPOT_FIELD}`} name={HONEYPOT_FIELD} type="text" tabIndex={-1} autoComplete="off" />
+        <input
+          id={`contact-${HONEYPOT_FIELD}`}
+          name={HONEYPOT_FIELD}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       <div className="flex flex-col items-start gap-4 sm:col-span-2">
@@ -80,7 +111,10 @@ export function ContactForm() {
         <p
           role="status"
           aria-live="polite"
-          className={cn(state.status === "success" ? "text-white" : "text-primary", !state.message && "sr-only")}
+          className={cn(
+            state.status === "success" ? "text-white" : "text-primary",
+            !state.message && "sr-only",
+          )}
         >
           {state.message}
         </p>
