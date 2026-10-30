@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Fira_Code } from "next/font/google";
 import { openGraph } from "@/lib/seo";
 import { siteUrl } from "@/lib/site-url";
@@ -36,7 +37,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${firaCode.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col overflow-x-hidden">{children}</body>
+      <body className="flex min-h-full flex-col overflow-x-hidden">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
