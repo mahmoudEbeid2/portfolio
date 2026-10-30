@@ -84,3 +84,28 @@
     animation: caret-blink 1.1s steps(1, end) infinite;
   }
 }
+
+/* Decorative dot grids and squares drift slowly up and down. */
+@keyframes drift {
+  from {
+    translate: 0 -8px;
+  }
+  to {
+    translate: 0 8px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .decor {
+    animation: drift 6.5s ease-in-out infinite alternate;
+  }
+
+  .decor:nth-of-type(2n) {
+    animation-duration: 7s;
+    animation-delay: -2s;
+  }
+
+  .decor:nth-of-type(3n) {
+    animation-delay: -4s;
+  }
+}
