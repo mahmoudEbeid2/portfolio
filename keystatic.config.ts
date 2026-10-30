@@ -3,7 +3,8 @@ import { collection, config, fields, singleton } from "@keystatic/core";
 // GitHub storage needs the Keystatic GitHub app env vars (see .env.example).
 // Without them (local dev, CI builds) content is read and written locally.
 const useGitHubStorage =
-  process.env.NODE_ENV === "production" && Boolean(process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG);
+  process.env.NODE_ENV === "production" &&
+  Boolean(process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG);
 
 const socialPlatforms = [
   { label: "GitHub", value: "github" },
@@ -67,7 +68,10 @@ export default config({
               defaultValue: "github",
             }),
             label: fields.text({ label: "Label" }),
-            url: fields.text({ label: "URL", description: "Use mailto: / tel: for email and phone." }),
+            url: fields.text({
+              label: "URL",
+              description: "Use mailto: / tel: for email and phone.",
+            }),
           }),
           { label: "Social links", itemLabel: (props) => props.fields.label.value },
         ),
@@ -101,7 +105,10 @@ export default config({
             company: fields.text({ label: "Company" }),
             location: fields.text({ label: "Location" }),
             start: fields.text({ label: "Start", description: "e.g. Mar 2025" }),
-            end: fields.text({ label: "End", description: "Leave empty if this is your current role." }),
+            end: fields.text({
+              label: "End",
+              description: "Leave empty if this is your current role.",
+            }),
             achievements: fields.array(fields.text({ label: "Achievement", multiline: true }), {
               label: "Achievements",
               itemLabel: (props) => props.value.slice(0, 60),
@@ -185,7 +192,11 @@ export default config({
       columns: ["title", "category", "order", "status"],
       schema: {
         title: fields.slug({ name: { label: "Title", validation: { isRequired: true } } }),
-        summary: fields.text({ label: "Summary", multiline: true, validation: { isRequired: true } }),
+        summary: fields.text({
+          label: "Summary",
+          multiline: true,
+          validation: { isRequired: true },
+        }),
         category: fields.select({
           label: "Category",
           options: [
@@ -195,7 +206,11 @@ export default config({
           defaultValue: "complete-app",
         }),
         featured: fields.checkbox({ label: "Featured on home page", defaultValue: false }),
-        order: fields.integer({ label: "Order", defaultValue: 100 }),
+        order: fields.integer({
+          label: "Order",
+          defaultValue: 100,
+          validation: { isRequired: true },
+        }),
         cover: fields.image({
           label: "Cover image",
           directory: "public/images/projects",
