@@ -25,7 +25,7 @@ export default async function ContactsPage() {
 
       <div className="flex flex-col justify-between gap-8 md:flex-row md:items-start">
         <p className="max-w-[505px]">{profile.contactText}</p>
-        <ContactBox links={directLinks} />
+        <ContactBox links={directLinks} headingLevel="h2" />
       </div>
 
       <section aria-labelledby="send-message" className="flex flex-col gap-8">
