@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "name": "Master Modern React with Next.js",
+      "instructor": "Jonas Schmedtmann",
+      "platform": "Udemy",
+      "year": "2025",
+      "status": "in-progress"
+    },
+    {
+      "name": "Modern JavaScript Course",
+      "instructor": "Jonas Schmedtmann",
+      "platform": "Udemy",
+      "year": "2025",
+      "status": "in-progress"
+    },
+    {
+      "name": "Advanced CSS: Flexbox, Grid, Responsive Design",
+      "instructor": "Jonas Schmedtmann",
+      "platform": "Udemy",
+      "year": "2025",
+      "status": "in-progress"
+    }
+  ]
+}

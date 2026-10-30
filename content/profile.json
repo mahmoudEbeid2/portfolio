@@ -1,0 +1,43 @@
+{
+  "name": "Mahmoud",
+  "fullName": "Mahmoud Ebeid",
+  "roles": [
+    "backend engineer",
+    "full-stack developer"
+  ],
+  "headline": "He builds SaaS platforms, payment engines and the web & mobile apps on top of them",
+  "tagline": "Backend engineer and full-stack developer",
+  "bio": [
+    "I'm a backend engineer and full-stack developer based in Cairo, Egypt. I build scalable web and mobile applications with Node.js, NestJS, React, Next.js and React Native, backed by PostgreSQL, MongoDB, Redis and Firebase.",
+    "Most of my work is on SaaS platforms, REST APIs and financial systems: multi-tenant architectures, ACID transactions, background jobs and real-time features, shipped with clean, maintainable code.",
+    "I'm comfortable in Agile teams, I care about clean code practices, and I keep learning modern technologies. I also publish open-source npm packages such as egypt-natid."
+  ],
+  "contactText": "I'm interested in freelance opportunities and full-time roles. If you have a question, a project in mind or just want to say hi, don't hesitate to contact me.",
+  "currentProject": "TODO(mahmoud)",
+  "cvUrl": "https://drive.google.com/file/d/1YKDg4zM7P_fMqZ9z1DngOcwMqPc_yT4T/view?usp=sharing",
+  "location": "Cairo, Egypt",
+  "email": "mahmoud.ebeid2002@gmail.com",
+  "availableForWork": true,
+  "socials": [
+    {
+      "platform": "github",
+      "label": "GitHub",
+      "url": "https://github.com/mahmoudEbeid2"
+    },
+    {
+      "platform": "linkedin",
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/mahmoud-ebead"
+    },
+    {
+      "platform": "email",
+      "label": "Email",
+      "url": "mailto:mahmoud.ebeid2002@gmail.com"
+    },
+    {
+      "platform": "phone",
+      "label": "Phone",
+      "url": "tel:+201033599984"
+    }
+  ]
+}

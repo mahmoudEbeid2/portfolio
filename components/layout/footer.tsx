@@ -8,7 +8,7 @@ type FooterProps = {
   name: string;
   email: string;
   tagline: string;
-  socials: SocialLink[];
+  socials: readonly SocialLink[];
 };
 
 export function Footer({ name, email, tagline, socials }: FooterProps) {

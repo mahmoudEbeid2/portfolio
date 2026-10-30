@@ -1,0 +1,56 @@
+{
+  "items": [
+    {
+      "role": "Backend Engineer",
+      "company": "TODO(mahmoud): current company",
+      "location": "TODO(mahmoud)",
+      "start": "TODO(mahmoud)",
+      "end": "",
+      "achievements": []
+    },
+    {
+      "role": "TODO(mahmoud)",
+      "company": "TODO(mahmoud): Turkish company",
+      "location": "TODO(mahmoud)",
+      "start": "TODO(mahmoud)",
+      "end": "TODO(mahmoud)",
+      "achievements": []
+    },
+    {
+      "role": "Front-End & Cross-Platform Developer Intern",
+      "company": "ITI",
+      "location": "Damanhour, Egypt",
+      "start": "Mar 2025",
+      "end": "Aug 2025",
+      "achievements": [
+        "Completed intensive training in React, React Native, Node.js, MongoDB, Firebase and Flutter.",
+        "Built and deployed full-stack projects in agile teams.",
+        "Gained hands-on experience with responsive design, mobile app development and cloud integration."
+      ]
+    },
+    {
+      "role": "Competitive Programming Intern",
+      "company": "Coach Academy",
+      "location": "Remote",
+      "start": "Jul 2022",
+      "end": "Jan 2023",
+      "achievements": [
+        "Practiced advanced algorithms and data structures using C++.",
+        "Improved problem-solving and coding speed under time constraints.",
+        "Prepared for regional and international programming contests."
+      ]
+    },
+    {
+      "role": "Freelance SEO & Content Specialist",
+      "company": "Self-employed",
+      "location": "Remote",
+      "start": "2016",
+      "end": "",
+      "achievements": [
+        "Optimized blogs and websites using SEO tools (Google Analytics, Ahrefs).",
+        "Improved search rankings and increased traffic through keyword research.",
+        "Created and published tech-focused content."
+      ]
+    }
+  ]
+}
