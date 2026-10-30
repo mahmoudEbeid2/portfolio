@@ -8,45 +8,56 @@ cover: /images/projects/dokany/cover.webp
 gallery: []
 stack:
   - "Node.js"
+  - "Express.js"
   - "PostgreSQL"
   - "React.js"
-  - "TailwindCSS"
-  - "Bootstrap"
   - "React Native"
   - "Stripe"
+  - "TailwindCSS"
+  - "Bootstrap"
   - "Multi-Tenant SaaS"
-  - "Express.js"
   - "Custom Mail Server"
-role: "Full-stack developer"
+role: "TODO(mahmoud)"
 isTeamProject: false
+timeline: "TODO(mahmoud)"
 links:
-  demo: "https://dokaney.store/"
-  other:
-    - label: "Admin dashboard"
-      url: "https://admin.dokaney.store/"
-    - label: "Sample store: Kemait"
-      url: "https://kemait.dokaney.store/"
-    - label: "Sample store: Nuvia"
-      url: "https://nuvia.dokaney.store/"
-    - label: "Sample store: Labaseny"
-      url: "https://labaseny.dokaney.store/"
+  other: []
 status: published
 ---
 
-## Overview
+## Problem
 
-Developed a comprehensive SaaS multi-tenant e-commerce platform that allows small business owners to create independent online stores with unique links and dedicated management dashboards. Each seller has a separate storefront and control panel while the system operates on a shared scalable backend. The platform includes a React Native mobile app for store creation in under 5 minutes. Configured a custom mail server (Namecheap) to handle transactional and marketing emails with dedicated addresses for different purposes.
+Small business owners who want to sell online usually face two bad options: build a custom store they can't afford to maintain, or list on a marketplace where they don't own their storefront, their customers or their brand. They need their own store, with its own link and its own dashboard, without needing a developer.
 
-## Key features
+## Solution
 
-- Multi-Tenant Architecture: Each seller gets unique subdomain (e.g., mystore.dokaney.store)
-- Backend: Robust Node.js + PostgreSQL with secure authentication/authorization
-- Order Management & Commission Tracking System
-- Stripe Payment Gateway Integration for secure online transactions
-- Custom Mail Server (Namecheap) with dedicated email addresses: support@dokaney.store, seller-support@dokaney.store, admin@dokaney.store, marketing@dokaney.store
-- Dynamic Storefront System: Separate themes and data for each seller
-- Admin Dashboard: Manage sellers, admins, themes, withdrawals, and email campaigns
-- React Native Mobile App: Create store in &lt;5 minutes with full management capabilities
-- Email Marketing: Targeted campaigns by theme, city, or country
-- Transactional Emails: Order confirmations, shipping updates, and customer notifications
-- Marketing Automation: Automated email sequences for customer engagement and retention
+Dokany is a multi-tenant SaaS e-commerce platform. Every seller gets an independent storefront on its own subdomain and a dedicated control panel, while all stores run on one shared, scalable backend.
+
+- **Store creation in minutes** — a React Native mobile app lets a seller create a store in under 5 minutes and manage it from their phone.
+- **Per-seller storefronts** — a dynamic storefront system serves separate themes and data for each seller.
+- **Payments** — Stripe integration for secure online checkout.
+- **Orders and commissions** — order management plus commission tracking between sellers and the platform.
+- **Platform admin** — a dashboard to manage sellers, admins, themes, withdrawals and email campaigns.
+- **Email** — transactional emails (order confirmations, shipping updates, customer notifications), targeted marketing campaigns by theme, city or country, and automated engagement sequences.
+
+## Architecture
+
+- **Backend** — Node.js and Express on PostgreSQL, with authentication and authorization shared by every tenant.
+- **Multi-tenancy** — one shared backend serving many stores, each with its own subdomain, storefront theme and data.
+- **Clients** — React web apps for the storefronts and dashboards (styled with Tailwind CSS and Bootstrap) and a React Native app for sellers.
+- **Email infrastructure** — a custom mail server set up through Namecheap with dedicated addresses per purpose: `support@`, `seller-support@`, `admin@` and `marketing@`.
+
+TODO(mahmoud): add the details the public sources don't cover — how tenant data is isolated in PostgreSQL (shared tables with a tenant key, or separate schemas), how subdomains are routed, and how Stripe payouts and withdrawals are handled. A short real code excerpt would also help here.
+
+## Challenges
+
+- **One backend, many stores.** Every query, theme and email has to be scoped to the right seller, while new stores keep appearing without any deployment.
+- **Money between three parties.** Customers pay through Stripe, the platform takes a commission and sellers request withdrawals, so orders, commissions and payouts have to stay consistent.
+- **Email that actually arrives.** Running a custom mail server with separate addresses for support, sellers, admins and marketing, across both transactional and bulk campaign email.
+
+TODO(mahmoud): replace or extend these with the hardest problems you actually hit and how you solved them.
+
+## Results
+
+- Sellers can create a working store from the mobile app in under 5 minutes.
+- TODO(mahmoud): add real results — number of stores or sellers, orders processed, or other outcomes — and whether Dokany is still live.

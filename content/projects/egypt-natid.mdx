@@ -1,40 +1,85 @@
 ---
 title: "egypt-natid"
-summary: "A highly optimized, type-safe Node.js/TypeScript library for parsing, validating, generating, and analyzing Egyptian National IDs."
+summary: "A type-safe TypeScript library and CLI for validating, parsing, generating and analyzing Egyptian National IDs."
 category: complete-app
 featured: true
-order: 5
+order: 3
 cover: /images/projects/egypt-natid/cover.webp
 gallery: []
 stack:
   - "TypeScript"
   - "Node.js"
-  - "Data Validation"
-  - "NPM / Library"
-  - "Jest"
-  - "RegEx"
-  - "CLI"
-  - "Algorithms"
+  - "Vitest"
+  - "tsup"
+  - "Commander"
+  - "npm"
 role: "Author and maintainer"
 isTeamProject: false
+timeline: "Feb 2026 – Mar 2026"
 links:
-  github: "https://github.com/mahmoudEbeid2/egypt-natid"
-  other: []
+  github: "https://github.com/mahmoudEbeid2/egyptian-national-id"
+  other:
+    - label: "npm package"
+      url: "https://www.npmjs.com/package/egypt-natid"
 status: published
 ---
 
-## Overview
+## Problem
 
-egypt-natid is a comprehensive data-processing framework built specifically for the Egyptian National ID. Far beyond simple regex, it implements deep mathematical validations, including the Modulo 11 Checksum Algorithm and date-of-birth existence verification. It is designed for high-performance fintech, e-commerce, and healthcare applications, capable of processing 100,000+ IDs in milliseconds. The library includes advanced recursive filtering, bulk statistical analysis, and a global CLI interface.
+Almost every Egyptian product that onboards users — fintech, e-commerce, healthcare — asks for a 14-digit National ID. Most forms check it with a regex, which happily accepts IDs with impossible birth dates, unknown governorate codes or a wrong check digit. Teams then re-implement the same parsing logic (birth date, age, gender, governorate) in every project, often slightly differently.
 
-## Key features
+## Solution
 
-- Strict Structural Validation with Modulo 11 Checksum Algorithm
-- Deep Mathematical Verification: Prevents fake IDs and invalid birth dates
-- Advanced Demographic Extraction: Birth date, age, gender, and governorate
-- Recursive Filtering Engine: Sift through massive datasets by age, region, or gender
-- Bulk Statistical Analysis: Instant demographic reports from ID arrays
-- 100% Type-Safe: Built with strict TypeScript for excellent Developer Experience (DX)
-- Test Utility: Programmatically generate mathematically valid dummy IDs
-- Global CLI: Validate and analyze IDs directly from the terminal
-- Framework Ready: Compatible with Zod, Yup, and React Hook Form schemas
+`egypt-natid` is a small, dependency-light TypeScript library that treats the ID as structured data instead of a string:
+
+- **`validate(id)`** — strict structural validation: exactly 14 digits, century digit `2` or `3`, a birth date that actually exists and isn't in the future, a known governorate code, and a matching check digit.
+- **`parse(id)`** — returns a typed `NationalIdAnalysis`: birth date, age, gender, governorate (English and Arabic names), economic region, `insideEgypt` and `isAdult`.
+- **`sanitize(id)`** — converts Arabic-Indic digits (`٠١٢…`) to Latin digits and strips everything else, so pasted IDs don't fail for formatting reasons.
+- **`generateId(options)`** — produces mathematically valid IDs for tests, with optional birth date, governorate and gender.
+- **`filter()` and `stats()`** — run over arrays of IDs or objects (with a `key` option), filter by age, gender, region or governorate, and build demographic summaries. Invalid IDs are skipped instead of crashing the whole batch.
+- **`egyid` CLI** — `validate`, `analyze`, `generate`, `filter` and `stats` straight from the terminal via `npx egyid`.
+
+The last digit is a weighted checksum, which is what catches typos a regex can't:
+
+```ts
+// src/core/validate.ts (excerpt)
+const checkDigit = Number(idStr[13]);
+const multipliers = [2, 7, 6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
+let sum = 0;
+for (let i = 0; i < 13; i++) {
+  sum += Number(idStr[i]) * multipliers[i];
+}
+
+const remainder = sum % 11;
+const expectedCheckDigit = Math.abs(11 - remainder) % 10;
+
+if (checkDigit !== expectedCheckDigit) {
+  return false;
+}
+```
+
+## Architecture
+
+The source is split by responsibility:
+
+- **`core/`** — pure functions: `validate`, `parse`, `sanitize`, `generate`, plus small extractors for birth date, gender, governorate and age.
+- **`data/`** — a typed map of the 27 governorate codes (including `88` for IDs issued abroad), each with its English and Arabic name and economic region.
+- **`domain/`** — the public types: `NationalIdAnalysis`, `NationalIdFilter`, `Gender`, `Governorate` and `EconomicRegion`.
+- **`engine/`** — batch operations (`filter`, `mapWithAnalysis`, `stats`) built on top of `parse`.
+- **`utils/`** — readable predicates such as `isMale`, `isAdult`, `isInsideEgypt` and `isFromGovernorate`.
+- **`cli/`** — the `egyid` command, built with Commander, with one file per command.
+
+The package is bundled with tsup into both CommonJS and ES modules with type declarations, exposed through a typed `exports` map, and also ships `NationalIdRegex` / `NationalIdSchemaMap` for plugging into form-validation schemas.
+
+## Challenges
+
+- **Real dates, not plausible ones.** Checking that the month is 1–12 and the day 1–31 still accepts dates like 31 February. The validator builds a real `Date` and confirms the year, month and day survive the round trip, then rejects dates in the future.
+- **Messy input.** IDs come from forms, spreadsheets and Arabic keyboards — as strings, as numbers, with spaces or Arabic-Indic digits. The public functions accept `string | number`, and `sanitize` normalizes the rest.
+- **Batch processing that doesn't explode.** `filter` and `stats` accept raw IDs, objects with an ID field, or already-parsed results, and silently skip invalid entries so one bad row doesn't break a whole report.
+- **Test data that is actually valid.** `generateId` computes the same checksum as the validator and picks the serial digit to match the requested gender (odd for male, even for female), so generated IDs always pass `validate`.
+
+## Results
+
+- Published on npm as [`egypt-natid`](https://www.npmjs.com/package/egypt-natid): six releases from 1.0.0 to 1.0.7 between 28 February and 3 March 2026.
+- 43 test cases across 9 Vitest files cover validation, parsing, generation, filtering and stats.
+- TODO(mahmoud): the README claims 100,000+ IDs are processed in milliseconds — add a benchmark script or real numbers before citing it here, plus any known users or download milestones.

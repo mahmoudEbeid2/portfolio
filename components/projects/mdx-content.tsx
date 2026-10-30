@@ -44,10 +44,16 @@ const components = {
   a: Anchor,
   strong: (props: Props<"strong">) => <strong className="font-semibold text-white" {...props} />,
   code: (props: Props<"code">) => (
-    <code className="border border-gray/40 px-1 text-white" {...props} />
+    <code
+      className="border border-gray/40 px-1 text-white [pre>&]:border-0 [pre>&]:p-0 [pre>&]:text-gray"
+      {...props}
+    />
   ),
   pre: (props: Props<"pre">) => (
-    <pre className="mb-4 overflow-x-auto border border-gray p-4" {...props} />
+    <pre
+      className="mb-6 overflow-x-auto border border-gray p-4 text-sm leading-relaxed"
+      {...props}
+    />
   ),
   blockquote: (props: Props<"blockquote">) => (
     <blockquote className="mb-4 border-l border-primary pl-4" {...props} />

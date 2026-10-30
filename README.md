@@ -124,5 +124,7 @@ Placeholders still marked `TODO(mahmoud)` in the content:
 - Current company name, location and dates (Experience)
 - The Turkish company name, role and dates (Experience)
 - The "currently working on" project (Profile)
-- The egypt-natid npm URL (add it under the project's other links)
-- The Dokany GitHub link, if the repo is public
+- The Dokany GitHub link, if the repo is public, and a new live URL (the old domain no longer
+  serves Dokany, so all its links were removed)
+- Missing case-study facts marked `TODO(mahmoud)` in `content/projects/*.mdx` (roles, timelines,
+  results)
