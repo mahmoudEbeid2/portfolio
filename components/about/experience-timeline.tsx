@@ -9,8 +9,14 @@ export function ExperienceTimeline({ items }: { items: readonly ExperienceItem[]
         <SectionTitle id="experience" name="experience" />
         <ol className="flex flex-col gap-6 border-l border-primary pl-6">
           {items.map((item) => (
-            <li key={`${item.role}-${item.company}-${item.start}`} className="relative border border-gray">
-              <span aria-hidden="true" className="absolute top-5 -left-[29px] size-2.5 bg-primary" />
+            <li
+              key={`${item.role}-${item.company}-${item.start}`}
+              className="relative border border-gray"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute top-5 -left-[29px] size-2.5 bg-primary"
+              />
               <div className="flex flex-col justify-between gap-1 border-b border-gray p-4 sm:flex-row sm:items-start">
                 <div>
                   <h3 className="text-xl font-medium">{item.role}</h3>

@@ -1,8 +1,7 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { DotGrid } from "@/components/ui/dot-grid";
-import { ProfilePhoto } from "@/components/ui/profile-photo";
 import type { Profile } from "@/lib/content";
+import { AboutPhoto } from "@/components/sections/about-photo";
 
 export function AboutIntro({ profile }: { profile: Profile }) {
   const { name, fullName, bio, aboutPhoto, location, availableForWork, cvUrl } = profile;
@@ -30,12 +29,7 @@ export function AboutIntro({ profile }: { profile: Profile }) {
           </ul>
           {cvUrl && <ButtonLink href={cvUrl}>Download CV -&gt;</ButtonLink>}
         </div>
-        <div className="relative mx-auto w-full max-w-[340px]">
-          <DotGrid cols={5} rows={4} className="absolute top-8 -left-4 z-10" />
-          <DotGrid cols={4} rows={5} className="absolute right-0 bottom-16 z-10" />
-          <ProfilePhoto src={aboutPhoto} alt={fullName} sizes="340px" className="aspect-[339/507] w-full" />
-          <span aria-hidden="true" className="block h-px w-full bg-primary" />
-        </div>
+        <AboutPhoto src={aboutPhoto} alt={fullName} />
       </Container>
     </section>
   );
