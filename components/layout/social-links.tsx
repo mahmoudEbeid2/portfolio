@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 import type { SocialLink } from "@/lib/site";
 
 type SocialLinksProps = {
-  links: SocialLink[];
+  links: readonly SocialLink[];
   className?: string;
   iconClassName?: string;
 };

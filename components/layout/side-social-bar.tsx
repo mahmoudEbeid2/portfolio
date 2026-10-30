@@ -2,7 +2,7 @@ import type { SocialLink } from "@/lib/site";
 import { SocialLinks } from "./social-links";
 
 type SideSocialBarProps = {
-  links: SocialLink[];
+  links: readonly SocialLink[];
 };
 
 /** Fixed vertical social bar on the left edge (wide screens only). */

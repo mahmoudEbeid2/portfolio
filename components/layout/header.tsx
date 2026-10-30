@@ -7,7 +7,7 @@ import { NavLinks } from "./nav-links";
 
 type HeaderProps = {
   name: string;
-  socials: SocialLink[];
+  socials: readonly SocialLink[];
 };
 
 function LanguageSwitcher() {

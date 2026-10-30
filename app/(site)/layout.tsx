@@ -1,9 +1,12 @@
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { SideSocialBar } from "@/components/layout/side-social-bar";
-import { socials } from "@/lib/site";
+import { getProfile } from "@/lib/content";
 
-export default function SiteLayout({ children }: LayoutProps<"/">) {
+export default async function SiteLayout({ children }: LayoutProps<"/">) {
+  const { name, email, tagline, socials } = await getProfile();
+  const sideSocials = socials.filter(({ platform }) => platform !== "phone");
+
   return (
     <>
       <a
@@ -12,17 +15,12 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       >
         Skip to content
       </a>
-      <SideSocialBar links={socials} />
-      <Header name="Mahmoud" socials={socials} />
+      <SideSocialBar links={sideSocials} />
+      <Header name={name} socials={sideSocials} />
       <main id="main" className="flex-1">
         {children}
       </main>
-      <Footer
-        name="Mahmoud"
-        email="mahmoud.ebeid2002@gmail.com"
-        tagline="Backend engineer and full-stack developer"
-        socials={socials}
-      />
+      <Footer name={name} email={email} tagline={tagline} socials={sideSocials} />
     </>
   );
 }

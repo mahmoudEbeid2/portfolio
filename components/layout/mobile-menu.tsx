@@ -13,7 +13,7 @@ const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1
 type MobileMenuProps = {
   name: string;
   items: NavItem[];
-  socials: SocialLink[];
+  socials: readonly SocialLink[];
 };
 
 export function MobileMenu({ name, items, socials }: MobileMenuProps) {
