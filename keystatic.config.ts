@@ -1,6 +1,9 @@
 import { collection, config, fields, singleton } from "@keystatic/core";
 
-const isProd = process.env.NODE_ENV === "production";
+// GitHub storage needs the Keystatic GitHub app env vars (see .env.example).
+// Without them (local dev, CI builds) content is read and written locally.
+const useGitHubStorage =
+  process.env.NODE_ENV === "production" && Boolean(process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG);
 
 const socialPlatforms = [
   { label: "GitHub", value: "github" },
@@ -10,7 +13,7 @@ const socialPlatforms = [
 ] as const;
 
 export default config({
-  storage: isProd
+  storage: useGitHubStorage
     ? { kind: "github", repo: { owner: "mahmoudEbeid2", name: "portfolio" } }
     : { kind: "local" },
   ui: {
