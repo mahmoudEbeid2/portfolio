@@ -8,6 +8,7 @@ import { ProjectLinks } from "@/components/projects/project-links";
 import { ProjectMeta } from "@/components/projects/project-meta";
 import { Container } from "@/components/ui/container";
 import { SectionTitle } from "@/components/ui/section-title";
+import { openGraph } from "@/lib/seo";
 import { getNextProject, getProject, getProjects } from "@/lib/content";
 
 export const dynamicParams = false;
@@ -23,7 +24,16 @@ export async function generateMetadata({
   const { slug } = await params;
   const project = await getProject(slug);
   if (!project) return {};
-  return { title: project.title, description: project.summary };
+  return {
+    title: project.title,
+    description: project.summary,
+    alternates: { canonical: `/projects/${slug}` },
+    openGraph: openGraph(
+      `/projects/${slug}`,
+      { type: "article", description: project.summary },
+      { defaultImage: false },
+    ),
+  };
 }
 
 export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) {

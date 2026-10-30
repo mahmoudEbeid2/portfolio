@@ -1,0 +1,30 @@
+import type { Profile } from "@/lib/content";
+import { siteUrl } from "@/lib/site-url";
+
+/** Schema.org `Person` structured data for the home page. */
+export function PersonJsonLd({ profile }: { profile: Profile }) {
+  const sameAs = profile.socials.map(({ url }) => url).filter((url) => url.startsWith("http"));
+
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.fullName,
+    url: siteUrl,
+    email: `mailto:${profile.email}`,
+    jobTitle: profile.tagline,
+    description: profile.headline,
+    ...(profile.location && {
+      address: { "@type": "PostalAddress", addressLocality: profile.location },
+    }),
+    ...(profile.photo && { image: `${siteUrl}${profile.photo}` }),
+    sameAs,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      // JSON.stringify output with "<" escaped is safe to inline.
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\u003c") }}
+    />
+  );
+}

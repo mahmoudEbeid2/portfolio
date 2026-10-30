@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { openGraph } from "@/lib/seo";
 import { ProjectGrid } from "@/components/projects/project-grid";
 import { Container } from "@/components/ui/container";
 import { PageTitle } from "@/components/ui/page-title";
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
   title: "Projects",
   description:
     "SaaS platforms, backend APIs, libraries and web & mobile apps built by Mahmoud Ebeid.",
+  alternates: { canonical: "/projects" },
+  openGraph: openGraph("/projects"),
 };
 
 export default async function ProjectsPage() {
