@@ -44,18 +44,21 @@ export function ProjectCard({ project, compact = false, className }: ProjectCard
         <p className="flex-1">{summary}</p>
         <div className="flex flex-wrap gap-4">
           {links.demo && (
-            <ButtonLink href={links.demo} aria-label={`${title} live demo`}>
-              Live &lt;~&gt;
+            <ButtonLink href={links.demo}>
+              Live<span className="sr-only"> demo of {title}</span>
+              <span aria-hidden="true">&lt;~&gt;</span>
             </ButtonLink>
           )}
           {links.github && (
-            <ButtonLink href={links.github} variant="secondary" aria-label={`${title} on GitHub`}>
-              GitHub &gt;=
+            <ButtonLink href={links.github} variant="secondary">
+              GitHub<span className="sr-only"> repository of {title}</span>
+              <span aria-hidden="true">&gt;=</span>
             </ButtonLink>
           )}
           {!links.demo && !links.github && (
             <ButtonLink href={href} variant="secondary">
-              Details -&gt;
+              Details<span className="sr-only"> about {title}</span>
+              <span aria-hidden="true">-&gt;</span>
             </ButtonLink>
           )}
         </div>
