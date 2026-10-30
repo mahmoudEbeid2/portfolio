@@ -6,7 +6,8 @@ import { getProjectsByCategory } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "SaaS platforms, backend APIs, libraries and web & mobile apps built by Mahmoud Ebeid.",
+  description:
+    "SaaS platforms, backend APIs, libraries and web & mobile apps built by Mahmoud Ebeid.",
 };
 
 export default async function ProjectsPage() {
