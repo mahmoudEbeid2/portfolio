@@ -47,7 +47,8 @@ export function Hero({ profile }: { profile: Profile }) {
             <p className="flex items-center gap-2 border border-gray p-2">
               <span aria-hidden="true" className="size-4 shrink-0 bg-primary" />
               <span>
-                Currently working on <span className="font-semibold text-white">{currentProject}</span>
+                Currently working on{" "}
+                <span className="font-semibold text-white">{currentProject}</span>
               </span>
             </p>
           )}

@@ -4,7 +4,9 @@ import type { Profile } from "@/lib/content";
 import { ContactBox } from "./contact-box";
 
 export function Contacts({ profile }: { profile: Profile }) {
-  const links = profile.socials.filter(({ platform }) => platform === "email" || platform === "linkedin");
+  const links = profile.socials.filter(
+    ({ platform }) => platform === "email" || platform === "linkedin",
+  );
 
   return (
     <section aria-labelledby="contacts" className="reveal py-12">
