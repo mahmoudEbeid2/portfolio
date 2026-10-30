@@ -36,7 +36,13 @@ function isExternal(href: string): boolean {
   return /^(https?:)?\/\//.test(href);
 }
 
-export function ButtonLink({ href, variant = "primary", className, children, ...rest }: ButtonLinkProps) {
+export function ButtonLink({
+  href,
+  variant = "primary",
+  className,
+  children,
+  ...rest
+}: ButtonLinkProps) {
   const classes = buttonClasses(variant, className);
 
   if (isExternal(href)) {

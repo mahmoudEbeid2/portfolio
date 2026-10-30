@@ -4,14 +4,7 @@ export type IconProps = SVGProps<SVGSVGElement>;
 
 function BaseIcon({ children, ...props }: IconProps) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="24"
-      height="24"
-      aria-hidden="true"
-      focusable="false"
-      {...props}
-    >
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" {...props}>
       {children}
     </svg>
   );

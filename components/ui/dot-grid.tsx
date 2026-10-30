@@ -18,5 +18,7 @@ export function DotGrid({ cols, rows, className }: DotGridProps) {
     backgroundSize: `${SPACING}px ${SPACING}px`,
   };
 
-  return <div aria-hidden="true" className={cn("decor pointer-events-none", className)} style={style} />;
+  return (
+    <div aria-hidden="true" className={cn("decor pointer-events-none", className)} style={style} />
+  );
 }
