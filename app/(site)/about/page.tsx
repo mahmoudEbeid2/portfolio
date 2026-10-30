@@ -18,6 +18,8 @@ import {
 export const metadata: Metadata = {
   title: "About me",
   description: "Background, skills, experience and education of Mahmoud Ebeid.",
+  alternates: { canonical: "/about" },
+  openGraph: { url: "/about" },
 };
 
 export default async function AboutPage() {

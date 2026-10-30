@@ -10,6 +10,8 @@ import { getProfile } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Contacts",
   description: "Get in touch with Mahmoud Ebeid for freelance work, full-time roles or questions.",
+  alternates: { canonical: "/contacts" },
+  openGraph: { url: "/contacts" },
 };
 
 export default async function ContactsPage() {

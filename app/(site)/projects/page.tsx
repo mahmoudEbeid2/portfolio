@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "Projects",
   description:
     "SaaS platforms, backend APIs, libraries and web & mobile apps built by Mahmoud Ebeid.",
+  alternates: { canonical: "/projects" },
+  openGraph: { url: "/projects" },
 };
 
 export default async function ProjectsPage() {
