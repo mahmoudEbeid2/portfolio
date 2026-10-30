@@ -109,3 +109,22 @@
     animation-delay: -4s;
   }
 }
+
+/* Project cards lift and highlight on hover. */
+@media (prefers-reduced-motion: no-preference) {
+  .project-card {
+    transition:
+      translate 250ms ease,
+      border-color 250ms ease;
+  }
+
+  .project-card:hover,
+  .project-card:focus-within {
+    translate: 0 -6px;
+  }
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  border-color: var(--color-primary);
+}
