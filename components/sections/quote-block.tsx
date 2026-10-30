@@ -20,10 +20,9 @@ export function QuoteBlock({ quote }: { quote: Quote }) {
           <blockquote className="relative border border-gray px-6 py-8 text-xl font-medium text-white sm:text-2xl">
             <QuoteMark mark="“" className="-top-5 left-3" />
             <p>{quote.text}</p>
-            <QuoteMark mark="”" className="right-3 -bottom-8" />
           </blockquote>
-          <figcaption className="border-x border-b border-gray p-4 text-xl text-white sm:text-2xl">
-            - {quote.author}
+          <figcaption className="relative border-x border-b border-gray p-4 text-xl text-white sm:text-2xl">
+            <QuoteMark mark="”" className="-top-5 -left-14" />- {quote.author}
           </figcaption>
         </figure>
       </Container>
