@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { openGraph } from "@/lib/seo";
 import { ContactForm } from "@/components/contact/contact-form";
 import { ContactBox } from "@/components/sections/contact-box";
 import { ContactLinks } from "@/components/sections/contact-links";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   title: "Contacts",
   description: "Get in touch with Mahmoud Ebeid for freelance work, full-time roles or questions.",
   alternates: { canonical: "/contacts" },
-  openGraph: { url: "/contacts" },
+  openGraph: openGraph("/contacts"),
 };
 
 export default async function ContactsPage() {

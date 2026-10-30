@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fira_Code } from "next/font/google";
+import { openGraph } from "@/lib/seo";
 import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -23,13 +24,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Mahmoud Ebeid", url: siteUrl }],
   creator: "Mahmoud Ebeid",
   alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    siteName: "Mahmoud Ebeid",
-    locale: "en_US",
-    url: "/",
-    description,
-  },
+  openGraph: openGraph("/", { description }),
   twitter: { card: "summary_large_image" },
 };
 

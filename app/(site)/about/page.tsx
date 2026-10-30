@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { openGraph } from "@/lib/seo";
 import { AboutIntro } from "@/components/about/about-intro";
 import { EducationCourses } from "@/components/about/education-courses";
 import { ExperienceTimeline } from "@/components/about/experience-timeline";
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   title: "About me",
   description: "Background, skills, experience and education of Mahmoud Ebeid.",
   alternates: { canonical: "/about" },
-  openGraph: { url: "/about" },
+  openGraph: openGraph("/about"),
 };
 
 export default async function AboutPage() {
