@@ -1,0 +1,59 @@
+import { Fragment } from "react";
+import { ButtonLink } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { DotGrid } from "@/components/ui/dot-grid";
+import { OutlineSquare } from "@/components/ui/outline-square";
+import { ProfilePhoto } from "@/components/ui/profile-photo";
+import type { Profile } from "@/lib/content";
+
+function separator(index: number, total: number): string {
+  if (index === 0) return "";
+  return index === total - 1 ? " and " : ", ";
+}
+
+export function Hero({ profile }: { profile: Profile }) {
+  const { name, fullName, roles, headline, photo, currentProject } = profile;
+
+  return (
+    <section aria-labelledby="hero-title" className="py-12 md:py-16">
+      <Container className="grid items-center gap-12 md:grid-cols-[1fr_minmax(0,420px)]">
+        <div className="flex flex-col items-start gap-6">
+          <h1 id="hero-title" className="text-[32px] font-semibold">
+            {name} is a{" "}
+            {roles.map((role, index) => (
+              <Fragment key={role}>
+                {separator(index, roles.length)}
+                <span className="text-primary">{role}</span>
+              </Fragment>
+            ))}
+            <span aria-hidden="true" className="caret" />
+          </h1>
+          {headline && <p>{headline}</p>}
+          <ButtonLink href="/contacts">Contact me !!</ButtonLink>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="relative">
+            <OutlineSquare size={140} tone="primary" className="absolute top-14 left-0" />
+            <DotGrid cols={5} rows={5} className="absolute right-2 bottom-8 z-10" />
+            <ProfilePhoto
+              src={photo}
+              alt={fullName}
+              priority
+              className="relative mx-auto aspect-[457/386] w-full max-w-[420px]"
+            />
+          </div>
+          {currentProject && (
+            <p className="flex items-center gap-2 border border-gray p-2">
+              <span aria-hidden="true" className="size-4 shrink-0 bg-primary" />
+              <span>
+                Currently working on{" "}
+                <span className="font-semibold text-white">{currentProject}</span>
+              </span>
+            </p>
+          )}
+        </div>
+      </Container>
+    </section>
+  );
+}
