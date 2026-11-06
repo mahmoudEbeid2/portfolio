@@ -55,6 +55,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </header>
 
         <ProjectMeta project={project} />
+        <ProjectLinks links={project.links} />
 
         {project.cover && (
           <div className="relative aspect-video border border-line">
@@ -76,7 +77,6 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </div>
 
         <ProjectGallery images={project.gallery} title={project.title} />
-        <ProjectLinks links={project.links} />
 
         {next && (
           <nav aria-label="Next project" className="flex justify-end border-t border-line pt-8">

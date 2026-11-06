@@ -69,11 +69,12 @@ function required<T>(value: T | null, name: string): T {
  * Projects saved before videos existed have no such field. This runs outside
  * the cache on purpose: cached entries outlive deployments and keep their shape.
  */
-function withVideos<T extends { videos?: ProjectVideo[] }>(
+function withSortedLists<T extends { videos?: ProjectVideo[]; links: ProjectData["links"] }>(
   project: T,
 ): T & { videos: ProjectVideo[] } {
   const videos = [...(project.videos ?? [])].sort((a, b) => a.order - b.order);
-  return { ...project, videos };
+  const links = [...project.links].sort((a, b) => a.order - b.order);
+  return { ...project, videos, links };
 }
 
 export const getProfile = cachedRead(
@@ -131,7 +132,7 @@ export const getActivities = cachedRead(
 
 // Bump after editing projects outside the dashboard: only saves expire the tag,
 // and cached entries outlive deployments.
-const PROJECTS_CACHE_KEY = "projects:v3";
+const PROJECTS_CACHE_KEY = "projects:v4";
 
 const readProjects = cachedRead(
   () =>
@@ -145,7 +146,7 @@ const readProjects = cachedRead(
 /** Published projects, sorted by their `order` field. */
 export const getProjects = cache(async (): Promise<Project[]> => {
   const projects = await readProjects();
-  return projects.map(withVideos);
+  return projects.map(withSortedLists);
 });
 
 /** A single published project with its MDX body, or `null` if it doesn't exist. */
@@ -161,7 +162,7 @@ export const getProject = cache(async (slug: string): Promise<ProjectWithBody | 
     [PROJECTS_CACHE_KEY, slug],
     { tags: [contentTags.projects] },
   )();
-  return project && withVideos(project);
+  return project && withSortedLists(project);
 });
 
 /** The project after `slug` in display order, wrapping around to the first. */

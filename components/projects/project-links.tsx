@@ -1,33 +1,24 @@
-import { ButtonLink } from "@/components/ui/button";
 import type { Project } from "@/lib/content";
+import { groupLinks } from "@/lib/project-links";
+import { ProjectLinkButton } from "./project-link-button";
 
 export function ProjectLinks({ links }: { links: Project["links"] }) {
-  const { demo, github, other } = links;
-  if (!demo && !github && other.length === 0) return null;
+  if (links.length === 0) return null;
 
   return (
-    <ul className="flex flex-wrap gap-4">
-      {demo && (
-        <li>
-          <ButtonLink href={demo}>
-            Live demo <span aria-hidden="true">&lt;~&gt;</span>
-          </ButtonLink>
-        </li>
-      )}
-      {github && (
-        <li>
-          <ButtonLink href={github} variant="secondary">
-            GitHub <span aria-hidden="true">&gt;=</span>
-          </ButtonLink>
-        </li>
-      )}
-      {other.map(({ label, url }) => (
-        <li key={url}>
-          <ButtonLink href={url} variant="secondary">
-            {label}
-          </ButtonLink>
-        </li>
+    <div className="flex flex-col gap-6">
+      {groupLinks(links).map(({ name, links: grouped }) => (
+        <section key={name} aria-label={name || "Project links"} className="flex flex-col gap-2">
+          {name && <h2 className="text-sm font-medium">{name}</h2>}
+          <ul className="flex flex-wrap gap-4">
+            {grouped.map((link) => (
+              <li key={link.url}>
+                <ProjectLinkButton link={link} />
+              </li>
+            ))}
+          </ul>
+        </section>
       ))}
-    </ul>
+    </div>
   );
 }

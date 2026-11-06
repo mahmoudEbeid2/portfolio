@@ -44,7 +44,8 @@ export async function getProjectForEdit(
 
   const { _id, ...fields } = project;
   const videos = [...(fields.videos ?? [])].sort((a, b) => a.order - b.order);
-  return { ...fields, videos, id: _id.toString() };
+  const links = [...fields.links].sort((a, b) => a.order - b.order);
+  return { ...fields, videos, links, id: _id.toString() };
 }
 
 export async function listActivities(): Promise<AdminActivity[]> {
