@@ -134,6 +134,28 @@ export function ProfileForm({ profile }: { profile: ProfileData }) {
         checked={values.availableForWork}
         onChange={(value) => set("availableForWork", value)}
       />
+      <fieldset className="flex flex-col border border-line p-4">
+        <legend className="px-1 text-white">Live activity stats</legend>
+        <p className="text-sm">A stat also hides itself when its data isn&apos;t available.</p>
+        <CheckboxField
+          id="profile-show-repos"
+          label="Public repos"
+          checked={values.showRepoStat}
+          onChange={(value) => set("showRepoStat", value)}
+        />
+        <CheckboxField
+          id="profile-show-npm"
+          label="npm downloads"
+          checked={values.showNpmStat}
+          onChange={(value) => set("showNpmStat", value)}
+        />
+        <CheckboxField
+          id="profile-show-youtube"
+          label="YouTube subscribers"
+          checked={values.showYoutubeStat}
+          onChange={(value) => set("showYoutubeStat", value)}
+        />
+      </fieldset>
       <Button type="submit" className="w-fit" disabled={pending}>
         {pending ? "Saving..." : "Save profile"}
       </Button>

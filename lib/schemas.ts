@@ -44,6 +44,9 @@ export const profileSchema = z.object({
   location: text,
   email: z.email("Enter a valid email address."),
   availableForWork: z.boolean(),
+  showRepoStat: z.boolean(),
+  showNpmStat: z.boolean(),
+  showYoutubeStat: z.boolean(),
 });
 
 const skillItemSchema = z.object({

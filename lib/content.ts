@@ -74,13 +74,17 @@ function withVideos<T extends { videos?: ProjectVideo[] }>(
   return { ...project, videos };
 }
 
-export const getProfile = cachedRead(async (): Promise<Profile> => {
-  const [profile, socials] = await Promise.all([
-    ProfileModel.findOne({}, documentFields).lean<ProfileData>(),
-    SocialLinkModel.find({}, listFields).sort({ order: 1 }).lean<SocialLinkData[]>(),
-  ]);
-  return { ...required(profile, "profile"), socials };
-}, contentTags.profile);
+export const getProfile = cachedRead(
+  async (): Promise<Profile> => {
+    const [profile, socials] = await Promise.all([
+      ProfileModel.findOne({}, documentFields).lean<ProfileData>(),
+      SocialLinkModel.find({}, listFields).sort({ order: 1 }).lean<SocialLinkData[]>(),
+    ]);
+    return { ...required(profile, "profile"), socials };
+  },
+  contentTags.profile,
+  "profile:v2",
+);
 
 export const getSkills = cachedRead(
   () => SkillGroupModel.find({}, listFields).sort({ order: 1 }).lean<SkillGroup[]>(),

@@ -18,6 +18,9 @@ const profileSchema = new Schema<ProfileData>(
     location: { type: String, default: "" },
     email: { type: String, required: true },
     availableForWork: { type: Boolean, default: true },
+    showRepoStat: { type: Boolean, default: true },
+    showNpmStat: { type: Boolean, default: true },
+    showYoutubeStat: { type: Boolean, default: true },
   },
   { timestamps: true, versionKey: false },
 );
