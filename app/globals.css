@@ -179,6 +179,57 @@
   }
 }
 
+/* Contribution heatmap: one purple scale, resolved per theme. */
+.heatmap {
+  --heat-0: color-mix(in srgb, var(--color-gray) 16%, var(--color-background));
+  --heat-1: color-mix(in srgb, var(--color-primary) 35%, var(--color-background));
+  --heat-2: color-mix(in srgb, var(--color-primary) 55%, var(--color-background));
+  --heat-3: color-mix(in srgb, var(--color-primary) 78%, var(--color-background));
+  --heat-4: var(--color-primary);
+}
+
+.heat-cell {
+  fill: var(--heat-0);
+}
+
+.heat-cell[data-level="1"] {
+  fill: var(--heat-1);
+}
+
+.heat-cell[data-level="2"] {
+  fill: var(--heat-2);
+}
+
+.heat-cell[data-level="3"] {
+  fill: var(--heat-3);
+}
+
+.heat-cell[data-level="4"] {
+  fill: var(--heat-4);
+}
+
+@keyframes heat-fill {
+  from {
+    fill: var(--heat-0);
+  }
+}
+
+/* Without scripts nothing could start these, so they stay at their final state. */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  .heat-cell:not([data-level="0"]) {
+    animation: heat-fill 240ms linear both paused;
+    animation-delay: calc(var(--i) * var(--heat-step));
+  }
+
+  .heatmap[data-playing="true"] .heat-cell {
+    animation-play-state: running;
+  }
+
+  .count-up:not([data-started]) {
+    visibility: hidden;
+  }
+}
+
 /* Sections fade and slide in as they scroll into view (progressive enhancement). */
 @keyframes reveal {
   from {
