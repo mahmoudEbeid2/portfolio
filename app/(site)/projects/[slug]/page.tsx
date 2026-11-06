@@ -6,6 +6,8 @@ import { MdxContent } from "@/components/projects/mdx-content";
 import { ProjectGallery } from "@/components/projects/project-gallery";
 import { ProjectLinks } from "@/components/projects/project-links";
 import { ProjectMeta } from "@/components/projects/project-meta";
+import { ProjectVideos } from "@/components/projects/project-videos";
+import { VideoJsonLd } from "@/components/seo/video-json-ld";
 import { Container } from "@/components/ui/container";
 import { SectionTitle } from "@/components/ui/section-title";
 import { openGraph } from "@/lib/seo";
@@ -41,6 +43,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
   return (
     <article className="pt-12">
+      <VideoJsonLd project={project} />
       <Container className="flex flex-col gap-12">
         <header className="flex flex-col gap-4">
           <Link href="/projects" className="w-fit transition-colors hover:text-white">
@@ -65,6 +68,8 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             />
           </div>
         )}
+
+        <ProjectVideos videos={project.videos} />
 
         <div className="max-w-3xl">
           <MdxContent source={project.body} />

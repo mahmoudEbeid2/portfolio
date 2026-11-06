@@ -8,9 +8,17 @@ type ProjectGridProps = {
   title: string;
   projects: Project[];
   compact?: boolean;
+  /** Set on the first grid of a page, whose first cover is the largest paint. */
+  priorityFirst?: boolean;
 };
 
-export function ProjectGrid({ id, title, projects, compact = false }: ProjectGridProps) {
+export function ProjectGrid({
+  id,
+  title,
+  projects,
+  compact = false,
+  priorityFirst = false,
+}: ProjectGridProps) {
   if (projects.length === 0) return null;
 
   return (
@@ -18,9 +26,13 @@ export function ProjectGrid({ id, title, projects, compact = false }: ProjectGri
       <Container className="flex flex-col gap-12">
         <SectionTitle id={id} name={title} line={false} />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <li key={project.slug}>
-              <ProjectCard project={project} compact={compact} />
+              <ProjectCard
+                project={project}
+                compact={compact}
+                priority={priorityFirst && index === 0}
+              />
             </li>
           ))}
         </ul>

@@ -43,7 +43,8 @@ export async function getProjectForEdit(
   if (!project) return null;
 
   const { _id, ...fields } = project;
-  return { ...fields, id: _id.toString() };
+  const videos = [...(fields.videos ?? [])].sort((a, b) => a.order - b.order);
+  return { ...fields, videos, id: _id.toString() };
 }
 
 export async function getProfileForEdit(): Promise<ProfileData | null> {

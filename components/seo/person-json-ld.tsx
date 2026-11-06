@@ -1,5 +1,6 @@
 import type { Profile } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
+import { JsonLd } from "./json-ld";
 
 /** Schema.org `Person` structured data for the home page. */
 export function PersonJsonLd({ profile }: { profile: Profile }) {
@@ -20,11 +21,5 @@ export function PersonJsonLd({ profile }: { profile: Profile }) {
     sameAs,
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      // JSON.stringify output with "<" escaped is safe to inline.
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\u003c") }}
-    />
-  );
+  return <JsonLd data={data} />;
 }

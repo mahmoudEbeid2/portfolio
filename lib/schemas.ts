@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isYouTubeId, parseYouTubeId } from "@/lib/youtube";
 
 /**
  * Shared validation for seed data, admin forms and server actions. This file
@@ -77,6 +78,20 @@ export const funFactSchema = z.object({ text: requiredText });
 
 export const quoteSchema = z.object({ text: requiredText, author: requiredText });
 
+// Takes any YouTube URL and keeps only the ID. Saved IDs pass through unchanged.
+const youtubeId = text.transform((value, context) => {
+  const id = isYouTubeId(value) ? value : parseYouTubeId(value);
+  if (id) return id;
+  context.addIssue({ code: "custom", message: "Enter a valid YouTube video URL." });
+  return z.NEVER;
+});
+
+const videoSchema = z.object({
+  youtubeId,
+  title: requiredText,
+  order: z.number().int(),
+});
+
 export const projectCategories = ["complete-app", "small-project"] as const;
 export const projectStatuses = ["published", "draft"] as const;
 
@@ -89,6 +104,12 @@ export const projectSchema = z.object({
   order: z.number().int(),
   cover: nullableImage,
   gallery: z.array(z.object({ image: imagePath, alt: text })),
+  videos: z
+    .array(videoSchema)
+    .refine(
+      (videos) => new Set(videos.map((video) => video.youtubeId)).size === videos.length,
+      "Each video can only be added once.",
+    ),
   stack: z.array(requiredText),
   role: text,
   isTeamProject: z.boolean(),

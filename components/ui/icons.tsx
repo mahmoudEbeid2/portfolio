@@ -59,6 +59,14 @@ export function CloseIcon(props: IconProps) {
   );
 }
 
+export function PlayIcon(props: IconProps) {
+  return (
+    <BaseIcon fill="currentColor" {...props}>
+      <path d="M7 4v16l13-8z" />
+    </BaseIcon>
+  );
+}
+
 export function SunIcon(props: IconProps) {
   return (
     <BaseIcon fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
