@@ -17,6 +17,7 @@ export const githubProfileUrl = `https://github.com/${githubUsername}`;
 export const navItems: NavItem[] = [
   { label: "home", href: "/" },
   { label: "works", href: "/projects" },
+  { label: "beyond-code", href: "/activities" },
   { label: "about-me", href: "/about" },
   { label: "contacts", href: "/contacts" },
 ];
