@@ -169,6 +169,9 @@ importers:
       '@mdx-js/mdx':
         specifier: ^3.1.1
         version: 3.1.1(supports-color@7.2.0)
+      '@primer/octicons':
+        specifier: ^19.42.0
+        version: 19.42.0
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1(next@16.4.3(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
@@ -206,6 +209,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.19.43
+      '@types/primer__octicons':
+        specifier: ^19.21.0
+        version: 19.21.0
       '@types/react':
         specifier: ^19
         version: 19.3.0
@@ -659,6 +665,9 @@ packages:
   '@panva/hkdf@1.2.1':
     resolution: {integrity: sha512-6oclG6Y3PiDFcoyk8srjLfVKyMfVCKJ27JwNPViuXziFpmdz+MZnZN/aKY0JGXgYuO/VghU0jcOAZgWXZ1Dmrw==}
 
+  '@primer/octicons@19.42.0':
+    resolution: {integrity: sha512-MEcHxVxNHu1I2Ndk5Mcwp7tfBiDk/EpytDJgKOfE2ldqIczWucVrZNeNU4wtEN5mnNudZ0YL5G0spax3bSMT4w==}
+
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
 
@@ -795,6 +804,9 @@ packages:
 
   '@types/node@20.19.43':
     resolution: {integrity: sha512-6oYBAi5ikg4Pl+kGsoYtawUMBT2zZMCvPNF7pVLnHZfd1zf38DRiWn/gT01RYCdUqkv7Fhr+C9ot4/tb+2sVvA==}
+
+  '@types/primer__octicons@19.21.0':
+    resolution: {integrity: sha512-znHEwbWVOqH4AcZLOmvXg5eipt7Kx2LpyAltKskplmiUJqqQ6A6sJI0hNnP+axr2Ko1GrFksN3yTYebEwVyubQ==}
 
   '@types/react-dom@19.3.0':
     resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
@@ -3132,6 +3144,10 @@ snapshots:
 
   '@panva/hkdf@1.2.1': {}
 
+  '@primer/octicons@19.42.0':
+    dependencies:
+      object-assign: 4.1.1
+
   '@rtsao/scc@1.1.0': {}
 
   '@stablelib/base64@1.0.1': {}
@@ -3244,6 +3260,8 @@ snapshots:
   '@types/node@20.19.43':
     dependencies:
       undici-types: 6.21.0
+
+  '@types/primer__octicons@19.21.0': {}
 
   '@types/react-dom@19.3.0(@types/react@19.3.0)':
     dependencies:

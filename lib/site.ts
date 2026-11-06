@@ -13,7 +13,6 @@ export type SocialLink = {
 
 export const githubUsername = "mahmoudEbeid2";
 export const githubProfileUrl = `https://github.com/${githubUsername}`;
-export const heroImageUrl = "https://avatars.githubusercontent.com/u/9919?v=4";
 
 export const navItems: NavItem[] = [
   { label: "home", href: "/" },
