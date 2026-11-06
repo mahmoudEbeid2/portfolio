@@ -60,7 +60,7 @@ const components = {
   ),
 };
 
-/** Compiles and renders a trusted MDX string from the content folder. */
+/** Compiles and renders a trusted MDX string written in the dashboard. */
 export async function MdxContent({ source }: { source: string }) {
   const { default: Content } = await evaluate(source, runtime);
   return <Content components={components} />;
