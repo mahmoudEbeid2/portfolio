@@ -83,7 +83,7 @@ export function BodyEditor({ value, error, onChange }: BodyEditorProps) {
         />
         <div className="flex min-w-0 flex-col gap-1">
           <p className="text-white">Preview</p>
-          <div className="project-preview max-h-[640px] min-h-40 overflow-auto border border-line p-4">
+          <div className="max-h-[640px] min-h-40 overflow-auto border border-line p-4">
             {previewError ? (
               <p className="text-sm whitespace-pre-wrap text-primary">{previewError}</p>
             ) : (
