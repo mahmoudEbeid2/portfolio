@@ -18,6 +18,14 @@ export function GitHubIcon(props: IconProps) {
   );
 }
 
+export function BrandIcon({ path, ...props }: IconProps & { path: string }) {
+  return (
+    <BaseIcon fill="currentColor" {...props}>
+      <path d={path} />
+    </BaseIcon>
+  );
+}
+
 export function LinkedInIcon(props: IconProps) {
   return (
     <BaseIcon fill="currentColor" {...props}>

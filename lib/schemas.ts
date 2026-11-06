@@ -44,11 +44,20 @@ export const profileSchema = z.object({
   location: text,
   email: z.email("Enter a valid email address."),
   availableForWork: z.boolean(),
+  showRepoStat: z.boolean(),
+  showNpmStat: z.boolean(),
+  showYoutubeStat: z.boolean(),
+});
+
+const skillItemSchema = z.object({
+  name: requiredText,
+  // A simple-icons slug. Empty shows the name alone.
+  icon: text.regex(/^[a-z0-9_]*$/, "Use the lowercase slug, like nodedotjs."),
 });
 
 export const skillGroupSchema = z.object({
   name: requiredText,
-  items: z.array(requiredText),
+  items: z.array(skillItemSchema),
 });
 
 export const experienceSchema = z.object({
@@ -128,6 +137,7 @@ export const projectSchema = z.object({
 
 export type SocialLinkData = z.infer<typeof socialLinkSchema>;
 export type ProfileData = z.infer<typeof profileSchema>;
+export type SkillItem = z.infer<typeof skillItemSchema>;
 export type SkillGroupData = z.infer<typeof skillGroupSchema>;
 export type ExperienceData = z.infer<typeof experienceSchema>;
 export type EducationData = z.infer<typeof educationSchema>;

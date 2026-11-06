@@ -4,9 +4,12 @@ import type { NextConfig } from "next";
 const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
 
 const nextConfig: NextConfig = {
+  // Holds every icon, so it loads at runtime instead of going into each server bundle.
+  serverExternalPackages: ["simple-icons"],
   images: {
     remotePatterns: [
       new URL("https://i.ytimg.com/vi/**"),
+      { protocol: "https", hostname: "avatars.githubusercontent.com", pathname: "/u/206378225" },
       ...(cloudName ? [new URL(`https://res.cloudinary.com/${cloudName}/**`)] : []),
     ],
   },
