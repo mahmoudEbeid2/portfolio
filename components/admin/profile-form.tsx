@@ -39,9 +39,7 @@ export function ProfileForm({ profile }: { profile: ProfileData }) {
     );
   }
 
-  const text = (
-    key: "name" | "fullName" | "tagline" | "currentProject" | "location" | "email",
-  ) => ({
+  const text = (key: "name" | "fullName" | "tagline" | "location" | "email") => ({
     id: `profile-${key}`,
     value: values[key],
     error: errors[key],
@@ -55,7 +53,6 @@ export function ProfileForm({ profile }: { profile: ProfileData }) {
         <TextField label="Full name" {...text("fullName")} />
         <TextField label="Email" {...text("email")} />
         <TextField label="Location" {...text("location")} />
-        <TextField label="Currently working on" {...text("currentProject")} />
         <TextField label="Footer tagline" {...text("tagline")} />
       </div>
       <TextareaField
