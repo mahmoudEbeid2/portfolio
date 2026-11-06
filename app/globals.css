@@ -10,6 +10,18 @@
   --line: #abb2bf;
 }
 
+/* One Light. Dark stays the base so it also applies when scripts are disabled. */
+:root[data-theme="light"] {
+  --background: #fafaf7;
+  --gray: #696c77;
+  --white: #383a42;
+  --primary: #a626a4;
+  /* Too faint for input boundaries (AA needs 3:1) — those keep `border-gray`. */
+  --line: #d3d4d6;
+}
+
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
 @theme {
   --color-*: initial;
   --color-background: var(--background);
@@ -31,6 +43,10 @@
   html {
     color-scheme: dark;
     scroll-behavior: smooth;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
   }
 
   body {
