@@ -2,11 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition, type ReactNode } from "react";
-import { previewBody, saveProject } from "@/lib/admin/actions/projects";
+import * as runtime from "react/jsx-runtime";
+import { mdxComponents } from "@/components/projects/mdx-components";
+import { checkBody, saveProject } from "@/lib/admin/actions/projects";
 import { slugify } from "@/lib/admin/slugify";
 import { projectCategories, projectStatuses, type ProjectData } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import { CheckboxField, ImageField, SelectField, TextareaField, TextField } from "./fields";
+import { VideosField } from "./videos-field";
 import { useAction } from "./use-action";
 
 type ProjectFormProps = { id: string | null; project: ProjectData };
@@ -35,9 +38,14 @@ function BodyEditor({
   function openPreview() {
     setShowPreview(true);
     startTransition(async () => {
-      const result = await previewBody(value);
-      setPreview(result.node ?? null);
-      setPreviewError(result.error ?? null);
+      const error = await checkBody(value);
+      setPreviewError(error);
+      if (error) return;
+
+      // Loaded on demand so the compiler stays out of the initial bundle.
+      const { evaluate } = await import("@mdx-js/mdx");
+      const { default: Content } = await evaluate(value, runtime);
+      setPreview(<Content components={mdxComponents} />);
     });
   }
 
@@ -66,6 +74,7 @@ function BodyEditor({
         <TextareaField
           id="project-body"
           label="Body (Markdown / MDX)"
+          hint='Embed a video with <YouTube id="..." title="..." />'
           rows={20}
           value={value}
           error={error}
@@ -81,6 +90,7 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
   const [values, setValues] = useState(project);
   const [stack, setStack] = useState(project.stack.join("\n"));
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [hasVideoDraft, setHasVideoDraft] = useState(false);
   const { pending, run } = useAction();
   const router = useRouter();
 
@@ -111,6 +121,10 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
 
   function submit(event: React.FormEvent) {
     event.preventDefault();
+    if (hasVideoDraft) {
+      setErrors({ videos: "Add this video or clear its fields before saving." });
+      return;
+    }
     run(
       () => saveProject(id, { ...values, stack: splitLines(stack) }),
       (result) => {
@@ -311,6 +325,13 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
           Add image
         </Button>
       </fieldset>
+
+      <VideosField
+        videos={values.videos}
+        error={errors.videos}
+        onChange={(videos) => set("videos", videos)}
+        onDraftChange={setHasVideoDraft}
+      />
 
       <BodyEditor
         value={values.body}

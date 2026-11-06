@@ -1,12 +1,10 @@
 "use server";
 
-import { compile } from "@mdx-js/mdx";
-import type { ReactNode } from "react";
-import { MdxContent } from "@/components/projects/mdx-content";
 import { requireAdmin } from "@/lib/auth/require-admin";
 import { contentTags } from "@/lib/cache-tags";
 import { connectToDatabase } from "@/lib/db/connect";
 import { Project } from "@/lib/db/models";
+import { validateMdx } from "@/lib/mdx-validation";
 import { projectSchema, projectStatuses } from "@/lib/schemas";
 import {
   attempt,
@@ -27,23 +25,14 @@ function isDuplicateKey(error: unknown): boolean {
   );
 }
 
-/** Bad MDX would crash the public page, so it never reaches the database. */
-async function mdxError(source: string): Promise<string | null> {
-  try {
-    await compile(source);
-    return null;
-  } catch (error) {
-    return error instanceof Error ? error.message : "The body isn't valid MDX.";
-  }
-}
-
 export async function saveProject(id: string | null, input: unknown): Promise<ActionResult> {
   await requireAdmin();
 
   const parsed = projectSchema.safeParse(input);
   if (!parsed.success) return invalid(parsed.error);
 
-  const bodyError = await mdxError(parsed.data.body);
+  // Bad MDX would crash the public page, so it never reaches the database.
+  const bodyError = await validateMdx(parsed.data.body);
   if (bodyError) {
     return { ok: false, message: "The body has an error.", fieldErrors: { body: bodyError } };
   }
@@ -114,14 +103,7 @@ export async function setProjectStatus(
   });
 }
 
-export async function previewBody(
-  source: string,
-): Promise<{ node: ReactNode; error?: undefined } | { node?: undefined; error: string }> {
+export async function checkBody(source: string): Promise<string | null> {
   await requireAdmin();
-
-  try {
-    return { node: await MdxContent({ source: String(source) }) };
-  } catch (error) {
-    return { error: error instanceof Error ? error.message : "The body isn't valid MDX." };
-  }
+  return validateMdx(String(source));
 }
