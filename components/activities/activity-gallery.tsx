@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { CloseIcon } from "@/components/ui/icons";
 import type { LightboxImage } from "@/lib/activities";
@@ -36,6 +36,18 @@ export function ActivityGallery({ title, images }: ActivityGalleryProps) {
     setIndex((current) => (current + delta + count) % count);
   }
 
+  // A modal already blocks the page behind it. This also stops Tab reaching the browser UI.
+  function keepFocusInside(event: KeyboardEvent) {
+    const buttons = dialogRef.current?.querySelectorAll("button");
+    const first = buttons?.[0];
+    const last = buttons?.[buttons.length - 1];
+    const edge = event.shiftKey ? first : last;
+    if (document.activeElement !== edge) return;
+
+    event.preventDefault();
+    (event.shiftKey ? last : first)?.focus();
+  }
+
   function endSwipe(endX: number) {
     const distance = endX - swipeStart.current;
     if (Math.abs(distance) >= SWIPE_DISTANCE) step(distance < 0 ? 1 : -1);
@@ -65,6 +77,7 @@ export function ActivityGallery({ title, images }: ActivityGalleryProps) {
         onKeyDown={(event) => {
           if (event.key === "ArrowRight") step(1);
           if (event.key === "ArrowLeft") step(-1);
+          if (event.key === "Tab") keepFocusInside(event);
         }}
         onTouchStart={(event) => {
           swipeStart.current = event.touches[0]?.clientX ?? 0;
