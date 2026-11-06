@@ -9,18 +9,21 @@ import {
   type FieldConfig,
 } from "@/lib/admin/collections";
 import type { AdminItem } from "@/lib/admin/types";
+import type { SkillItem } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import { ConfirmButton } from "./confirm-button";
 import { SelectField, TextareaField, TextField } from "./fields";
+import { SkillsField } from "./skills-field";
 import { SortableList } from "./sortable-list";
 import { useAction } from "./use-action";
 
-type FormValues = Record<string, string>;
+type FormValues = Record<string, string | SkillItem[]>;
 
 function toForm(fields: readonly FieldConfig[], item?: AdminItem): FormValues {
   return Object.fromEntries(
-    fields.map(({ name, options }) => {
+    fields.map(({ name, kind, options }) => {
       const value = item?.[name];
+      if (kind === "skills") return [name, (value ?? []) as SkillItem[]];
       if (Array.isArray(value)) return [name, value.join("\n")];
       return [name, value ?? options?.[0] ?? ""];
     }),
@@ -31,6 +34,7 @@ function toInput(fields: readonly FieldConfig[], values: FormValues) {
   return Object.fromEntries(
     fields.map(({ name, kind }) => {
       const value = values[name] ?? "";
+      if (typeof value !== "string") return [name, value];
       if (kind !== "lines") return [name, value];
       return [
         name,
@@ -69,14 +73,17 @@ function ItemForm({ collection, config, item, onClose }: ItemFormProps) {
   return (
     <form onSubmit={submit} className="flex flex-col gap-4 border border-primary p-4">
       {config.fields.map(({ name, label, kind, hint, options }) => {
-        const shared = {
-          id: `${collection}-${item?.id ?? "new"}-${name}`,
-          label,
-          hint,
-          error: errors[name],
-          value: values[name] ?? "",
-          onChange: (value: string) => setValues((current) => ({ ...current, [name]: value })),
-        };
+        const value = values[name] ?? "";
+        const id = `${collection}-${item?.id ?? "new"}-${name}`;
+        const onChange = (next: string | SkillItem[]) =>
+          setValues((current) => ({ ...current, [name]: next }));
+
+        if (typeof value !== "string")
+          return (
+            <SkillsField key={name} id={id} value={value} errors={errors} onChange={onChange} />
+          );
+
+        const shared = { id, label, hint, error: errors[name], value, onChange };
         if (kind === "select")
           return <SelectField key={name} {...shared} options={options ?? []} />;
         if (kind === "text") return <TextField key={name} {...shared} />;

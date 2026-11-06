@@ -4,7 +4,7 @@ import { Message, Profile, Project, Quote } from "@/lib/db/models";
 import type { ProfileData, ProjectData, QuoteData } from "@/lib/schemas";
 import type { CollectionKey } from "./collections";
 import { registry } from "./registry";
-import type { AdminItem, AdminMessage, AdminProject } from "./types";
+import type { AdminItem, AdminMessage, AdminProject, AdminValue } from "./types";
 
 // Dashboard reads skip the content cache so editors always see saved data.
 type WithId<T> = T & { _id: Types.ObjectId };
@@ -16,7 +16,7 @@ export async function listItems(collection: CollectionKey): Promise<AdminItem[]>
   const documents = await registry[collection].model
     .find({}, { ...hiddenFields, order: 0 })
     .sort({ order: 1 })
-    .lean<WithId<Record<string, string | string[]>>[]>();
+    .lean<WithId<Record<string, AdminValue>>[]>();
 
   return documents.map(({ _id, ...fields }) => ({ ...fields, id: _id.toString() }));
 }

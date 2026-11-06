@@ -1,11 +1,11 @@
-import { courseStatuses, socialPlatforms } from "@/lib/schemas";
+import { courseStatuses, socialPlatforms, type SkillItem } from "@/lib/schemas";
 import type { AdminItem } from "./types";
 
 export type FieldConfig = {
   name: string;
   label: string;
-  /** `lines` edits a string list as one entry per line. */
-  kind: "text" | "textarea" | "lines" | "select";
+  /** `lines` edits a string list as one entry per line. `skills` edits named icon rows. */
+  kind: "text" | "textarea" | "lines" | "select" | "skills";
   options?: readonly string[];
   hint?: string;
 };
@@ -36,10 +36,10 @@ export const collections = {
     noun: "skill group",
     fields: [
       { name: "name", label: "Group name", kind: "text" },
-      { name: "items", label: "Skills", kind: "lines", hint: "One per line." },
+      { name: "items", label: "Skills", kind: "skills" },
     ],
     title: (item) => String(item.name),
-    subtitle: (item) => (item.items as string[]).join(", "),
+    subtitle: (item) => (item.items as SkillItem[]).map(({ name }) => name).join(", "),
   },
   education: {
     noun: "education entry",

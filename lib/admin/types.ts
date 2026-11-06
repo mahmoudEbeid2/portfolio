@@ -1,9 +1,13 @@
+import type { SkillItem } from "@/lib/schemas";
+
 export type ActionResult =
   | { ok: true; message?: string }
   | { ok: false; message: string; fieldErrors?: Record<string, string> };
 
-/** A list row as the dashboard edits it: strings and string lists only. */
-export type AdminItem = { id: string } & Record<string, string | string[]>;
+export type AdminValue = string | string[] | SkillItem[];
+
+/** A list row as the dashboard edits it. */
+export type AdminItem = { id: string } & Record<string, AdminValue>;
 
 export type AdminProject = {
   id: string;
