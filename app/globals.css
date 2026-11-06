@@ -151,8 +151,8 @@
   border-color: var(--color-primary);
 }
 
-/* Hero GitHub mark: a soft glow behind it and a slow float. */
-.hero-mark-glow {
+/* Section marks: a soft glow behind the icon and a slow float. */
+.section-mark-glow {
   pointer-events: none;
   background: radial-gradient(circle, var(--color-primary), transparent 70%);
   filter: blur(24px);
@@ -170,8 +170,9 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-mark {
+  .section-mark {
     animation: float 6s ease-in-out infinite;
+    transition: color 300ms ease;
   }
 }
 
