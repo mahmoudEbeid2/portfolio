@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { openGraph } from "@/lib/seo";
 import { ProjectGrid } from "@/components/projects/project-grid";
 import { Container } from "@/components/ui/container";
@@ -24,7 +24,7 @@ export default async function ProjectsPage() {
       <Container className="pt-12">
         <PageTitle name="projects" subtitle="List of my projects" />
       </Container>
-      <ProjectGrid id="complete-apps" title="complete-apps" projects={completeApps} />
+      <ProjectGrid id="complete-apps" title="complete-apps" projects={completeApps} priorityFirst />
       <ProjectGrid id="small-projects" title="small-projects" projects={smallProjects} compact />
     </>
   );

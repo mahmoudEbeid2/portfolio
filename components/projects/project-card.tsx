@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Tag } from "@/components/ui/tag";
 import type { Project } from "@/lib/content";
 import { cn } from "@/lib/cn";
 
@@ -9,11 +10,18 @@ type ProjectCardProps = {
   project: Project;
   /** Hides the cover image (used for small projects). */
   compact?: boolean;
+  /** Preloads the cover; use it on the card that's the page's largest paint. */
+  priority?: boolean;
   className?: string;
 };
 
-export function ProjectCard({ project, compact = false, className }: ProjectCardProps) {
-  const { slug, title, summary, cover, stack, links } = project;
+export function ProjectCard({
+  project,
+  compact = false,
+  priority = false,
+  className,
+}: ProjectCardProps) {
+  const { slug, title, summary, cover, stack, links, videos } = project;
   const href = `/projects/${slug}`;
 
   return (
@@ -29,6 +37,7 @@ export function ProjectCard({ project, compact = false, className }: ProjectCard
             src={cover}
             alt=""
             fill
+            priority={priority}
             sizes="(min-width: 1024px) 330px, (min-width: 640px) 50vw, 100vw"
             className="object-cover"
           />
@@ -41,6 +50,11 @@ export function ProjectCard({ project, compact = false, className }: ProjectCard
             {title}
           </Link>
         </h3>
+        {videos.length > 0 && (
+          <Tag className="w-fit border-primary text-sm">
+            <span aria-hidden="true">{"\u25B6\uFE0E"} </span>video
+          </Tag>
+        )}
         <p className="flex-1">{summary}</p>
         <div className="flex flex-wrap gap-4">
           {links.demo && (
