@@ -151,6 +151,34 @@
   border-color: var(--color-primary);
 }
 
+/* Skill icons stay monochrome until hovered. Brand colors are set per skill. */
+.skill-icon {
+  color: var(--color-gray);
+  transition: color 200ms ease;
+}
+
+@media (hover: hover) {
+  .skill:hover .skill-icon {
+    color: var(--brand-dark);
+  }
+
+  :root[data-theme="light"] .skill:hover .skill-icon {
+    color: var(--brand-light);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .skill-icon {
+    transition:
+      color 200ms ease,
+      scale 200ms ease;
+  }
+
+  .skill:hover .skill-icon {
+    scale: 1.15;
+  }
+}
+
 /* Sections fade and slide in as they scroll into view (progressive enhancement). */
 @keyframes reveal {
   from {

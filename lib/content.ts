@@ -85,6 +85,7 @@ export const getProfile = cachedRead(async (): Promise<Profile> => {
 export const getSkills = cachedRead(
   () => SkillGroupModel.find({}, listFields).sort({ order: 1 }).lean<SkillGroup[]>(),
   contentTags.skills,
+  "skills:v2",
 );
 
 export const getExperience = cachedRead(
