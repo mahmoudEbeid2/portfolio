@@ -1,9 +1,10 @@
 ﻿import type { Metadata } from "next";
 import { openGraph } from "@/lib/seo";
-import { ProjectGrid } from "@/components/projects/project-grid";
+import { ProjectBrowser } from "@/components/projects/project-browser";
+import { ProjectCard } from "@/components/projects/project-card";
 import { Container } from "@/components/ui/container";
 import { PageTitle } from "@/components/ui/page-title";
-import { getProjectsByCategory } from "@/lib/content";
+import { getProjects } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -14,18 +15,28 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-  const [completeApps, smallProjects] = await Promise.all([
-    getProjectsByCategory("complete-app"),
-    getProjectsByCategory("small-project"),
-  ]);
+  const projects = await getProjects();
+  const firstFeatured = projects.find((project) => project.featured);
 
   return (
-    <>
-      <Container className="pt-12">
-        <PageTitle name="projects" subtitle="List of my projects" />
-      </Container>
-      <ProjectGrid id="complete-apps" title="complete-apps" projects={completeApps} priorityFirst />
-      <ProjectGrid id="small-projects" title="small-projects" projects={smallProjects} compact />
-    </>
+    <Container className="flex flex-col gap-12 py-12">
+      <PageTitle name="projects" subtitle="List of my projects" />
+      <h2 className="sr-only">All projects</h2>
+      <ProjectBrowser
+        projects={projects.map((project) => ({
+          slug: project.slug,
+          category: project.category,
+          isOpenSource: project.isOpenSource,
+          featured: project.featured,
+          card: (
+            <ProjectCard
+              project={project}
+              compact={!project.featured}
+              priority={project === firstFeatured}
+            />
+          ),
+        }))}
+      />
+    </Container>
   );
 }

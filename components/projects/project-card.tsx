@@ -21,8 +21,13 @@ export function ProjectCard({
   priority = false,
   className,
 }: ProjectCardProps) {
-  const { slug, title, summary, cover, stack, links, videos } = project;
+  const { slug, title, summary, cover, stack, links, videos, isOpenSource, isTeamProject } = project;
   const href = `/projects/${slug}`;
+  const badges = [
+    isOpenSource && "open source",
+    links.demo && "live",
+    isTeamProject && "team",
+  ].filter(Boolean);
 
   return (
     <Card as="article" className={cn("project-card h-full", className)}>
@@ -50,10 +55,21 @@ export function ProjectCard({
             {title}
           </Link>
         </h3>
-        {videos.length > 0 && (
-          <Tag className="w-fit border-primary text-sm">
-            <span aria-hidden="true">{"\u25B6\uFE0E"} </span>video
-          </Tag>
+        {(badges.length > 0 || videos.length > 0) && (
+          <ul className="flex flex-wrap gap-2 text-sm">
+            {badges.map((badge) => (
+              <li key={String(badge)}>
+                <Tag>{badge}</Tag>
+              </li>
+            ))}
+            {videos.length > 0 && (
+              <li>
+                <Tag className="border-primary">
+                  <span aria-hidden="true">{"\u25B6\uFE0E"} </span>video
+                </Tag>
+              </li>
+            )}
+          </ul>
         )}
         <p className="flex-1">{summary}</p>
         <div className="flex flex-wrap gap-4">
