@@ -6,7 +6,9 @@ import { GitHubIcon } from "@/components/ui/icons";
 import { OutlineSquare } from "@/components/ui/outline-square";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import type { Profile } from "@/lib/content";
+import { getCvLink } from "@/lib/cv-link";
 import { githubProfileUrl, githubUsername } from "@/lib/site";
+import { CvButton } from "./cv-button";
 import { HeroMark } from "./hero-mark";
 
 function separator(index: number, total: number): string {
@@ -15,7 +17,7 @@ function separator(index: number, total: number): string {
 }
 
 export function Hero({ profile }: { profile: Profile }) {
-  const { name, fullName, roles, headline, photo } = profile;
+  const { name, fullName, roles, headline, photo, cvUrl } = profile;
 
   return (
     <section aria-labelledby="hero-title" className="py-12 md:py-16">
@@ -32,7 +34,10 @@ export function Hero({ profile }: { profile: Profile }) {
             <span aria-hidden="true" className="caret" />
           </h1>
           {headline && <p>{headline}</p>}
-          <ButtonLink href="/contacts">Contact me !!</ButtonLink>
+          <div className="flex flex-wrap gap-4">
+            <ButtonLink href="/contacts">Contact me !!</ButtonLink>
+            {cvUrl && <CvButton {...getCvLink(cvUrl)} />}
+          </div>
         </div>
 
         <div className="flex flex-col">
