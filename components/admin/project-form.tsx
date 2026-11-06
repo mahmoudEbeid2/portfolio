@@ -1,14 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition, type ReactNode } from "react";
-import * as runtime from "react/jsx-runtime";
-import { mdxComponents } from "@/components/projects/mdx-components";
-import { checkBody, saveProject } from "@/lib/admin/actions/projects";
+import { useState } from "react";
+import { saveProject } from "@/lib/admin/actions/projects";
 import { slugify } from "@/lib/admin/slugify";
 import { hasGitHubLink, isLive, type ProjectLink } from "@/lib/project-links";
 import { projectCategories, projectStatuses, type ProjectData } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
+import { BodyEditor } from "./body-editor";
 import { CheckboxField, SelectField, TextareaField, TextField } from "./fields";
 import { LinksField } from "./links-field";
 import { ImageField } from "./upload-field";
@@ -28,71 +27,6 @@ function splitLines(value: string): string[] {
     .filter(Boolean);
 }
 
-function BodyEditor({
-  value,
-  error,
-  onChange,
-}: {
-  value: string;
-  error?: string;
-  onChange: (value: string) => void;
-}) {
-  const [preview, setPreview] = useState<ReactNode | null>(null);
-  const [previewError, setPreviewError] = useState<string | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
-  const [pending, startTransition] = useTransition();
-
-  function openPreview() {
-    setShowPreview(true);
-    startTransition(async () => {
-      const error = await checkBody(value);
-      setPreviewError(error);
-      if (error) return;
-
-      // Loaded on demand so the compiler stays out of the initial bundle.
-      const { evaluate } = await import("@mdx-js/mdx");
-      const { default: Content } = await evaluate(value, runtime);
-      setPreview(<Content components={mdxComponents} />);
-    });
-  }
-
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex gap-2">
-        <Button
-          variant={showPreview ? "secondary" : "primary"}
-          onClick={() => setShowPreview(false)}
-        >
-          Write
-        </Button>
-        <Button variant={showPreview ? "primary" : "secondary"} onClick={openPreview}>
-          Preview
-        </Button>
-      </div>
-      {showPreview ? (
-        <div className="min-h-64 border border-line p-4">
-          {pending && <p>Rendering...</p>}
-          {!pending && previewError && (
-            <p className="whitespace-pre-wrap text-primary">{previewError}</p>
-          )}
-          {!pending && !previewError && preview}
-        </div>
-      ) : (
-        <TextareaField
-          id="project-body"
-          label="Body (Markdown / MDX)"
-          hint='Embed a video with <YouTube id="..." title="..." />'
-          rows={20}
-          value={value}
-          error={error}
-          onChange={onChange}
-        />
-      )}
-      {showPreview && error && <p className="text-sm text-primary">{error}</p>}
-    </div>
-  );
-}
-
 export function ProjectForm({ id, project, linkIcons }: ProjectFormProps) {
   const [values, setValues] = useState(project);
   const [stack, setStack] = useState(project.stack.join("\n"));
@@ -109,8 +43,7 @@ export function ProjectForm({ id, project, linkIcons }: ProjectFormProps) {
     setValues((current) => ({
       ...current,
       // A new GitHub link means open source until the box is unticked.
-      isOpenSource:
-        current.isOpenSource || (!hasGitHubLink(current.links) && hasGitHubLink(links)),
+      isOpenSource: current.isOpenSource || (!hasGitHubLink(current.links) && hasGitHubLink(links)),
       links,
     }));
   }
@@ -232,12 +165,7 @@ export function ProjectForm({ id, project, linkIcons }: ProjectFormProps) {
         onChange={setStack}
       />
 
-      <LinksField
-        value={values.links}
-        errors={errors}
-        icons={linkIcons}
-        onChange={setLinks}
-      />
+      <LinksField value={values.links} errors={errors} icons={linkIcons} onChange={setLinks} />
 
       <ImageField
         id="project-cover"

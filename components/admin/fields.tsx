@@ -1,4 +1,4 @@
-import type { ChangeEvent, ReactNode } from "react";
+import type { ChangeEvent, ReactNode, Ref } from "react";
 import { cn } from "@/lib/cn";
 
 // Inputs keep the gray border: the lighter `line` token misses AA for boundaries.
@@ -79,11 +79,13 @@ export function TextareaField({
   hint,
   error,
   rows = 4,
-}: InputProps & { rows?: number }) {
+  textareaRef,
+}: InputProps & { rows?: number; textareaRef?: Ref<HTMLTextAreaElement> }) {
   return (
     <FieldShell id={id} label={label} hint={hint} error={error}>
       <textarea
         {...a11y(id, error)}
+        ref={textareaRef}
         rows={rows}
         value={value}
         onChange={(event) => onChange(event.target.value)}
