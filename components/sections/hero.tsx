@@ -15,7 +15,7 @@ function separator(index: number, total: number): string {
 }
 
 export function Hero({ profile }: { profile: Profile }) {
-  const { name, fullName, roles, headline, photo, currentProject } = profile;
+  const { name, fullName, roles, headline, photo } = profile;
 
   return (
     <section aria-labelledby="hero-title" className="py-12 md:py-16">
@@ -55,15 +55,6 @@ export function Hero({ profile }: { profile: Profile }) {
           >
             <GitHubIcon className="size-4 shrink-0" />@{githubUsername}
           </a>
-          {currentProject && (
-            <p className="flex items-center gap-2 border border-t-0 border-line p-2">
-              <span aria-hidden="true" className="size-4 shrink-0 bg-primary" />
-              <span>
-                Currently working on{" "}
-                <span className="font-semibold text-white">{currentProject}</span>
-              </span>
-            </p>
-          )}
         </div>
       </Container>
     </section>
