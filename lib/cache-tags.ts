@@ -8,4 +8,5 @@ export const contentTags = {
   funFacts: "content:fun-facts",
   quote: "content:quote",
   projects: "content:projects",
+  activities: "content:activities",
 } as const;

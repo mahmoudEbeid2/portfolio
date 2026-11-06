@@ -1,3 +1,4 @@
+export { Activity } from "./activity";
 export { Course } from "./course";
 export { Education } from "./education";
 export { Experience } from "./experience";
