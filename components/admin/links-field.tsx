@@ -35,7 +35,16 @@ export function LinksField({ value, errors, icons, onChange }: LinksFieldProps) 
 
   function update(next: Row[]) {
     setRows(next);
-    onChange(next.map(({ id: _id, ...link }, order) => ({ ...link, order })));
+    onChange(
+      next.map(({ label, url, type, variant, group }, order) => ({
+        label,
+        url,
+        type,
+        variant,
+        group,
+        order,
+      })),
+    );
   }
 
   function patch(id: string, change: Partial<ProjectLink>) {
