@@ -6,7 +6,10 @@ export function ProjectMeta({ project }: { project: Project }) {
   const { role, category, isTeamProject, timeline, stack } = project;
   const rows = [
     { label: "role", value: role },
-    { label: "type", value: `${projectCategoryLabels[category]} · ${isTeamProject ? "Team" : "Solo"}` },
+    {
+      label: "type",
+      value: `${projectCategoryLabels[category]} · ${isTeamProject ? "Team" : "Solo"}`,
+    },
     { label: "timeline", value: timeline },
   ].filter((row) => row.value);
 

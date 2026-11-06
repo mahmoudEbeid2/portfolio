@@ -21,7 +21,8 @@ export function ProjectCard({
   priority = false,
   className,
 }: ProjectCardProps) {
-  const { slug, title, summary, cover, stack, links, videos, isOpenSource, isTeamProject } = project;
+  const { slug, title, summary, cover, stack, links, videos, isOpenSource, isTeamProject } =
+    project;
   const href = `/projects/${slug}`;
   const badges = [
     isOpenSource && "open source",

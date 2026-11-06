@@ -103,7 +103,13 @@ const videoSchema = z.object({
   order: z.number().int(),
 });
 
-export const projectCategories = ["full-stack", "backend", "frontend", "mobile", "library"] as const;
+export const projectCategories = [
+  "full-stack",
+  "backend",
+  "frontend",
+  "mobile",
+  "library",
+] as const;
 export const projectStatuses = ["published", "draft"] as const;
 
 export const projectSchema = z.object({

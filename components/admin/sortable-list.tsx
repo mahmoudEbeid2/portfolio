@@ -19,7 +19,11 @@ function moved<T>(items: readonly T[], from: number, to: number): T[] {
 }
 
 /** Applies a reorder of a filtered list, keeping hidden rows in their slots. */
-export function mergeReorder<T>(all: readonly T[], next: readonly T[], visible: (item: T) => boolean) {
+export function mergeReorder<T>(
+  all: readonly T[],
+  next: readonly T[],
+  visible: (item: T) => boolean,
+) {
   const queue = [...next];
   return all.map((item) => (visible(item) ? (queue.shift() ?? item) : item));
 }

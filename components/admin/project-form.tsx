@@ -216,7 +216,9 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
           onChange={(value) => set("isOpenSource", value)}
         />
         <p className="flex min-h-11 items-center text-sm">
-          {values.links.demo ? "Shown as live: it has a demo URL." : "Add a demo URL to show as live."}
+          {values.links.demo
+            ? "Shown as live: it has a demo URL."
+            : "Add a demo URL to show as live."}
         </p>
       </section>
 

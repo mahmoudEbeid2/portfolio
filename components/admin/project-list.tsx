@@ -57,50 +57,53 @@ export function ProjectList({ projects }: { projects: AdminProject[] }) {
 
       <SortableList items={visible} label="project" disabled={pending} onReorder={reorder}>
         {(project) => (
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <Link href={`/admin/projects/${project.id}`} className="text-white hover:text-primary">
-              {project.title}
-            </Link>
-            {project.status === "draft" && <Tag className="border-primary">draft</Tag>}
-            {project.featured && <Tag className="border-primary">featured</Tag>}
-            <Tag className="text-center sm:ml-auto sm:w-28">{project.category}</Tag>
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href={`/admin/projects/${project.id}`}
+                className="text-white hover:text-primary"
+              >
+                {project.title}
+              </Link>
+              {project.status === "draft" && <Tag className="border-primary">draft</Tag>}
+              {project.featured && <Tag className="border-primary">featured</Tag>}
+              <Tag className="text-center sm:ml-auto sm:w-28">{project.category}</Tag>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link href={`/admin/projects/${project.id}`} className={buttonClasses("secondary")}>
+                Edit
+              </Link>
+              <Button
+                variant="secondary"
+                disabled={pending}
+                onClick={() => run(() => setProjectFeatured(project.id, !project.featured))}
+              >
+                {project.featured ? "Unfeature" : "Feature"}
+              </Button>
+              <Button
+                variant="secondary"
+                disabled={pending}
+                onClick={() =>
+                  run(() =>
+                    setProjectStatus(
+                      project.id,
+                      project.status === "published" ? "draft" : "published",
+                    ),
+                  )
+                }
+              >
+                {project.status === "published" ? "Unpublish" : "Publish"}
+              </Button>
+              <ConfirmButton
+                title="Delete this project?"
+                description={`"${project.title}" will be removed permanently.`}
+                disabled={pending}
+                onConfirm={() => run(() => deleteProject(project.id))}
+              >
+                Delete
+              </ConfirmButton>
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <Link href={`/admin/projects/${project.id}`} className={buttonClasses("secondary")}>
-              Edit
-            </Link>
-            <Button
-              variant="secondary"
-              disabled={pending}
-              onClick={() => run(() => setProjectFeatured(project.id, !project.featured))}
-            >
-              {project.featured ? "Unfeature" : "Feature"}
-            </Button>
-            <Button
-              variant="secondary"
-              disabled={pending}
-              onClick={() =>
-                run(() =>
-                  setProjectStatus(
-                    project.id,
-                    project.status === "published" ? "draft" : "published",
-                  ),
-                )
-              }
-            >
-              {project.status === "published" ? "Unpublish" : "Publish"}
-            </Button>
-            <ConfirmButton
-              title="Delete this project?"
-              description={`"${project.title}" will be removed permanently.`}
-              disabled={pending}
-              onConfirm={() => run(() => deleteProject(project.id))}
-            >
-              Delete
-            </ConfirmButton>
-          </div>
-        </div>
         )}
       </SortableList>
     </div>
