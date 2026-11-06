@@ -37,6 +37,7 @@ export type EducationItem = EducationData;
 export type Course = CourseData;
 export type Quote = QuoteData;
 export type ProjectWithBody = ProjectData;
+export type ProjectVideo = ProjectData["videos"][number];
 export type Project = Omit<ProjectData, "body">;
 export type ProjectCategory = Project["category"];
 
@@ -60,6 +61,17 @@ function cachedRead<T>(read: () => Promise<T>, tag: string, key = tag): () => Pr
 function required<T>(value: T | null, name: string): T {
   if (!value) throw new Error(`Missing content: ${name}`);
   return value;
+}
+
+/**
+ * Projects saved before videos existed have no such field. This runs outside
+ * the cache on purpose: cached entries outlive deployments and keep their shape.
+ */
+function withVideos<T extends { videos?: ProjectVideo[] }>(
+  project: T,
+): T & { videos: ProjectVideo[] } {
+  const videos = [...(project.videos ?? [])].sort((a, b) => a.order - b.order);
+  return { ...project, videos };
 }
 
 export const getProfile = cachedRead(async (): Promise<Profile> => {
@@ -101,14 +113,19 @@ export const getQuote = cachedRead(
   contentTags.quote,
 );
 
-/** Published projects, sorted by their `order` field. */
-export const getProjects = cachedRead(
+const readProjects = cachedRead(
   () =>
     ProjectModel.find({ status: "published" }, { ...documentFields, body: 0 })
       .sort({ order: 1, slug: 1 })
       .lean<Project[]>(),
   contentTags.projects,
 );
+
+/** Published projects, sorted by their `order` field. */
+export const getProjects = cache(async (): Promise<Project[]> => {
+  const projects = await readProjects();
+  return projects.map(withVideos);
+});
 
 export async function getFeaturedProjects(): Promise<Project[]> {
   const projects = await getProjects();
@@ -121,8 +138,8 @@ export async function getProjectsByCategory(category: ProjectCategory): Promise<
 }
 
 /** A single published project with its MDX body, or `null` if it doesn't exist. */
-export const getProject = cache((slug: string): Promise<ProjectWithBody | null> =>
-  unstable_cache(
+export const getProject = cache(async (slug: string): Promise<ProjectWithBody | null> => {
+  const project = await unstable_cache(
     async () => {
       await connectToDatabase();
       return ProjectModel.findOne(
@@ -132,8 +149,9 @@ export const getProject = cache((slug: string): Promise<ProjectWithBody | null> 
     },
     [contentTags.projects, slug],
     { tags: [contentTags.projects] },
-  )(),
-);
+  )();
+  return project && withVideos(project);
+});
 
 /** The project after `slug` in display order, wrapping around to the first. */
 export async function getNextProject(slug: string): Promise<Project | null> {

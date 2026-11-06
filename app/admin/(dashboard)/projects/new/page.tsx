@@ -15,6 +15,7 @@ const emptyProject: ProjectData = {
   order: 0,
   cover: null,
   gallery: [],
+  videos: [],
   stack: [],
   role: "",
   isTeamProject: false,

@@ -12,6 +12,15 @@ const otherLinkSchema = new Schema(
   { _id: false },
 );
 
+const videoSchema = new Schema(
+  {
+    youtubeId: { type: String, required: true },
+    title: { type: String, required: true },
+    order: { type: Number, default: 0 },
+  },
+  { _id: false },
+);
+
 const projectSchema = new Schema<ProjectData>(
   {
     slug: { type: String, required: true, unique: true },
@@ -22,6 +31,7 @@ const projectSchema = new Schema<ProjectData>(
     order: { type: Number, default: 100, index: true },
     cover: { type: String, default: null },
     gallery: { type: [galleryImageSchema], default: [] },
+    videos: { type: [videoSchema], default: [] },
     stack: { type: [String], default: [] },
     role: { type: String, default: "" },
     isTeamProject: { type: Boolean, default: false },
