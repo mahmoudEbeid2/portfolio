@@ -55,12 +55,13 @@ export function TextField({
   hint,
   error,
   onBlur,
-}: InputProps & { onBlur?: () => void }) {
+  type = "text",
+}: InputProps & { onBlur?: () => void; type?: "text" | "date" }) {
   return (
     <FieldShell id={id} label={label} hint={hint} error={error}>
       <input
         {...a11y(id, error)}
-        type="text"
+        type={type}
         value={value}
         onBlur={onBlur}
         onChange={(event) => onChange(event.target.value)}

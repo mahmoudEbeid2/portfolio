@@ -11,6 +11,7 @@ const imageUpload = {
 export const uploadKinds = {
   project: { ...imageUpload, folder: "portfolio/projects" },
   profile: { ...imageUpload, folder: "portfolio/profile" },
+  activity: { ...imageUpload, folder: "portfolio/activities" },
   cv: {
     resourceType: "raw",
     formats: ["pdf"],
