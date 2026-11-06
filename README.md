@@ -85,9 +85,11 @@ proxy.ts               Redirects signed-out visitors away from /admin
 Sign in at `/admin` with the GitHub account that owns `ADMIN_EMAIL`:
 
 - **Projects** — create, edit, delete, filter by category, drag to reorder, draft/published,
-  featured, open source, cover, gallery and a Markdown/MDX body with preview. Only published
-  projects are shown. A project shows as live when it has a demo URL. The home page shows the top
+  featured, open source, links, cover, gallery and a Markdown/MDX body with preview. Only published
+  projects are shown. A project shows as live when it has a demo link. The home page shows the top
   three per category, featured ones first.
+- **Project links** — each has a label, URL, type (which picks the icon), style and optional group.
+  Drag to reorder. Project cards show the first primary link and GitHub.
 - **Project videos** — paste any YouTube URL in the project's Videos section; only the video ID is
   stored. Videos appear in the `#demo` section, and project bodies can embed one with
   `<YouTube id="..." title="..." />`. Players load from youtube-nocookie.com only on click.
