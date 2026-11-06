@@ -71,9 +71,6 @@ export function ActivityGallery({ title, images }: ActivityGalleryProps) {
         ref={dialogRef}
         aria-label={`${title} gallery`}
         onClose={() => setOpen(false)}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) dialogRef.current?.close();
-        }}
         onKeyDown={(event) => {
           if (event.key === "ArrowRight") step(1);
           if (event.key === "ArrowLeft") step(-1);
