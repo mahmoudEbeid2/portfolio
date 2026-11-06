@@ -4,7 +4,8 @@ import { useState } from "react";
 import { saveProfile } from "@/lib/admin/actions/profile";
 import type { ProfileData } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
-import { CheckboxField, ImageField, TextareaField, TextField } from "./fields";
+import { CheckboxField, TextareaField, TextField } from "./fields";
+import { ImageField, UploadButton } from "./upload-field";
 import { useAction } from "./use-action";
 
 function splitBlocks(value: string, separator: RegExp): string[] {
@@ -95,6 +96,7 @@ export function ProfileForm({ profile }: { profile: ProfileData }) {
         <ImageField
           id="profile-photo"
           label="Hero photo"
+          kind="profile"
           value={values.photo ?? ""}
           error={errors.photo}
           onChange={(value) => set("photo", value || null)}
@@ -102,19 +104,30 @@ export function ProfileForm({ profile }: { profile: ProfileData }) {
         <ImageField
           id="profile-about-photo"
           label="About photo"
+          kind="profile"
           value={values.aboutPhoto ?? ""}
           error={errors.aboutPhoto}
           onChange={(value) => set("aboutPhoto", value || null)}
         />
       </div>
-      <TextField
-        id="profile-cv"
-        label="CV URL"
-        value={values.cvUrl ?? ""}
-        error={errors.cvUrl}
-        hint="A link, or the path of a file in public/. CV uploads arrive with Cloudinary."
-        onChange={(value) => set("cvUrl", value || null)}
-      />
+      <div className="flex flex-col gap-2">
+        <TextField
+          id="profile-cv"
+          label="CV URL"
+          value={values.cvUrl ?? ""}
+          error={errors.cvUrl}
+          hint="Paste a link, or upload a PDF."
+          onChange={(value) => set("cvUrl", value || null)}
+        />
+        <div>
+          <UploadButton
+            id="profile-cv-upload"
+            kind="cv"
+            label="Upload PDF"
+            onUploaded={(url) => set("cvUrl", url)}
+          />
+        </div>
+      </div>
       <CheckboxField
         id="profile-available"
         label="Available for work"

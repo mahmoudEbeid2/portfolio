@@ -113,12 +113,17 @@ export const getQuote = cachedRead(
   contentTags.quote,
 );
 
+// Bump after editing projects outside the dashboard: only saves expire the tag,
+// and cached entries outlive deployments.
+const PROJECTS_CACHE_KEY = "projects:v2";
+
 const readProjects = cachedRead(
   () =>
     ProjectModel.find({ status: "published" }, { ...documentFields, body: 0 })
       .sort({ order: 1, slug: 1 })
       .lean<Project[]>(),
   contentTags.projects,
+  PROJECTS_CACHE_KEY,
 );
 
 /** Published projects, sorted by their `order` field. */
@@ -147,7 +152,7 @@ export const getProject = cache(async (slug: string): Promise<ProjectWithBody | 
         documentFields,
       ).lean<ProjectWithBody>();
     },
-    [contentTags.projects, slug],
+    [PROJECTS_CACHE_KEY, slug],
     { tags: [contentTags.projects] },
   )();
   return project && withVideos(project);

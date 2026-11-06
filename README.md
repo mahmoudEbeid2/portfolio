@@ -14,6 +14,7 @@ revalidates the affected pages, so changes go live without a redeploy.
 | Styling      | Tailwind CSS v4, Fira Code via `next/font`, dark and light themes    |
 | Database     | MongoDB Atlas + Mongoose                                             |
 | Auth         | Auth.js v5 with GitHub, restricted to `ADMIN_EMAIL`                  |
+| Media        | Cloudinary signed uploads from the browser                           |
 | Validation   | Zod schemas shared by forms and server actions                       |
 | MDX          | `@mdx-js/mdx` (project case studies)                                 |
 | Contact form | Server Action + Zod, saved to MongoDB, optional email through Resend |
@@ -24,7 +25,7 @@ revalidates the affected pages, so changes go live without a redeploy.
 
 - Node.js 20.19+
 - pnpm
-- A MongoDB Atlas cluster and a GitHub OAuth app
+- A MongoDB Atlas cluster, a GitHub OAuth app and a Cloudinary account
 
 ## Getting started
 
@@ -77,7 +78,6 @@ lib/
   seo.ts, og.tsx, site-url.ts, site.ts, cn.ts
 auth.ts                Auth.js configuration
 proxy.ts               Redirects signed-out visitors away from /admin
-public/images/         Project and profile images
 ```
 
 ## Editing content
@@ -95,8 +95,13 @@ Sign in at `/admin` with the GitHub account that owns `ADMIN_EMAIL`:
   home page quote.
 - **Messages** — everything sent through the contact form.
 
-Image uploads aren't enabled yet: image fields take a path to a file in `public/`, and remote image
-URLs are rejected until a remote host is allowed for `next/image`.
+Images and the CV upload straight from the browser to Cloudinary, using a signature from a server
+action, so the files never pass through Vercel. Without the Cloudinary variables, uploads show a
+clear message and the rest of the dashboard keeps working. Image uploads are limited to 10MB in JPG,
+PNG, WebP or AVIF, and CV uploads to 10MB PDFs.
+
+CV uploads need PDF delivery turned on in Cloudinary (Settings > Security > PDF and ZIP files
+delivery). The dashboard checks this after each upload and explains what to do if it's off.
 
 Components never query the database directly. Public pages go through `lib/content.ts`, whose reads
 are cached and tagged; every dashboard save expires the matching tag.
@@ -105,17 +110,20 @@ are cached and tagged; every dashboard save expires the matching tag.
 
 See [`.env.example`](./.env.example).
 
-| Variable               | Required   | Purpose                                                  |
-| ---------------------- | ---------- | -------------------------------------------------------- |
-| `MONGODB_URI`          | Yes        | MongoDB Atlas connection string, also used at build time |
-| `ADMIN_EMAIL`          | Yes        | The only account allowed in; must be verified on GitHub  |
-| `AUTH_SECRET`          | Yes        | Signs sessions (`openssl rand -base64 32`)               |
-| `AUTH_GITHUB_ID`       | Yes        | GitHub OAuth app client ID                               |
-| `AUTH_GITHUB_SECRET`   | Yes        | GitHub OAuth app client secret                           |
-| `NEXT_PUBLIC_SITE_URL` | Production | Absolute site URL for metadata, sitemap and OG images    |
-| `RESEND_API_KEY`       | Optional   | Enables an email copy of each contact message            |
-| `CONTACT_TO_EMAIL`     | Optional   | Where those emails are delivered                         |
-| `CONTACT_FROM_EMAIL`   | Optional   | Sender on a Resend-verified domain                       |
+| Variable                | Required   | Purpose                                                     |
+| ----------------------- | ---------- | ----------------------------------------------------------- |
+| `MONGODB_URI`           | Yes        | MongoDB Atlas connection string, also used at build time    |
+| `ADMIN_EMAIL`           | Yes        | The only account allowed in; must be verified on GitHub     |
+| `AUTH_SECRET`           | Yes        | Signs sessions (`openssl rand -base64 32`)                  |
+| `AUTH_GITHUB_ID`        | Yes        | GitHub OAuth app client ID                                  |
+| `AUTH_GITHUB_SECRET`    | Yes        | GitHub OAuth app client secret                              |
+| `CLOUDINARY_CLOUD_NAME` | Yes        | Cloudinary account, also read at build time by `next/image` |
+| `CLOUDINARY_API_KEY`    | Yes        | Signs uploads                                               |
+| `CLOUDINARY_API_SECRET` | Yes        | Signs uploads; server only                                  |
+| `NEXT_PUBLIC_SITE_URL`  | Production | Absolute site URL for metadata, sitemap and OG images       |
+| `RESEND_API_KEY`        | Optional   | Enables an email copy of each contact message               |
+| `CONTACT_TO_EMAIL`      | Optional   | Where those emails are delivered                            |
+| `CONTACT_FROM_EMAIL`    | Optional   | Sender on a Resend-verified domain                          |
 
 ## Deployment (Vercel)
 
@@ -131,7 +139,7 @@ See [`.env.example`](./.env.example).
 
 Placeholders still marked `TODO(mahmoud)`, all editable in the dashboard:
 
-- Hero and about photos (Profile; add the files to `public/images/profile/`)
+- Hero and about photos (Profile)
 - Current company name, location and dates (Experience)
 - The Turkish company name, role and dates (Experience)
 - The "currently working on" project (Profile)

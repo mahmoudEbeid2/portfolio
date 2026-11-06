@@ -119,14 +119,6 @@ export function SelectField({
   );
 }
 
-const UPLOADS_DISABLED_HINT =
-  "Uploads are disabled until Cloudinary is set up. For now, enter the path of a file in public/.";
-
-/** An image path. Uploads will plug in here once Cloudinary is configured. */
-export function ImageField(props: InputProps) {
-  return <TextField {...props} hint={props.hint ?? UPLOADS_DISABLED_HINT} />;
-}
-
 type CheckboxFieldProps = {
   id: string;
   label: string;
