@@ -91,8 +91,10 @@ Sign in at `/admin` with the GitHub account that owns `ADMIN_EMAIL`:
 - **Project links** — each has a label, URL, type (which picks the icon), style and optional group.
   Drag to reorder. Project cards show the first primary link and GitHub.
 - **Project videos** — paste any YouTube URL in the project's Videos section; only the video ID is
-  stored. Videos appear in the `#demo` section, and project bodies can embed one with
-  `<YouTube id="..." title="..." />`. Players load from youtube-nocookie.com only on click.
+  stored. Videos appear in the `#demo` section. Players load from youtube-nocookie.com only on click.
+- **Project body** — a toolbar uploads images and inserts `<Figure>`, `<ImageGrid>`, `<Gallery>`,
+  `<Button>` and `<YouTube>` at the cursor, with a live preview beside the editor. Alt text is
+  required, images must be on Cloudinary, and unknown components are rejected on save.
 - **Activities** — competitions, volunteering, community work, talks, certificates and design.
   Create, edit, delete, filter by type, drag to reorder, draft/published, featured, cover and a
   multi-image gallery. The home page shows up to 3 featured items per type, and `/activities` lists
