@@ -1,7 +1,7 @@
 import { ActivityCard } from "@/components/activities/activity-card";
-import { ActivityTabs } from "@/components/activities/activity-tabs";
 import { Container } from "@/components/ui/container";
 import { SectionTitle } from "@/components/ui/section-title";
+import { PanelTabs } from "@/components/ui/tabs";
 import { activityKey, activityTabLabels, pickForHome, usedActivityTypes } from "@/lib/activities";
 import type { ActivityItem } from "@/lib/content";
 
@@ -33,7 +33,7 @@ export function BeyondCode({ activities }: { activities: ActivityItem[] }) {
     <section aria-labelledby="beyond-code" className="reveal py-12">
       <Container className="flex flex-col gap-12">
         <SectionTitle id="beyond-code" name="beyond-code" viewAllHref="/activities" />
-        <ActivityTabs tabs={tabs} />
+        <PanelTabs label="Activity types" tabs={tabs} />
       </Container>
     </section>
   );

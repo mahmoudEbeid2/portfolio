@@ -102,6 +102,8 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
   function setLink(key: "demo" | "github", value: string) {
     setValues((current) => ({
       ...current,
+      // A new GitHub link means open source until the box is unticked.
+      isOpenSource: current.isOpenSource || (key === "github" && !current.links.github && !!value),
       links: { ...current.links, [key]: value || null },
     }));
   }
@@ -207,6 +209,17 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
           checked={values.isTeamProject}
           onChange={(value) => set("isTeamProject", value)}
         />
+        <CheckboxField
+          id="project-open-source"
+          label="Open source"
+          checked={values.isOpenSource}
+          onChange={(value) => set("isOpenSource", value)}
+        />
+        <p className="flex min-h-11 items-center text-sm">
+          {values.links.demo
+            ? "Shown as live: it has a demo URL."
+            : "Add a demo URL to show as live."}
+        </p>
       </section>
 
       <TextareaField

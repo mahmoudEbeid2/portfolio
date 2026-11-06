@@ -18,6 +18,16 @@ function moved<T>(items: readonly T[], from: number, to: number): T[] {
   return next;
 }
 
+/** Applies a reorder of a filtered list, keeping hidden rows in their slots. */
+export function mergeReorder<T>(
+  all: readonly T[],
+  next: readonly T[],
+  visible: (item: T) => boolean,
+) {
+  const queue = [...next];
+  return all.map((item) => (visible(item) ? (queue.shift() ?? item) : item));
+}
+
 const moveButton =
   "flex size-8 items-center justify-center text-gray transition-colors hover:text-white disabled:opacity-40";
 

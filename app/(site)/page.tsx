@@ -10,8 +10,8 @@ import { PersonJsonLd } from "@/components/seo/person-json-ld";
 import {
   getActivities,
   getExperience,
-  getFeaturedProjects,
   getProfile,
+  getProjects,
   getQuote,
   getSkills,
 } from "@/lib/content";
@@ -20,7 +20,7 @@ export default async function HomePage() {
   const [profile, quote, projects, experience, activities, skills] = await Promise.all([
     getProfile(),
     getQuote(),
-    getFeaturedProjects(),
+    getProjects(),
     getExperience(),
     getActivities(),
     getSkills(),
@@ -31,7 +31,7 @@ export default async function HomePage() {
       <PersonJsonLd profile={profile} />
       <Hero profile={profile} />
       <QuoteBlock quote={quote} />
-      <FeaturedProjects projects={projects.slice(0, 3)} />
+      <FeaturedProjects projects={projects} />
       <ExperienceTimeline items={experience} />
       <BeyondCode activities={activities} />
       <Skills groups={skills} />

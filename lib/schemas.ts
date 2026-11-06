@@ -103,7 +103,13 @@ const videoSchema = z.object({
   order: z.number().int(),
 });
 
-export const projectCategories = ["complete-app", "small-project"] as const;
+export const projectCategories = [
+  "full-stack",
+  "backend",
+  "frontend",
+  "mobile",
+  "library",
+] as const;
 export const projectStatuses = ["published", "draft"] as const;
 
 export const projectSchema = z.object({
@@ -124,6 +130,7 @@ export const projectSchema = z.object({
   stack: z.array(requiredText),
   role: text,
   isTeamProject: z.boolean(),
+  isOpenSource: z.boolean(),
   timeline: text,
   links: z.object({
     demo: nullableUrl,

@@ -1,16 +1,15 @@
 import { Tag } from "@/components/ui/tag";
 import type { Project } from "@/lib/content";
-
-const categoryLabels: Record<Project["category"], string> = {
-  "complete-app": "Complete app",
-  "small-project": "Small project",
-};
+import { projectCategoryLabels } from "@/lib/project-filters";
 
 export function ProjectMeta({ project }: { project: Project }) {
   const { role, category, isTeamProject, timeline, stack } = project;
   const rows = [
     { label: "role", value: role },
-    { label: "type", value: `${categoryLabels[category]} · ${isTeamProject ? "Team" : "Solo"}` },
+    {
+      label: "type",
+      value: `${projectCategoryLabels[category]} · ${isTeamProject ? "Team" : "Solo"}`,
+    },
     { label: "timeline", value: timeline },
   ].filter((row) => row.value);
 

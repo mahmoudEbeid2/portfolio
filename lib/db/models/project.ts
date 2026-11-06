@@ -35,6 +35,7 @@ const projectSchema = new Schema<ProjectData>(
     stack: { type: [String], default: [] },
     role: { type: String, default: "" },
     isTeamProject: { type: Boolean, default: false },
+    isOpenSource: { type: Boolean, default: false },
     timeline: { type: String, default: "" },
     links: {
       demo: { type: String, default: null },

@@ -15,7 +15,7 @@ export default async function ProjectsPage() {
     <>
       <AdminTitle
         title="projects"
-        description="Drag to change the order on the site. The home page shows the first 3 featured projects."
+        description="Drag to change the order on the site. The home page shows the top 3 per category, featured ones first."
         action={<ButtonLink href="/admin/projects/new">New project</ButtonLink>}
       />
       <ProjectList projects={projects} />

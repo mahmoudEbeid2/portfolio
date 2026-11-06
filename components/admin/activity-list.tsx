@@ -14,7 +14,7 @@ import { Button, buttonClasses } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { ConfirmButton } from "./confirm-button";
 import { SelectField } from "./fields";
-import { SortableList } from "./sortable-list";
+import { mergeReorder, SortableList } from "./sortable-list";
 import { useAction } from "./use-action";
 
 const ALL = "all";
@@ -26,12 +26,8 @@ export function ActivityList({ activities }: { activities: AdminActivity[] }) {
 
   const visible = filter === ALL ? optimistic : optimistic.filter(({ type }) => type === filter);
 
-  // A filtered list only holds some rows, so they swap within the slots they occupy.
   function reorder(next: AdminActivity[]) {
-    const queue = [...next];
-    const full = optimistic.map((item) =>
-      filter === ALL || item.type === filter ? (queue.shift() ?? item) : item,
-    );
+    const full = mergeReorder(optimistic, next, ({ type }) => filter === ALL || type === filter);
     run(() => {
       setOptimistic(full);
       return reorderActivities(full.map(({ id }) => id));

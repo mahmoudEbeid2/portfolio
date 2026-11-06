@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
+import { chipClasses } from "@/components/ui/chip-classes";
 import { activityTabLabels, isActivityType, type ActivityType } from "@/lib/activities";
 import { activityTypes } from "@/lib/schemas";
-import { chipClasses } from "./chip-classes";
 
 export type BrowserItem = {
   key: string;
