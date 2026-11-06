@@ -1,10 +1,16 @@
 import type { Types } from "mongoose";
 import { connectToDatabase } from "@/lib/db/connect";
-import { Message, Profile, Project, Quote } from "@/lib/db/models";
-import type { ProfileData, ProjectData, QuoteData } from "@/lib/schemas";
+import { Activity, Message, Profile, Project, Quote } from "@/lib/db/models";
+import type { ActivityData, ProfileData, ProjectData, QuoteData } from "@/lib/schemas";
 import type { CollectionKey } from "./collections";
 import { registry } from "./registry";
-import type { AdminItem, AdminMessage, AdminProject, AdminValue } from "./types";
+import type {
+  AdminActivity,
+  AdminItem,
+  AdminMessage,
+  AdminProject,
+  AdminValue,
+} from "./types";
 
 // Dashboard reads skip the content cache so editors always see saved data.
 type WithId<T> = T & { _id: Types.ObjectId };
@@ -45,6 +51,28 @@ export async function getProjectForEdit(
   const { _id, ...fields } = project;
   const videos = [...(fields.videos ?? [])].sort((a, b) => a.order - b.order);
   return { ...fields, videos, id: _id.toString() };
+}
+
+export async function listActivities(): Promise<AdminActivity[]> {
+  await connectToDatabase();
+  const activities = await Activity.find({}, { type: 1, title: 1, status: 1, featured: 1 })
+    .sort({ order: 1 })
+    .lean<WithId<Omit<AdminActivity, "id">>[]>();
+
+  return activities.map(({ _id, ...fields }) => ({ ...fields, id: _id.toString() }));
+}
+
+export async function getActivityForEdit(
+  id: string,
+): Promise<(ActivityData & { id: string }) | null> {
+  if (!/^[0-9a-f]{24}$/.test(id)) return null;
+
+  await connectToDatabase();
+  const activity = await Activity.findById(id, hiddenFields).lean<WithId<ActivityData>>();
+  if (!activity) return null;
+
+  const { _id, ...fields } = activity;
+  return { ...fields, id: _id.toString() };
 }
 
 export async function getProfileForEdit(): Promise<ProfileData | null> {
