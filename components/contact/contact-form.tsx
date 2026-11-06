@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 import { HONEYPOT_FIELD, initialContactState, type ContactField } from "@/lib/contact";
 
 const inputClasses =
-  "w-full border border-gray bg-transparent p-2 text-white placeholder:text-gray/70 focus:border-primary focus:outline-none focus-visible:outline-2 aria-invalid:border-primary";
+  "w-full border border-gray bg-transparent p-2 text-white placeholder:text-gray focus:border-primary focus:outline-none focus-visible:outline-2 aria-invalid:border-primary";
 
 type FieldProps = {
   name: ContactField;

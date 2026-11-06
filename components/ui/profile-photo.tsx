@@ -34,7 +34,7 @@ export function ProfilePhoto({
         <div
           role="img"
           aria-label={`${alt} (placeholder)`}
-          className="flex size-full items-center justify-center border border-line text-gray/50"
+          className="flex size-full items-center justify-center border border-line text-gray"
         >
           <LogoMark className="size-20" />
         </div>
