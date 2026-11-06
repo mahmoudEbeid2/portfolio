@@ -12,8 +12,11 @@ const requiredText = text.min(1, "This field is required.");
 const safeUrl = text.regex(/^(https?:\/\/|mailto:|tel:|\/(?!\/))/, "Enter a valid URL or /path.");
 const nullableUrl = safeUrl.nullable();
 
-// next/image only allows local files until a remote image host is configured.
-const imagePath = text.regex(/^\/(?!\/)/, "Enter a path that starts with /.");
+// Cloudinary uploads, plus local paths for files kept in public/.
+const imagePath = text.regex(
+  /^(https:\/\/res\.cloudinary\.com\/[a-z0-9_-]+\/image\/upload\/|\/(?!\/))/,
+  "Upload an image.",
+);
 const nullableImage = imagePath.nullable();
 
 const slug = text.regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "Use lowercase letters, numbers and dashes.");

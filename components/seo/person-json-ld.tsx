@@ -1,5 +1,5 @@
 import type { Profile } from "@/lib/content";
-import { siteUrl } from "@/lib/site-url";
+import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import { JsonLd } from "./json-ld";
 
 /** Schema.org `Person` structured data for the home page. */
@@ -17,7 +17,7 @@ export function PersonJsonLd({ profile }: { profile: Profile }) {
     ...(profile.location && {
       address: { "@type": "PostalAddress", addressLocality: profile.location },
     }),
-    ...(profile.photo && { image: `${siteUrl}${profile.photo}` }),
+    ...(profile.photo && { image: absoluteUrl(profile.photo) }),
     sameAs,
   };
 
