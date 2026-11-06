@@ -39,7 +39,6 @@ export const profileSchema = z.object({
   contactText: text,
   photo: nullableImage,
   aboutPhoto: nullableImage,
-  currentProject: text,
   cvUrl: nullableUrl,
   location: text,
   email: z.email("Enter a valid email address."),

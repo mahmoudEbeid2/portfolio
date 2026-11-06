@@ -13,7 +13,6 @@ const profileSchema = new Schema<ProfileData>(
     contactText: { type: String, default: "" },
     photo: { type: String, default: null },
     aboutPhoto: { type: String, default: null },
-    currentProject: { type: String, default: "" },
     cvUrl: { type: String, default: null },
     location: { type: String, default: "" },
     email: { type: String, required: true },

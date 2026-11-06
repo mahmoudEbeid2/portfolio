@@ -7,7 +7,7 @@ import { OutlineSquare } from "@/components/ui/outline-square";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { cn } from "@/lib/cn";
 import type { Profile } from "@/lib/content";
-import { githubAvatarUrl, githubProfileUrl, githubUsername } from "@/lib/site";
+import { githubProfileUrl, githubUsername, heroImageUrl } from "@/lib/site";
 
 function separator(index: number, total: number): string {
   if (index === 0) return "";
@@ -15,7 +15,7 @@ function separator(index: number, total: number): string {
 }
 
 export function Hero({ profile }: { profile: Profile }) {
-  const { name, fullName, roles, headline, photo, currentProject } = profile;
+  const { name, fullName, roles, headline, photo } = profile;
 
   return (
     <section aria-labelledby="hero-title" className="py-12 md:py-16">
@@ -41,8 +41,8 @@ export function Hero({ profile }: { profile: Profile }) {
             <OutlineSquare size={96} tone="primary" className="absolute right-0 bottom-0" />
             <DotGrid cols={5} rows={5} className="absolute right-12 bottom-14 z-10" />
             <ProfilePhoto
-              src={photo ?? githubAvatarUrl}
-              alt={fullName}
+              src={photo ?? heroImageUrl}
+              alt={photo ? fullName : "GitHub"}
               priority
               className={cn("relative w-full", photo ? "aspect-[457/386]" : "aspect-square")}
             />
@@ -55,15 +55,6 @@ export function Hero({ profile }: { profile: Profile }) {
           >
             <GitHubIcon className="size-4 shrink-0" />@{githubUsername}
           </a>
-          {currentProject && (
-            <p className="flex items-center gap-2 border border-t-0 border-line p-2">
-              <span aria-hidden="true" className="size-4 shrink-0 bg-primary" />
-              <span>
-                Currently working on{" "}
-                <span className="font-semibold text-white">{currentProject}</span>
-              </span>
-            </p>
-          )}
         </div>
       </Container>
     </section>

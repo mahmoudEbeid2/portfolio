@@ -91,8 +91,7 @@ Sign in at `/admin` with the GitHub account that owns `ADMIN_EMAIL`:
   stored. Videos appear in the `#demo` section, and project bodies can embed one with
   `<YouTube id="..." title="..." />`. Players load from youtube-nocookie.com only on click.
 - **Experience, Skills, Education & Courses, Fun facts** — add, edit, delete and reorder.
-- **Profile** — name, roles, bio, photos, CV link, "currently working on", social links and the
-  home page quote.
+- **Profile** — name, roles, bio, photos, CV link, social links and the home page quote.
 - **Messages** — everything sent through the contact form.
 
 Images and the CV upload straight from the browser to Cloudinary, using a signature from a server
@@ -142,11 +141,10 @@ See [`.env.example`](./.env.example).
 
 Placeholders still marked `TODO(mahmoud)`, all editable in the dashboard:
 
-- Hero and about photos (Profile). Without them the hero shows the GitHub avatar and the about
+- Hero and about photos (Profile). Without them the hero shows the GitHub mark and the about
   section shows the live activity panel
 - Current company name, location and dates (Experience)
 - The Turkish company name, role and dates (Experience)
-- The "currently working on" project (Profile)
 - The Dokany GitHub link, if the repo is public, and a new live URL (the old domain no longer
   serves Dokany, so all its links were removed)
 - Missing case-study facts (Projects: roles, timelines, results)

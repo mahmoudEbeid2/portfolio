@@ -13,8 +13,7 @@ export type SocialLink = {
 
 export const githubUsername = "mahmoudEbeid2";
 export const githubProfileUrl = `https://github.com/${githubUsername}`;
-// Where github.com/<user>.png redirects. Linking it directly skips that redirect.
-export const githubAvatarUrl = "https://avatars.githubusercontent.com/u/206378225?s=460&v=4";
+export const heroImageUrl = "https://avatars.githubusercontent.com/u/9919?v=4";
 
 export const navItems: NavItem[] = [
   { label: "home", href: "/" },
