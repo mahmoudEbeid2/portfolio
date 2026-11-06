@@ -2,36 +2,42 @@
 
 Personal portfolio of Mahmoud Ebeid, backend engineer and full-stack developer based in Cairo.
 
-Built with Next.js (App Router), TypeScript, Tailwind CSS and Keystatic. All pages are statically
-generated; content lives in this repo as JSON and MDX and is edited through a Keystatic dashboard.
+Built with Next.js (App Router), TypeScript, Tailwind CSS and MongoDB. Public pages are static;
+content lives in MongoDB Atlas and is edited in a custom dashboard at `/admin`. Every save
+revalidates the affected pages, so changes go live without a redeploy.
 
 ## Tech stack
 
-| Layer               | Choice                                              |
-| ------------------- | --------------------------------------------------- |
-| Framework           | Next.js 16 (App Router) + TypeScript (strict)       |
-| Styling             | Tailwind CSS v4, Fira Code via `next/font`          |
-| Content + dashboard | Keystatic (local in dev, GitHub in production)      |
-| MDX                 | `@mdx-js/mdx` (project case studies)                |
-| Contact form        | Server Action + Zod + Resend, with a honeypot field |
-| Analytics           | Vercel Analytics                                    |
-| Quality             | ESLint + Prettier                                   |
+| Layer        | Choice                                                               |
+| ------------ | -------------------------------------------------------------------- |
+| Framework    | Next.js 16 (App Router) + TypeScript (strict)                        |
+| Styling      | Tailwind CSS v4, Fira Code via `next/font`, dark and light themes    |
+| Database     | MongoDB Atlas + Mongoose                                             |
+| Auth         | Auth.js v5 with GitHub, restricted to `ADMIN_EMAIL`                  |
+| Validation   | Zod schemas shared by forms and server actions                       |
+| MDX          | `@mdx-js/mdx` (project case studies)                                 |
+| Contact form | Server Action + Zod, saved to MongoDB, optional email through Resend |
+| Analytics    | Vercel Analytics                                                     |
+| Quality      | ESLint + Prettier                                                    |
 
 ## Requirements
 
-- Node.js 20+
+- Node.js 20.19+
 - pnpm
+- A MongoDB Atlas cluster and a GitHub OAuth app
 
 ## Getting started
 
 ```bash
 pnpm install
-cp .env.example .env.local
+cp .env.example .env.local   # then fill it in
 pnpm dev
 ```
 
 - Site: http://localhost:3000
-- Content dashboard: http://localhost:3000/keystatic
+- Dashboard: http://localhost:3000/admin
+
+`pnpm build` reads content from MongoDB, so it needs `MONGODB_URI`.
 
 ## Scripts
 
@@ -50,81 +56,82 @@ pnpm dev
 ```
 app/
   (site)/              Public pages (home, projects, project details, about, contacts)
-  keystatic/           Content dashboard UI
-  api/keystatic/       Content dashboard API
+  admin/               Dashboard: login page and protected (dashboard) routes
+  api/auth/            Auth.js routes
   opengraph-image.tsx  Default OG image (projects have their own)
   sitemap.ts, robots.ts, icon.svg, apple-icon.tsx
 components/
   ui/                  Design system (Button, Card, SectionTitle, DotGrid, icons…)
-  layout/              Header, mobile menu, side social bar, footer, site shell
+  layout/              Header, mobile menu, theme toggle, side social bar, footer
   sections/            Home page sections
+  admin/               Dashboard shell, editors, fields, toasts and dialogs
   projects/ about/ contact/ seo/
-content/               Site content (JSON singletons + MDX projects)
 lib/
-  content.ts           Typed content access — the only place that reads content
+  content.ts           Typed, cached content reads for public pages
+  schemas.ts           Zod schemas shared by forms, actions and models
+  cache-tags.ts        Cache tags that dashboard saves invalidate
+  db/                  Cached Mongoose connection and models
+  admin/               Dashboard queries and server actions
+  auth/                Admin checks used by the proxy, pages and actions
   contact.ts           Contact form schema and types
   seo.ts, og.tsx, site-url.ts, site.ts, cn.ts
+auth.ts                Auth.js configuration
+proxy.ts               Redirects signed-out visitors away from /admin
 public/images/         Project and profile images
-keystatic.config.ts    Content schemas
 ```
 
 ## Editing content
 
-All content is managed in the Keystatic dashboard at `/keystatic`:
+Sign in at `/admin` with the GitHub account that owns `ADMIN_EMAIL`:
 
-- **Profile** — name, roles, headline, bio, photos, "currently working on", CV link, socials.
-- **Skills, Experience, Education, Courses, Fun facts, Quote** — the rest of the about content.
-- **Projects** — one MDX entry per project with summary, category (`complete-app` or
-  `small-project`), featured flag, order, cover, gallery, stack, role, timeline, links and status.
-  Only `published` projects are shown; the first three `featured` ones appear on the home page.
+- **Projects** — create, edit, delete, drag to reorder, draft/published, featured, cover, gallery
+  and a Markdown/MDX body with preview. Only published projects are shown, and the first three
+  featured ones appear on the home page.
+- **Experience, Skills, Education & Courses, Fun facts** — add, edit, delete and reorder.
+- **Profile** — name, roles, bio, photos, CV link, "currently working on", social links and the
+  home page quote.
+- **Messages** — everything sent through the contact form.
 
-Locally, the dashboard writes straight to the files in `content/` and `public/images/`, so commit
-the changes like any other edit. In production (GitHub mode), every save becomes a commit on
-GitHub, which triggers a new Vercel deployment.
+Image uploads aren't enabled yet: image fields take a path to a file in `public/`, and remote image
+URLs are rejected until a remote host is allowed for `next/image`.
 
-Components never read content files directly — everything goes through `lib/content.ts`.
+Components never query the database directly. Public pages go through `lib/content.ts`, whose reads
+are cached and tagged; every dashboard save expires the matching tag.
 
 ## Environment variables
 
 See [`.env.example`](./.env.example).
 
-| Variable                                | Required             | Purpose                                                  |
-| --------------------------------------- | -------------------- | -------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`                  | Production           | Absolute site URL for metadata, sitemap and OG images    |
-| `RESEND_API_KEY`                        | For the contact form | Resend API key                                           |
-| `CONTACT_TO_EMAIL`                      | For the contact form | Where contact messages are delivered                     |
-| `CONTACT_FROM_EMAIL`                    | Optional             | Sender on a Resend-verified domain                       |
-| `KEYSTATIC_GITHUB_CLIENT_ID`            | GitHub mode          | Keystatic GitHub app client ID                           |
-| `KEYSTATIC_GITHUB_CLIENT_SECRET`        | GitHub mode          | Keystatic GitHub app client secret                       |
-| `KEYSTATIC_SECRET`                      | GitHub mode          | Random secret used to sign Keystatic sessions            |
-| `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` | GitHub mode          | GitHub app slug; setting it switches Keystatic to GitHub |
-
-Without the contact variables the form shows a friendly "email me directly" message. Without the
-Keystatic variables, production builds still work and the dashboard falls back to local mode.
+| Variable               | Required   | Purpose                                                  |
+| ---------------------- | ---------- | -------------------------------------------------------- |
+| `MONGODB_URI`          | Yes        | MongoDB Atlas connection string, also used at build time |
+| `ADMIN_EMAIL`          | Yes        | The only account allowed in; must be verified on GitHub  |
+| `AUTH_SECRET`          | Yes        | Signs sessions (`openssl rand -base64 32`)               |
+| `AUTH_GITHUB_ID`       | Yes        | GitHub OAuth app client ID                               |
+| `AUTH_GITHUB_SECRET`   | Yes        | GitHub OAuth app client secret                           |
+| `NEXT_PUBLIC_SITE_URL` | Production | Absolute site URL for metadata, sitemap and OG images    |
+| `RESEND_API_KEY`       | Optional   | Enables an email copy of each contact message            |
+| `CONTACT_TO_EMAIL`     | Optional   | Where those emails are delivered                         |
+| `CONTACT_FROM_EMAIL`   | Optional   | Sender on a Resend-verified domain                       |
 
 ## Deployment (Vercel)
 
 1. Import the repository in Vercel (framework preset: Next.js, package manager: pnpm).
-2. Set `NEXT_PUBLIC_SITE_URL` and the Resend variables.
-3. Set up Keystatic GitHub mode:
-   1. Create a GitHub App (GitHub → Settings → Developer settings → GitHub Apps) with:
-      - Callback URL: `https://<your-domain>/api/keystatic/github/oauth/callback`
-      - "Request user authorization (OAuth) during installation" enabled
-      - Repository permissions: Contents (read & write), Metadata (read), Pull requests (read & write)
-   2. Install the app on this repository.
-   3. Add the four `KEYSTATIC_*` variables to Vercel: the app's client ID and a client secret, a
-      random `KEYSTATIC_SECRET` (e.g. `openssl rand -hex 32`), and the app's slug.
-4. Deploy. Vercel Analytics starts collecting once it's enabled for the project in the dashboard.
+2. In MongoDB Atlas → Network Access, allow connections from Vercel. Hobby deployments have no fixed
+   IPs, so this means `0.0.0.0/0`, which makes a strong database password essential.
+3. Create a GitHub OAuth app for production. A GitHub OAuth app has one callback URL, so production
+   needs its own app, with `https://<your-domain>/api/auth/callback/github` as the callback.
+4. Add the environment variables above to Vercel.
+5. Deploy. Vercel Analytics starts collecting once it's enabled for the project in the dashboard.
 
 ## Content TODOs
 
-Placeholders still marked `TODO(mahmoud)` in the content:
+Placeholders still marked `TODO(mahmoud)`, all editable in the dashboard:
 
-- Hero and about photos (`public/images/profile/`, via the Profile singleton)
+- Hero and about photos (Profile; add the files to `public/images/profile/`)
 - Current company name, location and dates (Experience)
 - The Turkish company name, role and dates (Experience)
 - The "currently working on" project (Profile)
 - The Dokany GitHub link, if the repo is public, and a new live URL (the old domain no longer
   serves Dokany, so all its links were removed)
-- Missing case-study facts marked `TODO(mahmoud)` in `content/projects/*.mdx` (roles, timelines,
-  results)
+- Missing case-study facts (Projects: roles, timelines, results)
