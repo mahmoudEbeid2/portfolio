@@ -1,0 +1,10 @@
+export { Course } from "./course";
+export { Education } from "./education";
+export { Experience } from "./experience";
+export { FunFact } from "./fun-fact";
+export { Message } from "./message";
+export { Profile } from "./profile";
+export { Project } from "./project";
+export { Quote } from "./quote";
+export { SkillGroup } from "./skill-group";
+export { SocialLink } from "./social-link";
