@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
         <ProjectVideos videos={project.videos} />
 
-        <div className="max-w-3xl">
+        <div className="project-body max-w-3xl">
           <MdxContent source={project.body} />
         </div>
 

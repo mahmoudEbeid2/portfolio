@@ -209,6 +209,13 @@
   }
 }
 
+/* Wide figures leave the reading column for the full content width. */
+@media (min-width: 1100px) {
+  .project-body .mdx-wide {
+    width: 976px;
+  }
+}
+
 /* An open lightbox keeps the page behind it still. */
 html:has(dialog[open]) {
   overflow: hidden;
