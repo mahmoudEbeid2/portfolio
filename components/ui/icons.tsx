@@ -59,6 +59,23 @@ export function CloseIcon(props: IconProps) {
   );
 }
 
+export function SunIcon(props: IconProps) {
+  return (
+    <BaseIcon fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+      <rect x="8" y="8" width="8" height="8" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" />
+    </BaseIcon>
+  );
+}
+
+export function MoonIcon(props: IconProps) {
+  return (
+    <BaseIcon fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+      <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" />
+    </BaseIcon>
+  );
+}
+
 export type SocialPlatform = "github" | "linkedin" | "email" | "phone";
 
 export const socialIcons: Record<SocialPlatform, (props: IconProps) => JSX.Element> = {

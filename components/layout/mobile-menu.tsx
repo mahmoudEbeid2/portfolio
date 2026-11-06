@@ -7,6 +7,7 @@ import { Logo } from "@/components/ui/logo";
 import type { NavItem, SocialLink } from "@/lib/site";
 import { NavLinks } from "./nav-links";
 import { SocialLinks } from "./social-links";
+import { ThemeToggle } from "./theme-toggle";
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -98,14 +99,17 @@ export function MobileMenu({ name, items, socials }: MobileMenuProps) {
             >
               <Logo name={name} />
             </Link>
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={close}
-              className="flex size-11 items-center justify-center text-gray transition-colors hover:text-white"
-            >
-              <CloseIcon className="size-6" />
-            </button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={close}
+                className="flex size-11 items-center justify-center text-gray transition-colors hover:text-white"
+              >
+                <CloseIcon className="size-6" />
+              </button>
+            </div>
           </div>
 
           <nav aria-label="Mobile" className="mt-12">
