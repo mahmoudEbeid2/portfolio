@@ -106,7 +106,11 @@ function checkGallery(node: MdxNode): void {
 
   for (const element of list.elements) {
     const { src, alt } = literalProps(element);
-    checkImage(typeof src === "string" ? src : null, typeof alt === "string" ? alt : null, "<Gallery>");
+    checkImage(
+      typeof src === "string" ? src : null,
+      typeof alt === "string" ? alt : null,
+      "<Gallery>",
+    );
   }
 }
 

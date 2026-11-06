@@ -71,9 +71,7 @@ type ImageGridProps = {
 };
 
 export function ImageGrid({ cols, children }: ImageGridProps) {
-  return (
-    <div className={cn("mb-6 grid gap-4 [&>figure]:mb-0", gridColumns[cols])}>{children}</div>
-  );
+  return <div className={cn("mb-6 grid gap-4 [&>figure]:mb-0", gridColumns[cols])}>{children}</div>;
 }
 
 type GalleryProps = {
