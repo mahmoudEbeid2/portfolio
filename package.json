@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mdx-js/mdx": "^3.1.1",
+    "@primer/octicons": "^19.42.0",
     "@vercel/analytics": "^2.0.1",
     "mongoose": "^9.12.0",
     "next": "16.4.3",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
+    "@types/primer__octicons": "^19.21.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

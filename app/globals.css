@@ -151,6 +151,30 @@
   border-color: var(--color-primary);
 }
 
+/* Hero GitHub mark: a soft glow behind it and a slow float. */
+.hero-mark-glow {
+  pointer-events: none;
+  background: radial-gradient(circle, var(--color-primary), transparent 70%);
+  filter: blur(24px);
+  opacity: 0.2;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 -8px;
+  }
+  50% {
+    translate: 0 8px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-mark {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
 /* Skill icons stay monochrome until hovered. Brand colors are set per skill. */
 .skill-icon {
   color: var(--color-gray);

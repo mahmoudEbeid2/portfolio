@@ -5,9 +5,9 @@ import { DotGrid } from "@/components/ui/dot-grid";
 import { GitHubIcon } from "@/components/ui/icons";
 import { OutlineSquare } from "@/components/ui/outline-square";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
-import { cn } from "@/lib/cn";
 import type { Profile } from "@/lib/content";
-import { githubProfileUrl, githubUsername, heroImageUrl } from "@/lib/site";
+import { githubProfileUrl, githubUsername } from "@/lib/site";
+import { HeroMark } from "./hero-mark";
 
 function separator(index: number, total: number): string {
   if (index === 0) return "";
@@ -40,12 +40,16 @@ export function Hero({ profile }: { profile: Profile }) {
             <OutlineSquare size={140} tone="primary" className="absolute top-0 left-0" />
             <OutlineSquare size={96} tone="primary" className="absolute right-0 bottom-0" />
             <DotGrid cols={5} rows={5} className="absolute right-12 bottom-14 z-10" />
-            <ProfilePhoto
-              src={photo ?? heroImageUrl}
-              alt={photo ? fullName : "GitHub"}
-              priority
-              className={cn("relative w-full", photo ? "aspect-[457/386]" : "aspect-square")}
-            />
+            {photo ? (
+              <ProfilePhoto
+                src={photo}
+                alt={fullName}
+                priority
+                className="relative aspect-[457/386] w-full"
+              />
+            ) : (
+              <HeroMark />
+            )}
           </div>
           <a
             href={githubProfileUrl}
