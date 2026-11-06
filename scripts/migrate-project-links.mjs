@@ -37,7 +37,9 @@ const pending = rows.filter(({ links }) => !Array.isArray(links));
 
 if (apply) {
   await Promise.all(
-    pending.map(({ _id, links }) => projects.updateOne({ _id }, { $set: { links: toList(links) } })),
+    pending.map(({ _id, links }) =>
+      projects.updateOne({ _id }, { $set: { links: toList(links) } }),
+    ),
   );
 }
 
