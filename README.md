@@ -124,6 +124,9 @@ See [`.env.example`](./.env.example).
 | `RESEND_API_KEY`        | Optional   | Enables an email copy of each contact message               |
 | `CONTACT_TO_EMAIL`      | Optional   | Where those emails are delivered                            |
 | `CONTACT_FROM_EMAIL`    | Optional   | Sender on a Resend-verified domain                          |
+| `GITHUB_TOKEN`          | Optional   | Read-only token for the heatmap and public repo count       |
+| `YOUTUBE_API_KEY`       | Optional   | YouTube Data API v3 key for the subscriber count            |
+| `YOUTUBE_CHANNEL_ID`    | Optional   | The channel to count (starts with `UC`)                     |
 
 ## Deployment (Vercel)
 
@@ -139,7 +142,8 @@ See [`.env.example`](./.env.example).
 
 Placeholders still marked `TODO(mahmoud)`, all editable in the dashboard:
 
-- Hero and about photos (Profile)
+- Hero and about photos (Profile). Without them the hero shows the GitHub avatar and the about
+  section shows the live activity panel
 - Current company name, location and dates (Experience)
 - The Turkish company name, role and dates (Experience)
 - The "currently working on" project (Profile)
