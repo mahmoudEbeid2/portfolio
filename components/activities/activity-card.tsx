@@ -50,7 +50,7 @@ export function ActivityCard({ activity, detailed = false }: ActivityCardProps) 
         </p>
         <p className="flex-1 text-sm">{when}</p>
         {detailed && description && (
-          <div className="flex flex-col gap-3">
+          <div className="relative z-10 flex flex-col gap-3">
             <MdxContent source={description} />
           </div>
         )}
