@@ -2,7 +2,7 @@ import { DotGrid } from "@/components/ui/dot-grid";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 
 /** Second profile photo with dot grids and a primary bottom line. */
-export function AboutPhoto({ src, alt }: { src: string | null; alt: string }) {
+export function AboutPhoto({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="relative mx-auto w-full max-w-[340px]">
       <DotGrid cols={5} rows={4} className="absolute top-8 -left-4 z-10" />

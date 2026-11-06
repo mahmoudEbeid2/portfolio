@@ -1,11 +1,12 @@
-import { AboutVisual } from "@/components/activity/about-visual";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SectionTitle } from "@/components/ui/section-title";
 import type { Profile } from "@/lib/content";
+import { AboutPhoto } from "./about-photo";
+import { CoffeeMark } from "./coffee-mark";
 
 export function AboutPreview({ profile }: { profile: Profile }) {
-  const { name, bio } = profile;
+  const { name, fullName, bio, aboutPhoto } = profile;
 
   return (
     <section aria-labelledby="about-me" className="reveal py-12">
@@ -19,7 +20,11 @@ export function AboutPreview({ profile }: { profile: Profile }) {
             ))}
             <ButtonLink href="/about">Read more -&gt;</ButtonLink>
           </div>
-          <AboutVisual profile={profile} />
+          {aboutPhoto ? (
+            <AboutPhoto src={aboutPhoto} alt={fullName} />
+          ) : (
+            <CoffeeMark className="order-first lg:order-none" />
+          )}
         </div>
       </Container>
     </section>
