@@ -7,9 +7,13 @@ import { z } from "zod";
 const text = z.string().trim();
 const requiredText = text.min(1, "This field is required.");
 
-// Rendered into href/src attributes, so schemes like javascript: are rejected.
-const safeUrl = text.regex(/^(https?:\/\/|mailto:|tel:|\/)/, "Enter a valid URL or /path.");
+// Rendered into href attributes, so schemes like javascript: are rejected.
+const safeUrl = text.regex(/^(https?:\/\/|mailto:|tel:|\/(?!\/))/, "Enter a valid URL or /path.");
 const nullableUrl = safeUrl.nullable();
+
+// next/image only allows local files until a remote image host is configured.
+const imagePath = text.regex(/^\/(?!\/)/, "Enter a path that starts with /.");
+const nullableImage = imagePath.nullable();
 
 const slug = text.regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, "Use lowercase letters, numbers and dashes.");
 
@@ -29,8 +33,8 @@ export const profileSchema = z.object({
   tagline: text,
   bio: z.array(requiredText),
   contactText: text,
-  photo: nullableUrl,
-  aboutPhoto: nullableUrl,
+  photo: nullableImage,
+  aboutPhoto: nullableImage,
   currentProject: text,
   cvUrl: nullableUrl,
   location: text,
@@ -83,8 +87,8 @@ export const projectSchema = z.object({
   category: z.enum(projectCategories),
   featured: z.boolean(),
   order: z.number().int(),
-  cover: nullableUrl,
-  gallery: z.array(z.object({ image: safeUrl, alt: text })),
+  cover: nullableImage,
+  gallery: z.array(z.object({ image: imagePath, alt: text })),
   stack: z.array(requiredText),
   role: text,
   isTeamProject: z.boolean(),

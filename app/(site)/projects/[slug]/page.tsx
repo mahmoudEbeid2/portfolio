@@ -11,8 +11,6 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { openGraph } from "@/lib/seo";
 import { getNextProject, getProject, getProjects } from "@/lib/content";
 
-export const dynamicParams = false;
-
 export async function generateStaticParams() {
   const projects = await getProjects();
   return projects.map(({ slug }) => ({ slug }));
