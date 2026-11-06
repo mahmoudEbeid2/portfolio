@@ -1,5 +1,11 @@
 import { Schema } from "mongoose";
-import { projectCategories, projectStatuses, type ProjectData } from "@/lib/schemas";
+import {
+  projectCategories,
+  projectLinkTypes,
+  projectLinkVariants,
+  projectStatuses,
+  type ProjectData,
+} from "@/lib/schemas";
 import { defineModel } from "./define-model";
 
 const galleryImageSchema = new Schema(
@@ -7,8 +13,15 @@ const galleryImageSchema = new Schema(
   { _id: false },
 );
 
-const otherLinkSchema = new Schema(
-  { label: { type: String, default: "" }, url: { type: String, required: true } },
+const linkSchema = new Schema(
+  {
+    label: { type: String, required: true },
+    url: { type: String, required: true },
+    type: { type: String, enum: projectLinkTypes, default: "other" },
+    variant: { type: String, enum: projectLinkVariants, default: "secondary" },
+    group: { type: String, default: "" },
+    order: { type: Number, default: 0 },
+  },
   { _id: false },
 );
 
@@ -37,11 +50,7 @@ const projectSchema = new Schema<ProjectData>(
     isTeamProject: { type: Boolean, default: false },
     isOpenSource: { type: Boolean, default: false },
     timeline: { type: String, default: "" },
-    links: {
-      demo: { type: String, default: null },
-      github: { type: String, default: null },
-      other: { type: [otherLinkSchema], default: [] },
-    },
+    links: { type: [linkSchema], default: [] },
     status: { type: String, enum: projectStatuses, default: "published", index: true },
     body: { type: String, default: "" },
   },

@@ -5,6 +5,8 @@ import { Card } from "@/components/ui/card";
 import { Tag } from "@/components/ui/tag";
 import type { Project } from "@/lib/content";
 import { cn } from "@/lib/cn";
+import { cardLinks, isLive } from "@/lib/project-links";
+import { ProjectLinkButton } from "./project-link-button";
 
 type ProjectCardProps = {
   project: Project;
@@ -24,9 +26,10 @@ export function ProjectCard({
   const { slug, title, summary, cover, stack, links, videos, isOpenSource, isTeamProject } =
     project;
   const href = `/projects/${slug}`;
+  const shownLinks = cardLinks(links);
   const badges = [
     isOpenSource && "open source",
-    links.demo && "live",
+    isLive(links) && "live",
     isTeamProject && "team",
   ].filter(Boolean);
 
@@ -74,19 +77,10 @@ export function ProjectCard({
         )}
         <p className="flex-1">{summary}</p>
         <div className="flex flex-wrap gap-4">
-          {links.demo && (
-            <ButtonLink href={links.demo}>
-              Live<span className="sr-only"> demo of {title}</span>
-              <span aria-hidden="true">&lt;~&gt;</span>
-            </ButtonLink>
-          )}
-          {links.github && (
-            <ButtonLink href={links.github} variant="secondary">
-              GitHub<span className="sr-only"> repository of {title}</span>
-              <span aria-hidden="true">&gt;=</span>
-            </ButtonLink>
-          )}
-          {!links.demo && !links.github && (
+          {shownLinks.map((link) => (
+            <ProjectLinkButton key={link.url} link={link} context={`for ${title}`} />
+          ))}
+          {shownLinks.length === 0 && (
             <ButtonLink href={href} variant="secondary">
               Details<span className="sr-only"> about {title}</span>
               <span aria-hidden="true">-&gt;</span>

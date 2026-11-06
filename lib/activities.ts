@@ -1,9 +1,8 @@
+import type { LightboxImage } from "@/components/ui/lightbox";
 import type { ActivityItem } from "@/lib/content";
 import { activityTypes, type ActivityData } from "@/lib/schemas";
 
 export type ActivityType = ActivityData["type"];
-
-export type LightboxImage = { src: string; alt: string };
 
 export const activityTabLabels: Record<ActivityType, string> = {
   competition: "competitions",

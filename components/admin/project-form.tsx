@@ -1,19 +1,24 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition, type ReactNode } from "react";
-import * as runtime from "react/jsx-runtime";
-import { mdxComponents } from "@/components/projects/mdx-components";
-import { checkBody, saveProject } from "@/lib/admin/actions/projects";
+import { useState } from "react";
+import { saveProject } from "@/lib/admin/actions/projects";
 import { slugify } from "@/lib/admin/slugify";
+import { hasGitHubLink, isLive, type ProjectLink } from "@/lib/project-links";
 import { projectCategories, projectStatuses, type ProjectData } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
+import { BodyEditor } from "./body-editor";
 import { CheckboxField, SelectField, TextareaField, TextField } from "./fields";
+import { LinksField } from "./links-field";
 import { ImageField } from "./upload-field";
 import { VideosField } from "./videos-field";
 import { useAction } from "./use-action";
 
-type ProjectFormProps = { id: string | null; project: ProjectData };
+type ProjectFormProps = {
+  id: string | null;
+  project: ProjectData;
+  linkIcons: Record<ProjectLink["type"], string>;
+};
 
 function splitLines(value: string): string[] {
   return value
@@ -22,72 +27,7 @@ function splitLines(value: string): string[] {
     .filter(Boolean);
 }
 
-function BodyEditor({
-  value,
-  error,
-  onChange,
-}: {
-  value: string;
-  error?: string;
-  onChange: (value: string) => void;
-}) {
-  const [preview, setPreview] = useState<ReactNode | null>(null);
-  const [previewError, setPreviewError] = useState<string | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
-  const [pending, startTransition] = useTransition();
-
-  function openPreview() {
-    setShowPreview(true);
-    startTransition(async () => {
-      const error = await checkBody(value);
-      setPreviewError(error);
-      if (error) return;
-
-      // Loaded on demand so the compiler stays out of the initial bundle.
-      const { evaluate } = await import("@mdx-js/mdx");
-      const { default: Content } = await evaluate(value, runtime);
-      setPreview(<Content components={mdxComponents} />);
-    });
-  }
-
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex gap-2">
-        <Button
-          variant={showPreview ? "secondary" : "primary"}
-          onClick={() => setShowPreview(false)}
-        >
-          Write
-        </Button>
-        <Button variant={showPreview ? "primary" : "secondary"} onClick={openPreview}>
-          Preview
-        </Button>
-      </div>
-      {showPreview ? (
-        <div className="min-h-64 border border-line p-4">
-          {pending && <p>Rendering...</p>}
-          {!pending && previewError && (
-            <p className="whitespace-pre-wrap text-primary">{previewError}</p>
-          )}
-          {!pending && !previewError && preview}
-        </div>
-      ) : (
-        <TextareaField
-          id="project-body"
-          label="Body (Markdown / MDX)"
-          hint='Embed a video with <YouTube id="..." title="..." />'
-          rows={20}
-          value={value}
-          error={error}
-          onChange={onChange}
-        />
-      )}
-      {showPreview && error && <p className="text-sm text-primary">{error}</p>}
-    </div>
-  );
-}
-
-export function ProjectForm({ id, project }: ProjectFormProps) {
+export function ProjectForm({ id, project, linkIcons }: ProjectFormProps) {
   const [values, setValues] = useState(project);
   const [stack, setStack] = useState(project.stack.join("\n"));
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -99,12 +39,12 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
     setValues((current) => ({ ...current, [key]: value }));
   }
 
-  function setLink(key: "demo" | "github", value: string) {
+  function setLinks(links: ProjectLink[]) {
     setValues((current) => ({
       ...current,
       // A new GitHub link means open source until the box is unticked.
-      isOpenSource: current.isOpenSource || (key === "github" && !current.links.github && !!value),
-      links: { ...current.links, [key]: value || null },
+      isOpenSource: current.isOpenSource || (!hasGitHubLink(current.links) && hasGitHubLink(links)),
+      links,
     }));
   }
 
@@ -113,13 +53,6 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
       "gallery",
       values.gallery.map((image, i) => (i === index ? { ...image, ...change } : image)),
     );
-  }
-
-  function setOtherLink(index: number, change: Partial<ProjectData["links"]["other"][number]>) {
-    set("links", {
-      ...values.links,
-      other: values.links.other.map((link, i) => (i === index ? { ...link, ...change } : link)),
-    });
   }
 
   function submit(event: React.FormEvent) {
@@ -216,9 +149,9 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
           onChange={(value) => set("isOpenSource", value)}
         />
         <p className="flex min-h-11 items-center text-sm">
-          {values.links.demo
-            ? "Shown as live: it has a demo URL."
-            : "Add a demo URL to show as live."}
+          {isLive(values.links)
+            ? "Shown as live: it has a demo link."
+            : "Add a demo link to show as live."}
         </p>
       </section>
 
@@ -232,66 +165,7 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
         onChange={setStack}
       />
 
-      <section className="grid gap-4 sm:grid-cols-2">
-        <TextField
-          id="project-demo"
-          label="Live demo URL"
-          value={values.links.demo ?? ""}
-          error={errors["links.demo"]}
-          onChange={(value) => setLink("demo", value)}
-        />
-        <TextField
-          id="project-github"
-          label="GitHub URL"
-          value={values.links.github ?? ""}
-          error={errors["links.github"]}
-          onChange={(value) => setLink("github", value)}
-        />
-      </section>
-
-      <fieldset className="flex flex-col gap-3 border border-line p-4">
-        <legend className="px-1 text-white">Other links</legend>
-        {values.links.other.map((link, index) => (
-          <div key={index} className="grid items-end gap-2 sm:grid-cols-[1fr_2fr_auto]">
-            <TextField
-              id={`project-link-label-${index}`}
-              label="Label"
-              value={link.label}
-              onChange={(label) => setOtherLink(index, { label })}
-            />
-            <TextField
-              id={`project-link-url-${index}`}
-              label="URL"
-              value={link.url}
-              error={errors[`links.other.${index}.url`]}
-              onChange={(url) => setOtherLink(index, { url })}
-            />
-            <Button
-              variant="secondary"
-              onClick={() =>
-                set("links", {
-                  ...values.links,
-                  other: values.links.other.filter((_, i) => i !== index),
-                })
-              }
-            >
-              Remove
-            </Button>
-          </div>
-        ))}
-        <Button
-          variant="secondary"
-          className="w-fit"
-          onClick={() =>
-            set("links", {
-              ...values.links,
-              other: [...values.links.other, { label: "", url: "" }],
-            })
-          }
-        >
-          Add link
-        </Button>
-      </fieldset>
+      <LinksField value={values.links} errors={errors} icons={linkIcons} onChange={setLinks} />
 
       <ImageField
         id="project-cover"

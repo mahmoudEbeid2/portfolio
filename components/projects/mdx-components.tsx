@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { YouTubeFacade } from "@/components/ui/youtube-facade";
+import { Figure, Gallery, ImageGrid, MdxButton, MdxImage } from "./mdx-media";
 
 function Anchor({ href = "", ...props }: ComponentPropsWithoutRef<"a">) {
   const external = /^https?:\/\//.test(href);
@@ -27,6 +28,11 @@ function YouTube({ id, title }: { id: string; title: string }) {
 
 export const mdxComponents = {
   YouTube,
+  Figure,
+  ImageGrid,
+  Gallery,
+  Button: MdxButton,
+  img: MdxImage,
   h2: (props: Props<"h2">) => (
     <h2 className="mt-12 mb-4 text-2xl font-medium first:mt-0" {...props}>
       <span aria-hidden="true" className="text-primary">

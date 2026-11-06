@@ -103,6 +103,29 @@ const videoSchema = z.object({
   order: z.number().int(),
 });
 
+export const projectLinkTypes = [
+  "demo",
+  "github",
+  "docs",
+  "api",
+  "appstore",
+  "playstore",
+  "video",
+  "download",
+  "other",
+] as const;
+
+export const projectLinkVariants = ["primary", "secondary"] as const;
+
+const projectLinkSchema = z.object({
+  label: requiredText,
+  url: safeUrl,
+  type: z.enum(projectLinkTypes),
+  variant: z.enum(projectLinkVariants),
+  group: text,
+  order: z.number().int(),
+});
+
 export const projectCategories = [
   "full-stack",
   "backend",
@@ -132,11 +155,7 @@ export const projectSchema = z.object({
   isTeamProject: z.boolean(),
   isOpenSource: z.boolean(),
   timeline: text,
-  links: z.object({
-    demo: nullableUrl,
-    github: nullableUrl,
-    other: z.array(z.object({ label: text, url: safeUrl })),
-  }),
+  links: z.array(projectLinkSchema),
   status: z.enum(projectStatuses),
   body: z.string(),
 });
