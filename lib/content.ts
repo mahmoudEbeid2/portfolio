@@ -41,7 +41,6 @@ export type Quote = QuoteData;
 export type ProjectWithBody = ProjectData;
 export type ProjectVideo = ProjectData["videos"][number];
 export type Project = Omit<ProjectData, "body">;
-export type ProjectCategory = Project["category"];
 export type ActivityItem = ActivityData;
 
 const documentFields = { _id: 0, createdAt: 0, updatedAt: 0 } as const;
@@ -132,7 +131,7 @@ export const getActivities = cachedRead(
 
 // Bump after editing projects outside the dashboard: only saves expire the tag,
 // and cached entries outlive deployments.
-const PROJECTS_CACHE_KEY = "projects:v2";
+const PROJECTS_CACHE_KEY = "projects:v3";
 
 const readProjects = cachedRead(
   () =>
@@ -148,16 +147,6 @@ export const getProjects = cache(async (): Promise<Project[]> => {
   const projects = await readProjects();
   return projects.map(withVideos);
 });
-
-export async function getFeaturedProjects(): Promise<Project[]> {
-  const projects = await getProjects();
-  return projects.filter((project) => project.featured);
-}
-
-export async function getProjectsByCategory(category: ProjectCategory): Promise<Project[]> {
-  const projects = await getProjects();
-  return projects.filter((project) => project.category === category);
-}
 
 /** A single published project with its MDX body, or `null` if it doesn't exist. */
 export const getProject = cache(async (slug: string): Promise<ProjectWithBody | null> => {
