@@ -4,13 +4,7 @@ import { Activity, Message, Profile, Project, Quote } from "@/lib/db/models";
 import type { ActivityData, ProfileData, ProjectData, QuoteData } from "@/lib/schemas";
 import type { CollectionKey } from "./collections";
 import { registry } from "./registry";
-import type {
-  AdminActivity,
-  AdminItem,
-  AdminMessage,
-  AdminProject,
-  AdminValue,
-} from "./types";
+import type { AdminActivity, AdminItem, AdminMessage, AdminProject, AdminValue } from "./types";
 
 // Dashboard reads skip the content cache so editors always see saved data.
 type WithId<T> = T & { _id: Types.ObjectId };
