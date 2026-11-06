@@ -30,7 +30,7 @@ export function ProfilePhoto({
           className="object-cover object-top"
         />
       ) : (
-        // TODO(mahmoud): upload profile photos in the Keystatic dashboard.
+        // TODO(mahmoud): add profile photos in the dashboard.
         <div
           role="img"
           aria-label={`${alt} (placeholder)`}
