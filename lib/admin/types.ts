@@ -18,6 +18,14 @@ export type AdminProject = {
   featured: boolean;
 };
 
+export type AdminActivity = {
+  id: string;
+  type: string;
+  title: string;
+  status: string;
+  featured: boolean;
+};
+
 export type AdminMessage = {
   id: string;
   name: string;

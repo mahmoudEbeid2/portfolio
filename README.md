@@ -90,6 +90,10 @@ Sign in at `/admin` with the GitHub account that owns `ADMIN_EMAIL`:
 - **Project videos** — paste any YouTube URL in the project's Videos section; only the video ID is
   stored. Videos appear in the `#demo` section, and project bodies can embed one with
   `<YouTube id="..." title="..." />`. Players load from youtube-nocookie.com only on click.
+- **Activities** — competitions, volunteering, community work, talks, certificates and design.
+  Create, edit, delete, filter by type, drag to reorder, draft/published, featured, cover and a
+  multi-image gallery. The home page shows up to 3 featured items per type, and `/activities` lists
+  everything newest first.
 - **Experience, Skills, Education & Courses, Fun facts** — add, edit, delete and reorder.
 - **Profile** — name, roles, bio, photos, CV link, social links and the home page quote.
 - **Messages** — everything sent through the contact form.

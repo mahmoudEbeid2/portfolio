@@ -3,6 +3,7 @@ import { cache } from "react";
 import { contentTags } from "@/lib/cache-tags";
 import { connectToDatabase } from "@/lib/db/connect";
 import {
+  Activity as ActivityModel,
   Course as CourseModel,
   Education,
   Experience,
@@ -14,6 +15,7 @@ import {
   SocialLink as SocialLinkModel,
 } from "@/lib/db/models";
 import type {
+  ActivityData,
   CourseData,
   EducationData,
   ExperienceData,
@@ -40,6 +42,7 @@ export type ProjectWithBody = ProjectData;
 export type ProjectVideo = ProjectData["videos"][number];
 export type Project = Omit<ProjectData, "body">;
 export type ProjectCategory = Project["category"];
+export type ActivityItem = ActivityData;
 
 const documentFields = { _id: 0, createdAt: 0, updatedAt: 0 } as const;
 const listFields = { ...documentFields, order: 0 } as const;
@@ -116,6 +119,15 @@ export const getQuote = cachedRead(
   async (): Promise<Quote> =>
     required(await QuoteModel.findOne({}, documentFields).lean<Quote>(), "quote"),
   contentTags.quote,
+);
+
+/** Published activities, sorted by their `order` field. */
+export const getActivities = cachedRead(
+  () =>
+    ActivityModel.find({ status: "published" }, listFields)
+      .sort({ order: 1 })
+      .lean<ActivityItem[]>(),
+  contentTags.activities,
 );
 
 // Bump after editing projects outside the dashboard: only saves expire the tag,

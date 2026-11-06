@@ -27,8 +27,8 @@ export function Header({ name, socials }: HeaderProps) {
         <Link href="/" aria-label={`${name} — home`} className="inline-flex min-h-11 items-center">
           <Logo name={name} />
         </Link>
-        <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
-          <NavLinks items={navItems} className="flex items-center gap-8" />
+        <nav aria-label="Main" className="hidden items-center gap-5 md:flex lg:gap-8">
+          <NavLinks items={navItems} className="flex items-center gap-5 lg:gap-8" />
           <LanguageSwitcher />
           <ThemeToggle />
         </nav>

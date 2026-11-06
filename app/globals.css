@@ -175,6 +175,11 @@
   }
 }
 
+/* An open lightbox keeps the page behind it still. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 /* Skill icons stay monochrome until hovered. Brand colors are set per skill. */
 .skill-icon {
   color: var(--color-gray);

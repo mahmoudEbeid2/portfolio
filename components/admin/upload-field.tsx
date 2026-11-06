@@ -13,6 +13,8 @@ type UploadButtonProps = {
   id: string;
   kind: UploadKind;
   label: string;
+  /** Lets one selection hold several files. They upload one after another. */
+  multiple?: boolean;
   onUploaded: (url: string) => void;
 };
 
@@ -40,22 +42,22 @@ async function sendToCloudinary(kind: UploadKind, file: File): Promise<string> {
 }
 
 /** Picks a file and uploads it. The URL only sticks once the form is saved. */
-export function UploadButton({ id, kind, label, onUploaded }: UploadButtonProps) {
+export function UploadButton({ id, kind, label, multiple, onUploaded }: UploadButtonProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const toast = useToast();
   const router = useRouter();
   const { accept, maxBytes } = uploadKinds[kind];
 
-  async function upload(file: File) {
-    if (file.size > maxBytes) {
+  async function upload(files: File[]) {
+    if (files.some((file) => file.size > maxBytes)) {
       toast(`That file is too large. The limit is ${maxBytes / (1024 * 1024)}MB.`, "error");
       return;
     }
 
     setUploading(true);
     try {
-      onUploaded(await sendToCloudinary(kind, file));
+      for (const file of files) onUploaded(await sendToCloudinary(kind, file));
       toast("Uploaded. Save the form to keep it.");
     } catch (error) {
       const message = error instanceof Error ? error.message : "The upload failed.";
@@ -73,11 +75,12 @@ export function UploadButton({ id, kind, label, onUploaded }: UploadButtonProps)
         id={id}
         type="file"
         accept={accept}
+        multiple={multiple}
         hidden
         onChange={(event) => {
-          const file = event.target.files?.[0];
+          const files = [...(event.target.files ?? [])];
           event.target.value = "";
-          if (file) void upload(file);
+          if (files.length > 0) void upload(files);
         }}
       />
       <Button variant="secondary" disabled={uploading} onClick={() => inputRef.current?.click()}>

@@ -134,6 +134,48 @@ export const projectSchema = z.object({
   body: z.string(),
 });
 
+export const activityTypes = [
+  "competition",
+  "volunteering",
+  "community",
+  "talk",
+  "certificate",
+  "design",
+] as const;
+
+const isoDate = text.regex(/^\d{4}-\d{2}-\d{2}$/, "Pick a date.");
+
+export const activitySchema = z
+  .object({
+    type: z.enum(activityTypes),
+    title: requiredText,
+    organization: requiredText,
+    role: text,
+    result: text,
+    location: text,
+    startDate: isoDate,
+    endDate: isoDate.or(z.literal("")),
+    description: z.string(),
+    coverImage: nullableImage,
+    gallery: z.array(z.object({ image: imagePath, alt: text.min(1, "Describe this image.") })),
+    links: z.array(z.object({ label: requiredText, url: safeUrl })),
+    featured: z.boolean(),
+    order: z.number().int(),
+    status: z.enum(projectStatuses),
+  })
+  .superRefine(({ type, role, startDate, endDate }, context) => {
+    if (type !== "certificate" && !role) {
+      context.addIssue({ code: "custom", path: ["role"], message: "This field is required." });
+    }
+    if (endDate && endDate < startDate) {
+      context.addIssue({
+        code: "custom",
+        path: ["endDate"],
+        message: "This can't be before the start date.",
+      });
+    }
+  });
+
 export type SocialLinkData = z.infer<typeof socialLinkSchema>;
 export type ProfileData = z.infer<typeof profileSchema>;
 export type SkillItem = z.infer<typeof skillItemSchema>;
@@ -144,3 +186,4 @@ export type CourseData = z.infer<typeof courseSchema>;
 export type FunFactData = z.infer<typeof funFactSchema>;
 export type QuoteData = z.infer<typeof quoteSchema>;
 export type ProjectData = z.infer<typeof projectSchema>;
+export type ActivityData = z.infer<typeof activitySchema>;
