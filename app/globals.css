@@ -1,16 +1,22 @@
 @import "tailwindcss";
 
+/* Theme palette — every color in the app resolves to one of these. */
 :root {
+  --background: #282c33;
+  --gray: #abb2bf;
+  --white: #ffffff;
   /* Accent color — change it here to re-theme the whole site. */
   --primary: #c778dd;
+  --line: #abb2bf;
 }
 
 @theme {
   --color-*: initial;
-  --color-background: #282c33;
-  --color-gray: #abb2bf;
-  --color-white: #ffffff;
+  --color-background: var(--background);
+  --color-gray: var(--gray);
+  --color-white: var(--white);
   --color-primary: var(--primary);
+  --color-line: var(--line);
   --color-transparent: transparent;
 
   --font-mono: var(--font-fira-code), ui-monospace, SFMono-Regular, Menlo, monospace;

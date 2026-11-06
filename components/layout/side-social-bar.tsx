@@ -12,7 +12,7 @@ export function SideSocialBar({ links }: SideSocialBarProps) {
       aria-label="Social media"
       className="fixed top-0 left-4 z-30 hidden flex-col items-center gap-2 xl:flex"
     >
-      <span aria-hidden="true" className="h-48 w-px bg-gray" />
+      <span aria-hidden="true" className="h-48 w-px bg-line" />
       <SocialLinks links={links} className="flex-col gap-0" />
     </aside>
   );

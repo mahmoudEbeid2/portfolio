@@ -13,7 +13,7 @@ export function FunFacts({ facts }: { facts: readonly string[] }) {
         <div className="flex gap-12">
           <ul className="flex flex-1 flex-wrap content-start gap-4">
             {facts.map((fact) => (
-              <li key={fact} className="border border-gray p-2">
+              <li key={fact} className="border border-line p-2">
                 {fact}
               </li>
             ))}

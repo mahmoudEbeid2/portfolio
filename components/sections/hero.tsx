@@ -44,7 +44,7 @@ export function Hero({ profile }: { profile: Profile }) {
             />
           </div>
           {currentProject && (
-            <p className="flex items-center gap-2 border border-gray p-2">
+            <p className="flex items-center gap-2 border border-line p-2">
               <span aria-hidden="true" className="size-4 shrink-0 bg-primary" />
               <span>
                 Currently working on{" "}

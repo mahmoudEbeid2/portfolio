@@ -6,5 +6,5 @@ type CardProps = HTMLAttributes<HTMLElement> & {
 };
 
 export function Card({ as: Tag = "div", className, ...props }: CardProps) {
-  return <Tag className={cn("flex flex-col border border-gray", className)} {...props} />;
+  return <Tag className={cn("flex flex-col border border-line", className)} {...props} />;
 }

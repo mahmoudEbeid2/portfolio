@@ -15,7 +15,7 @@ export function Footer({ name, email, tagline, socials }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-12 border-t border-gray pt-8 pb-8">
+    <footer className="mt-12 border-t border-line pt-8 pb-8">
       <Container className="flex flex-col gap-12">
         <div className="flex flex-col justify-between gap-8 sm:flex-row">
           <div className="flex flex-col gap-4">
