@@ -145,8 +145,8 @@ See [`.env.example`](./.env.example).
 
 Placeholders still marked `TODO(mahmoud)`, all editable in the dashboard:
 
-- Hero and about photos (Profile). Without them the hero shows the GitHub mark and the about
-  section shows the live activity panel
+- Hero and about photos (Profile). Without them the hero shows the GitHub mark, the about
+  section shows the coffee mark and the about page shows the live activity panel
 - Current company name, location and dates (Experience)
 - The Turkish company name, role and dates (Experience)
 - The Dokany GitHub link, if the repo is public, and a new live URL (the old domain no longer

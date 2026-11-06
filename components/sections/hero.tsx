@@ -1,15 +1,14 @@
 import { Fragment } from "react";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { DotGrid } from "@/components/ui/dot-grid";
 import { GitHubIcon } from "@/components/ui/icons";
-import { OutlineSquare } from "@/components/ui/outline-square";
+import { Octicon } from "@/components/ui/octicon";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
+import { SectionMark, SectionMarkFrame } from "@/components/ui/section-mark";
 import type { Profile } from "@/lib/content";
 import { getCvLink } from "@/lib/cv-link";
 import { githubProfileUrl, githubUsername } from "@/lib/site";
 import { CvButton } from "./cv-button";
-import { HeroMark } from "./hero-mark";
 
 function separator(index: number, total: number): string {
   if (index === 0) return "";
@@ -41,21 +40,20 @@ export function Hero({ profile }: { profile: Profile }) {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative p-8">
-            <OutlineSquare size={140} tone="primary" className="absolute top-0 left-0" />
-            <OutlineSquare size={96} tone="primary" className="absolute right-0 bottom-0" />
-            <DotGrid cols={5} rows={5} className="absolute right-12 bottom-14 z-10" />
-            {photo ? (
+          {photo ? (
+            <SectionMarkFrame>
               <ProfilePhoto
                 src={photo}
                 alt={fullName}
                 priority
                 className="relative aspect-[457/386] w-full"
               />
-            ) : (
-              <HeroMark />
-            )}
-          </div>
+            </SectionMarkFrame>
+          ) : (
+            <SectionMark link={{ href: githubProfileUrl, label: "GitHub profile" }}>
+              <Octicon name="mark-github" />
+            </SectionMark>
+          )}
           <a
             href={githubProfileUrl}
             target="_blank"

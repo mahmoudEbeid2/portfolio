@@ -151,8 +151,8 @@
   border-color: var(--color-primary);
 }
 
-/* Hero GitHub mark: a soft glow behind it and a slow float. */
-.hero-mark-glow {
+/* Section marks: a soft glow behind the icon and a slow float. */
+.section-mark-glow {
   pointer-events: none;
   background: radial-gradient(circle, var(--color-primary), transparent 70%);
   filter: blur(24px);
@@ -170,8 +170,42 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero-mark {
+  .section-mark {
     animation: float 6s ease-in-out infinite;
+    transition: color 300ms ease;
+  }
+}
+
+/* Steam stays visible and still when motion is off. */
+.coffee-steam {
+  opacity: 0.7;
+}
+
+@keyframes steam-rise {
+  0% {
+    opacity: 0;
+    translate: 0 3px;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -3px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .coffee-steam {
+    animation: steam-rise 3.5s ease-out infinite;
+  }
+
+  .coffee-steam:nth-of-type(3) {
+    animation-delay: 0.6s;
+  }
+
+  .coffee-steam:nth-of-type(4) {
+    animation-delay: 1.2s;
   }
 }
 
