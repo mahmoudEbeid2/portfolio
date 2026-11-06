@@ -8,7 +8,8 @@ import { checkBody, saveProject } from "@/lib/admin/actions/projects";
 import { slugify } from "@/lib/admin/slugify";
 import { projectCategories, projectStatuses, type ProjectData } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
-import { CheckboxField, ImageField, SelectField, TextareaField, TextField } from "./fields";
+import { CheckboxField, SelectField, TextareaField, TextField } from "./fields";
+import { ImageField } from "./upload-field";
 import { VideosField } from "./videos-field";
 import { useAction } from "./use-action";
 
@@ -282,6 +283,7 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
       <ImageField
         id="project-cover"
         label="Cover image"
+        kind="project"
         value={values.cover ?? ""}
         error={errors.cover}
         onChange={(value) => set("cover", value || null)}
@@ -291,9 +293,10 @@ export function ProjectForm({ id, project }: ProjectFormProps) {
         <legend className="px-1 text-white">Gallery</legend>
         {values.gallery.map((image, index) => (
           <div key={index} className="grid items-end gap-2 sm:grid-cols-[2fr_1fr_auto]">
-            <TextField
+            <ImageField
               id={`project-gallery-image-${index}`}
-              label="Image path"
+              label="Image"
+              kind="project"
               value={image.image}
               error={errors[`gallery.${index}.image`]}
               onChange={(value) => setGallery(index, { image: value })}
