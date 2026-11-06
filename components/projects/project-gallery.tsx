@@ -7,7 +7,7 @@ export function ProjectGallery({ images, title }: { images: Project["gallery"]; 
   return (
     <ul className="grid gap-4 sm:grid-cols-2">
       {images.map(({ image, alt }) => (
-        <li key={image} className="relative aspect-video border border-gray">
+        <li key={image} className="relative aspect-video border border-line">
           <Image
             src={image}
             alt={alt || `${title} screenshot`}

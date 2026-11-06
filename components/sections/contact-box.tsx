@@ -9,7 +9,7 @@ type ContactBoxProps = {
 /** Bordered "Message me here" box with direct contact links. */
 export function ContactBox({ links, headingLevel: Heading = "h3" }: ContactBoxProps) {
   return (
-    <div className="flex w-full flex-col gap-4 border border-gray p-4 sm:w-fit">
+    <div className="flex w-full flex-col gap-4 border border-line p-4 sm:w-fit">
       <Heading className="font-semibold">Message me here</Heading>
       <ContactLinks links={links} />
     </div>

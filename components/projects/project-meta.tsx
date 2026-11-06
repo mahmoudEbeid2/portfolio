@@ -15,11 +15,11 @@ export function ProjectMeta({ project }: { project: Project }) {
   ].filter((row) => row.value);
 
   return (
-    <dl className="grid border border-gray sm:grid-cols-[max-content_1fr]">
+    <dl className="grid border border-line sm:grid-cols-[max-content_1fr]">
       {rows.map(({ label, value }) => (
         <div key={label} className="contents">
-          <dt className="border-gray px-4 pt-3 text-white sm:border-b sm:py-3">{label}</dt>
-          <dd className="border-b border-gray px-4 pb-3 sm:pt-3">{value}</dd>
+          <dt className="border-line px-4 pt-3 text-white sm:border-b sm:py-3">{label}</dt>
+          <dd className="border-b border-line px-4 pb-3 sm:pt-3">{value}</dd>
         </div>
       ))}
       {stack.length > 0 && (

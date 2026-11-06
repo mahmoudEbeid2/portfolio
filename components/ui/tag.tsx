@@ -8,6 +8,6 @@ type TagProps = {
 
 export function Tag({ children, className }: TagProps) {
   return (
-    <span className={cn("inline-block border border-gray px-2 py-1", className)}>{children}</span>
+    <span className={cn("inline-block border border-line px-2 py-1", className)}>{children}</span>
   );
 }

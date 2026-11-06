@@ -23,7 +23,7 @@ export function ProjectCard({ project, compact = false, className }: ProjectCard
           href={href}
           tabIndex={-1}
           aria-hidden="true"
-          className="relative block aspect-[330/201] border-b border-gray"
+          className="relative block aspect-[330/201] border-b border-line"
         >
           <Image
             src={cover}
@@ -34,7 +34,7 @@ export function ProjectCard({ project, compact = false, className }: ProjectCard
           />
         </Link>
       )}
-      {stack.length > 0 && <p className="border-b border-gray p-2">{stack.join(" ")}</p>}
+      {stack.length > 0 && <p className="border-b border-line p-2">{stack.join(" ")}</p>}
       <div className="flex flex-1 flex-col gap-4 p-4">
         <h3 className="text-2xl font-medium">
           <Link href={href} className="transition-colors hover:text-primary">

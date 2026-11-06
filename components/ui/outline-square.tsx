@@ -13,7 +13,7 @@ export function OutlineSquare({ size, tone = "gray", className }: OutlineSquareP
       aria-hidden="true"
       className={cn(
         "decor pointer-events-none border",
-        tone === "primary" ? "border-primary" : "border-gray",
+        tone === "primary" ? "border-primary" : "border-line",
         className,
       )}
       style={{ width: size, height: size }}

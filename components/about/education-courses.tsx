@@ -17,7 +17,7 @@ export function EducationCourses({ education, courses }: EducationCoursesProps) 
           <ul className="flex flex-col gap-4">
             {education.map((item) => (
               <Card as="li" key={item.degree}>
-                <h3 className="border-b border-gray p-4 text-xl font-medium">{item.degree}</h3>
+                <h3 className="border-b border-line p-4 text-xl font-medium">{item.degree}</h3>
                 <div className="flex flex-col gap-1 p-4">
                   <p>{item.school}</p>
                   <p className="text-white">

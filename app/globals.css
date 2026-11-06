@@ -1,16 +1,34 @@
 @import "tailwindcss";
 
+/* Theme palette — every color in the app resolves to one of these. */
 :root {
+  --background: #282c33;
+  --gray: #abb2bf;
+  --white: #ffffff;
   /* Accent color — change it here to re-theme the whole site. */
   --primary: #c778dd;
+  --line: #abb2bf;
 }
+
+/* One Light. Dark stays the base so it also applies when scripts are disabled. */
+:root[data-theme="light"] {
+  --background: #fafaf7;
+  --gray: #696c77;
+  --white: #383a42;
+  --primary: #a626a4;
+  /* Too faint for input boundaries (AA needs 3:1) — those keep `border-gray`. */
+  --line: #d3d4d6;
+}
+
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 @theme {
   --color-*: initial;
-  --color-background: #282c33;
-  --color-gray: #abb2bf;
-  --color-white: #ffffff;
+  --color-background: var(--background);
+  --color-gray: var(--gray);
+  --color-white: var(--white);
   --color-primary: var(--primary);
+  --color-line: var(--line);
   --color-transparent: transparent;
 
   --font-mono: var(--font-fira-code), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -25,6 +43,10 @@
   html {
     color-scheme: dark;
     scroll-behavior: smooth;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
   }
 
   body {
