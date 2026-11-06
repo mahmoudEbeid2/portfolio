@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       new URL("https://i.ytimg.com/vi/**"),
-      { protocol: "https", hostname: "avatars.githubusercontent.com", pathname: "/u/206378225" },
+      { protocol: "https", hostname: "avatars.githubusercontent.com", pathname: "/u/9919" },
       ...(cloudName ? [new URL(`https://res.cloudinary.com/${cloudName}/**`)] : []),
     ],
   },

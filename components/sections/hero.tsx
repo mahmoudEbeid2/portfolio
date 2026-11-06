@@ -7,7 +7,7 @@ import { OutlineSquare } from "@/components/ui/outline-square";
 import { ProfilePhoto } from "@/components/ui/profile-photo";
 import { cn } from "@/lib/cn";
 import type { Profile } from "@/lib/content";
-import { githubAvatarUrl, githubProfileUrl, githubUsername } from "@/lib/site";
+import { githubProfileUrl, githubUsername, heroImageUrl } from "@/lib/site";
 
 function separator(index: number, total: number): string {
   if (index === 0) return "";
@@ -41,8 +41,8 @@ export function Hero({ profile }: { profile: Profile }) {
             <OutlineSquare size={96} tone="primary" className="absolute right-0 bottom-0" />
             <DotGrid cols={5} rows={5} className="absolute right-12 bottom-14 z-10" />
             <ProfilePhoto
-              src={photo ?? githubAvatarUrl}
-              alt={fullName}
+              src={photo ?? heroImageUrl}
+              alt={photo ? fullName : "GitHub"}
               priority
               className={cn("relative w-full", photo ? "aspect-[457/386]" : "aspect-square")}
             />
